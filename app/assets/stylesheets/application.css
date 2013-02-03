@@ -11,3 +11,13 @@
  *= require_self
  *= require_tree .
  */
+
+body, header {
+  text-align: center;
+}
+
+
+
+.clear {
+  clear: both;
+}

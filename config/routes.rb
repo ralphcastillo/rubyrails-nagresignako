@@ -1,4 +1,24 @@
 Resignako::Application.routes.draw do
+  get "users/add"
+
+  get "users/edit"
+
+  get "users/delete"
+
+  get "posts/hot"
+
+  get "posts/new"
+
+  get "posts/submit"
+
+  get "posts/vote_up"
+
+  get "posts/vote_down"
+
+  get "posts/report"
+
+  get "posts/single"
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -48,7 +68,8 @@ Resignako::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  
+  root :to => 'posts#hot'
 
   # See how all your routes lay out with "rake routes"
 
