@@ -1,25 +1,20 @@
 Resignako::Application.routes.draw do
   get "users/add"
-
   get "users/edit"
-
   get "users/delete"
-
   get "posts/hot"
-
   get "posts/new"
-
   get "posts/submit"
-
   get "posts/vote_up"
-
   get "posts/vote_down"
-
   get "posts/report"
-
   get "posts/single"
   
-  # The priority is based upon order of creation:
+  match 'new' => 'posts#new'
+  match 'hot' => 'posts#hot'
+  match 'submit' => 'posts#submit'
+  
+  # The priority is based upon order of creation  :
   # first created -> highest priority.
 
   # Sample of regular route:

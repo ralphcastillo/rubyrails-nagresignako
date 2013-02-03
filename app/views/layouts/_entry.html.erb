@@ -1,5 +1,14 @@
 <div class="entry-item">
-<h3 class="user-name">Username # <%= count %></h3>
+  <div class="entry-header-area">
+    <h3 class="user-name pull-left">Username # <%= count %></h3>
+    <div class="report-spam-area pull-right">
+      <a href="#">
+        <i class="icon-flag"></i>
+        <span>Report as Spam</span>
+      </a>
+    </div>
+    <div class="clear"></div>
+  </div>
   <div class="user-post">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. D  onec eu tincidunt libero. Phasellus a nibh at elit accumsan euismod. Donec pretium eleifend porttitor. Sed viverra tristique diam, quis metus.    
   </div>
@@ -7,6 +16,10 @@
     <button class="btn btn-small pull-left">
       <i class="icon-hand-up"></i>
       <span>Right way to do it <strong>(251)</strong></span>
+    </button>
+    <button class="btn btn-small">
+      <i class="icon-bookmark"></i>
+      <span>Share</span>
     </button>
     <button class="btn btn-small pull-right">
       <i class="icon-hand-down"></i>

@@ -1,4 +1,16 @@
 @import "bootstrap";
+
+@mixin radius($topleft, $topright: $topleft, $bottomright: $topleft, $bottomleft: $topleft) {
+  -moz-border-radius: $topleft $topright $bottomright $bottomleft;
+  -webkit-border-radius:          $topleft $topright $bottomright $bottomleft;
+  border-radius:                  $topleft $topright $bottomright $bottomleft;
+}
+
+@mixin bordered($color, $style, $top, $right: $top, $bottom: $top, $left: $right) {
+  border: $color $style;
+  border-width: $top $right $bottom $left;
+}
+
 /*CONTAINERS*/
 footer, header > div.navbar-inner, #page-container {
   text-align: left;
@@ -21,8 +33,17 @@ footer, header > div.navbar-inner, #page-container {
   &:last-child {
     border-width: 0; 
   }
+  
+  .entry-votes { text-align: center; }
 }
-
+/* HEADER */
+header {
+  #logo {
+    font-size: 28px;
+    padding: 25px 0;
+    display: inline-block;
+ }
+}
 
 /* FOOTER AREA */
 
@@ -30,6 +51,7 @@ footer {
   margin-top: 45px;
   padding-top: 5px;
   border-top: 1px solid #eaeaea;
+  @include bordered(#eaeaea, solid, 1px, 0, 0);
   color: #999;
   
   a { 
@@ -47,4 +69,19 @@ footer {
     list-style: none;
     li { float: left; margin-left: 10px; }
   } 
+}
+
+/* SUBMIT FORM AREA */
+#form-proper {
+  textarea { width: 90%; }
+  #actual-counter {
+    @include bordered(lightgray, solid, 1px);
+    @include radius(2px);
+    width: 20px; padding: 4px; display: inline-block;
+    color: #666666;
+  }
+  
+  #submit-entry { margin-right: 56px;}
+  
+  #etiquette-area { margin-top: 30px;}
 }
