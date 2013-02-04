@@ -2,6 +2,7 @@ Resignako::Application.routes.draw do
   get "users/add"
   get "users/edit"
   get "users/delete"
+
   get "posts/hot"
   get "posts/new"
   get "posts/submit"
@@ -10,9 +11,15 @@ Resignako::Application.routes.draw do
   get "posts/report"
   get "posts/single"
   
+  
+  #For Posts...
   match 'new' => 'posts#new'
   match 'hot' => 'posts#hot'
   match 'submit' => 'posts#submit'
+  match 'free/:hash' => 'posts#single', :as => :single
+  
+  #For Users...
+  match 'register' => 'users#register'
   
   # The priority is based upon order of creation  :
   # first created -> highest priority.

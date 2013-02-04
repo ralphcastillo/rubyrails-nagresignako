@@ -7,4 +7,7 @@ class UsersController < ApplicationController
 
   def delete
   end
+  
+  def register
+  end
 end

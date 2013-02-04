@@ -1,11 +1,8 @@
 <div class="entry-item">
   <div class="entry-header-area">
     <h3 class="user-name pull-left">Username # <%= count %></h3>
-    <div class="report-spam-area pull-right">
-      <a href="#">
-        <i class="icon-flag"></i>
-        <span>Report as Spam</span>
-      </a>
+    <div class="timestamp-area pull-right">
+    <%= link_to "February 2, 2013", single_url(hash: "Permalink_String") %>
     </div>
     <div class="clear"></div>
   </div>
@@ -25,6 +22,13 @@
       <i class="icon-hand-down"></i>
       <span>Wrong way to do it <strong>(17)</strong></span>
     </button>
+    <div class="clear"></div>
+    <div class="report-spam-area pull-right">
+      <a href="#">
+        <i class="icon-flag"></i>
+        <span>Report as Spam</span>
+      </a>
+    </div>
     <div class="clear"></div>
   </div>
 </div>

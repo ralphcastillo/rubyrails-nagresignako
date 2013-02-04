@@ -18,5 +18,11 @@ class PostsController < ApplicationController
   end
   
   def single
+    if defined? params[:hash]
+      @content = "This is a sample content!";
+      @hash = params[:hash]
+    else
+      not_found
+    end
   end
 end

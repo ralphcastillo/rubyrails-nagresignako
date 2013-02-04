@@ -2,9 +2,20 @@
       <div class="navbar-inner">
         <div class="container">
           <%= link_to "This is Something Not Yet Made", '#', id: "logo" %>
+          
+          <%# This one is for LOGGED IN USERS%>
+          <ul class="nav pull-right">
+            <li><%= link_to (gravatar_for "", class: "gravatar-icon"), "#" %></li>
+            <li><%= link_to "Username", "#"%></li>
+            <li><%= link_to "Settings", "#"%></li>            
+            <li><%= link_to "Logout", "#"%></li>
+          </ul>
+          
+          <%# This one is for LOGGED OUT USERS%>
            <ul class="nav pull-right">
               <li><%= link_to "Login", "#" %></li>
-              <li><%= link_to "Register", "#" %></li>
+              <li><%= link_to (image_tag "fb_login.png"), "#" %></li>
+              <li><%= link_to "Register", register_path %></li>
             </ul>
           <nav>
             <ul class="nav pull-left">
