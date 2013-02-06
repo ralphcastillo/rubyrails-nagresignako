@@ -4,6 +4,8 @@ gem 'rails', '3.2.6'
 gem 'bootstrap-sass', '2.0.4' #For bootstrap layouting
 gem 'bcrypt-ruby', '3.0.1' #For encrypting
 
+gem 'mail_form'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -12,7 +14,9 @@ group :development, :test do
   gem 'rspec-rails', '2.11.0'
 end
 
-gem 'annotate', '2.5.0', group: :development
+group :development do
+  gem 'annotate', '2.5.0'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
