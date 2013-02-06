@@ -1,0 +1,6 @@
+<h1>Top Bad Items</h1>
+<div id="hot-entries-area">
+<% (1..10).each do |i| %>
+  <%= render 'layouts/entry', count: i %>
+<% end %>
+</div>

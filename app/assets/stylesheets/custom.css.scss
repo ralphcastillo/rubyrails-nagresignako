@@ -111,3 +111,14 @@ footer {
   }
  }
 }
+
+/* ADVERTISEMENTS */
+#sidebar-advert, .entry-line-adverts {
+  height: 85px;
+}
+
+/**/
+
+.controls-row [class*=span] {
+  display: inline-block;
+}

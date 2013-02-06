@@ -1,6 +1,19 @@
-<h1>Hot Items</h1>
+
+<% if !@is_ajax %>
+  <div id="hot-entries-container">
+    <h1>Hot Items</h1>
+<% else %>
+    <div class="entry-line-adverts progress progress-striped">
+      <div class="bar" style="width: 100%; color: white;">Advertisement</div>
+    </div>
+<% end %>
+
 <div id="hot-entries-area">
-<% (1..20).each do |i| %>
+<% (11..20).each do |i| %>
   <%= render 'layouts/entry', count: i %>
 <% end %>
 </div>
+
+<% if !@is_ajax %>
+  </div>
+<% end %>
