@@ -1,4 +1,14 @@
 Resignako::Application.routes.draw do
+  get "contact_form/new"
+
+  get "contact_form/create"
+
+  get "company/about"
+
+  get "company/contact"
+
+  get "company/terms"
+
   get "users/add"
   get "users/edit"
   get "users/delete"
@@ -11,6 +21,7 @@ Resignako::Application.routes.draw do
   get "posts/report"
   get "posts/single"
   
+  match 'about' => 'company#about'
   
   #For Posts...
   match 'new' => 'posts#new'
