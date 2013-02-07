@@ -2,7 +2,7 @@
   <div class="entry-header-area">
     <h3 class="user-name pull-left">This is a Title # <%= count %></h3>
     <div class="timestamp-area pull-right">
-    <%= link_to "February 2, 2013", single_url(hash: "Permalink_String") %>
+    <%= link_to "February 2, 2013", single_url(hash: ("Permalink_String" + rand(10000).to_s)) %>
     </div>
     <div class="clear"></div>
   </div>
