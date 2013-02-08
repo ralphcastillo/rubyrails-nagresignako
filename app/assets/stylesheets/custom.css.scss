@@ -32,6 +32,10 @@
     box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
 }
 
+body, header { text-align: center; }
+
+.clear { clear: both; }
+
 .gravatar-icon {
   width: 25px;
 }
@@ -228,4 +232,16 @@ footer {
 
 .controls-row [class*=span] {
   display: inline-block;
+}
+
+/* SUBMIT PAGE */
+#verification-dialog {
+  .verify-dialog-item {
+    width: auto;
+    padding: 10px 30px;
+    
+    &:last-child {
+      @include bordered(lightgray, dotted, 0, 0, 0, 1px);
+    }
+  }
 }
