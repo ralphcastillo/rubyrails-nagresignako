@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:fb="http://ogp.me/ns/fb#">
+<head>
+  <title>Resignako</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body data-controller="<%= controller_name %>" data-action="<%= action_name %>">
+<div id="page-container">  
+  <div class="container-fluid">
+    <div class="row">
+      <div class="span12">
+        <h1>Nagresignako.com Admin Pages</h1>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span3">
+        <ul class="nav nav-tabs nav-stacked">
+          <li><%= link_to "View Admins", admins_path %></li>
+          <li><%= link_to "Add Admins", new_admin_path %></li>
+          <li><%= link_to "Add Seed Content", "#" %></li>
+          <li><%= link_to "Manage Spammers", "#" %></li>
+          <li><%= link_to "See Today's Top Entries", "#"%></li>
+          <li><%= link_to "Find User Entries", "#"%></li>
+        </ul>
+      </div>
+      <div class="span9">
+        <%= yield %>
+        <!-- This area is for the sidebar-->
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

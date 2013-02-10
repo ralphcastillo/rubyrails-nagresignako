@@ -1,0 +1,6 @@
+<div id="admins-show">
+  <h2><%= @admin.name %></h2>
+<%#form type="POST" action="<%= edit_admin_path(@admin) " class="form-horizontal"> %>
+  <h3><%= @admin.email%></h3>
+  <div><%= link_to "Edit", edit_admin_path(@admin) %></div>
+</div>
