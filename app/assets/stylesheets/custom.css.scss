@@ -11,6 +11,30 @@
   border-width: $top $right $bottom $left;
 }
 
+@mixin whiteBackground() {
+    background-color: #FAFAFA;
+    background-image: -moz-linear-gradient(top, white, #F2F2F2);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#F2F2F2));
+    background-image: -webkit-linear-gradient(top, white, #F2F2F2);
+    background-image: -o-linear-gradient(top, white, #F2F2F2);
+    background-image: linear-gradient(to bottom, white, #F2F2F2);
+
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f2f2', GradientType=0);
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+}
+
+@mixin chosenWhiteBG() {
+    background-color: #E5E5E5;
+    -webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
+    -moz-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
+}
+
+body, header { text-align: center; }
+
+.clear { clear: both; }
 
 .gravatar-icon {
   width: 25px;
@@ -19,11 +43,14 @@
 /*CONTAINERS*/
 footer, header > div.navbar-inner, #page-container {
   text-align: left;
-  display: inline-block;
+  display: inline-block;  
   width: 1027px;
 }
 
-.navbar-inner {
+footer {
+  width: 100%;
+}
+.navbar-banner > .navbar-inner {
   background: none;
   background-color: transparent;
   box-shadow: none;
@@ -36,12 +63,31 @@ footer, header > div.navbar-inner, #page-container {
   border-width: 0 0 1px;
 
   &:last-child { border-width: 0; }
-  .entry-votes { text-align: center; }
+  .entry-votes { text-align: center; 
+    .voter-element {
+      margin-right: 5px;
+    }
+    
+    ul.like-buttons{
+      float: left;
+      list-style: none;
+      margin: 5px 0 0 0;
+      padding: 0;
+      
+      li{
+        display: block;
+        float: left;
+        margin-right: 10px;
+      }
+    }
+  }
   
   .timestamp-area, .report-spam-area { visibility: hidden; font-size: 12px; margin-top: 5px;}
   .timestamp-area { color: gray; }
   &:hover .report-spam-area,
   &:hover .timestamp-area { visibility: visible; }
+  
+  
 }
 /* HEADER */
 header {
@@ -52,6 +98,51 @@ header {
  }
 }
 
+header.navbar-scrolled { /* This is the fixed nav bar */
+  margin-top: -43px;
+  .brand { margin-left: 0px}
+  .navbar-inner {
+    @include whiteBackground();
+    @include bordered(#D4D4D4, solid, 0, 1px, 1px);
+    @include radius(0, 0, 4px, 4px);
+    
+    
+  }
+  
+  .nav > li {
+    
+    &.active > a {
+      color: #555;
+      text-decoration: none;
+      @include chosenWhiteBG();
+    }
+    
+    a {
+      float: none;
+      padding: 10px 15px 11px;
+      color: #777;
+      text-decoration: none;
+      text-shadow: 0 1px 0 white;
+      &:hover {
+        color: #333333;
+        text-decoration: none;
+        background-color: transparent;
+      }
+    }
+    
+    &.active > a {
+      &:hover {
+        color: #555;
+        text-decoration: none;
+        background-color: #E5E5E5;
+        -webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
+        -moz-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
+        box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125); 
+      }
+    }
+  }
+}
+
 /* FOOTER AREA */
 
 footer {
@@ -60,7 +151,7 @@ footer {
   border-top: 1px solid #eaeaea;
   @include bordered(#eaeaea, solid, 1px, 0, 0);
   color: #999;
-  
+
   a { 
     color: #555; 
     
@@ -75,7 +166,27 @@ footer {
     float: right;
     list-style: none;
     li { float: left; margin-left: 10px; }
-  } 
+  }
+  
+  /* For the scroll to top*/
+  &.scroll-to-top-area {
+    margin-bottom: -62px;
+    border: none;
+    
+    .navbar-inner {
+      .brand { 
+        margin-left: 0px; 
+        &:hover {
+         color: #333333; 
+        }
+      }
+      margin-right: 10px;
+      text-align: center;
+      @include whiteBackground();
+      @include bordered(lightgray, solid, 1px, 1px, 0);
+      @include radius(4px, 4px, 0, 0);
+    }
+  }
 }
 
 /* SUBMIT FORM AREA */
@@ -121,4 +232,16 @@ footer {
 
 .controls-row [class*=span] {
   display: inline-block;
+}
+
+/* SUBMIT PAGE */
+#verification-dialog {
+  .verify-dialog-item {
+    width: auto;
+    padding: 10px 30px;
+    
+    &:last-child {
+      @include bordered(lightgray, dotted, 0, 0, 0, 1px);
+    }
+  }
 }

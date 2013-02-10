@@ -1,4 +1,6 @@
 <div id="single-post-item">
   <h2>User # <%= @hash %></h2>
   <%= render 'layouts/entry', count: rand(200) %>
+  
+  <div class="fb-comments" data-href="<%= single_url(hash: @hash) %>" data-width="650" data-num-posts="10"></div>
 </div>

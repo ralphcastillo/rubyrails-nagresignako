@@ -1,0 +1,22 @@
+<div id="admins-show">
+<%#form type="POST" action="<%= edit_admin_path(@admin) " class="form-horizontal"> %>
+  <h3>Edit Basic Information</h3>
+      <%= render 'shared/admin_error_messages' %>
+
+  <%= form_for @admin, :html => { class: "form-horizontal" } do |f| %>
+    <div class="control-group">
+      <%= f.label :name, class: "control-label" %>
+      <div class="controls"><%= f.text_field :name %></div>
+    </div>
+    <div class="control-group">
+      <%= f.label :email, class: "control-label" %>
+      <div class="controls"><%= f.text_field :email %></div>
+    </div>
+    <div class="control-group">
+      <div class="control-label"></div>
+      <%= f.submit "Update Admin", class: "btn btn-small btn-primary" %>
+       <div class="clear"></div>
+    </div>
+  <% end %>
+  <%#/form> %>
+</div>

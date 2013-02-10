@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require init.js
 //= require_tree ./posts
+//= require jquery.ui.all
 
 //= require execute.js
