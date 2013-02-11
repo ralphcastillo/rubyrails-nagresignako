@@ -6,6 +6,7 @@ gem 'bcrypt-ruby', '3.0.1' #For encrypting
 
 gem 'mail_form'
 gem 'jquery-ui-rails' #For JQuery UI  stuff
+gem 'activerecord-postgresql-adapter'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
