@@ -11,8 +11,14 @@ NAGRESIGNAKO.posts.submit = function (){
     }
   });
   
-  $("#submit-form-area").bind("submit", function() {
+  $("#new_post #submit-entry").bind("click", function() {
     $("#verification-dialog").dialog("open");
     return false;
+  });
+  
+  $('#verification-dialog #verify-email .btn').bind("click", function(){
+  	var email = $('#verification-dialog #verify-email input[type=text]').val();
+  	$('<input>').attr({type: 'hidden', name: 'email', value: email}).appendTo("#new_post");
+  	$("#new_post").submit();
   });
 };
