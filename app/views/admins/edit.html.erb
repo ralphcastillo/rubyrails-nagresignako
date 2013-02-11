@@ -18,5 +18,26 @@
        <div class="clear"></div>
     </div>
   <% end %>
+  
+  <h3>Edit Password</h3>
+      <%= render 'shared/admin_error_messages' %>
+
+  <%= form_for @admin, :html => { class: "form-horizontal" } do |f| %>
+    	<%= f.hidden_field :name %>
+      <%= f.hidden_field :email %>
+    <div class="control-group">
+      <%= f.label :password, class: "control-label" %>
+      <div class="controls"><%= f.password_field :password %></div>
+    </div>
+    <div class="control-group">
+      <%= f.label :password_confirmation, class: "control-label" %>
+      <div class="controls"><%= f.password_field :password_confirmation %></div>
+    </div>
+    <div class="control-group">
+      <div class="control-label"></div>
+      <%= f.submit "Update Admin", class: "btn btn-small btn-primary" %>
+       <div class="clear"></div>
+    </div>
+  <% end %>
   <%#/form> %>
 </div>

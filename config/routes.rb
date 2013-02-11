@@ -1,5 +1,8 @@
 Resignako::Application.routes.draw do
   
+  get "admins/login"
+  post "admins/login"
+  
   resources :admins
     
   get "contact_form/new"

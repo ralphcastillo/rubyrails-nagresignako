@@ -6,6 +6,17 @@ class AdminsController < ApplicationController
   end
 
   def login
+    if params[:admin]
+      @admin = Admin.find_by_email(params[:admin][:email])
+      if @admin.authenticate(params[:admin][:password])
+        redirect_to @admin
+      else 
+        render "login"
+      end
+      
+    else 
+      render "login"
+    end
   end
   
   def show

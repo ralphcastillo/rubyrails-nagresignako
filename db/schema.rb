@@ -15,9 +15,9 @@ ActiveRecord::Schema.define(:version => 20130211022600) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",           :null => false
-    t.string   "password",        :null => false
-    t.string   "repeat_password", :null => false
+    t.string   "password_digest", :null => false
     t.string   "name"
+    t.string   "role"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(:version => 20130211022600) do
     t.text     "others"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.string   "email",      :null => false
+    t.string   "email"
   end
 
 end
