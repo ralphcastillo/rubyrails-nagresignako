@@ -1,10 +1,17 @@
 Resignako::Application.routes.draw do
   
   get "admins/login"
-  post "admins/login"
   
   resources :admins
-    
+  
+  #SESSIONS for ADMINS
+  resources :admin_sessions, only: [:new, :create, :destroy]
+  match '/signin', to: 'admin_sessions#new'
+  match '/signout', to: 'admin_sessions#destroy', via: :delete
+  
+  match '/change_password', to: 'admin_sessions#change_password', via: [:get, :post]
+  match '/change_pw', to: 'admin_sessions#admin_change_password', via: [:get, :put]
+  
   get "contact_form/new"
   get "contact_form/create"
   get "company/about"

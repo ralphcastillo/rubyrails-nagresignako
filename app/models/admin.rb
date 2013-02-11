@@ -16,7 +16,6 @@ class Admin < ActiveRecord::Base
   
   has_secure_password
   
-  
   before_save { 
     |admin| admin.email = email.downcase
     
@@ -24,8 +23,7 @@ class Admin < ActiveRecord::Base
       admin.role = "basic"
     end
   }
-  
-  
+  before_save :create_remember_token
   
   validates :name, presence: true, length: {maximum: 50}
   
@@ -43,9 +41,14 @@ class Admin < ActiveRecord::Base
     update_attributes(params)
   end  
   
+  #This is used to check whether the password should be checked or not. Useful for account edits
   def should_validate_password?
     updating_password || new_record?
   end
  
+  #This is used for session keeping.
+  def create_remember_token 
+    self.remember_token = SecureRandom.urlsafe_base64
+  end
 
 end

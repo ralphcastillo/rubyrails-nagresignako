@@ -23,9 +23,13 @@
           <li><%= link_to "Manage Spammers", "#" %></li>
           <li><%= link_to "See Today's Top Entries", "#"%></li>
           <li><%= link_to "Find User Entries", "#"%></li>
+          <li><%= link_to "Logout", signout_path, method: "delete" %></li>
         </ul>
       </div>
       <div class="span9">
+        <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
         <%= yield %>
         <!-- This area is for the sidebar-->
       </div>

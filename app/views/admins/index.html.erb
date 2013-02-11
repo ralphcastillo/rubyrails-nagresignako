@@ -9,7 +9,7 @@
     <td><%= admin.role %></td>
     <td>
       <%= link_to "Edit", edit_admin_path(admin) %> |
-      <%= link_to "Delete", "#"%>
+      <%= link_to "Delete", admin_path(admin), method: "delete" %>
     </td>
   </tr>
   <% end %>

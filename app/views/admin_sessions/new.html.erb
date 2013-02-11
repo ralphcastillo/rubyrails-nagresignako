@@ -1,0 +1,16 @@
+<div id="admin-sessions-new-page" class="admin-sessions-area">
+<div class="center hero-unit">
+  <h1>NagResignAko Admin Pages</h1>  
+</div>
+<div class="form-area">
+  <%= form_for :session, url: admin_sessions_path, class: "form-horizontal" do |f|%>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+    <%= f.label :password%>
+    <%= f.password_field :password %>
+    <div class="clear"></div>
+    <%= link_to "Forgot Password?", change_password_path %>
+    <%= f.submit "Login", class: "btn btn-primary pull-right"%>
+  <% end %>
+</div>
+</div>

@@ -1,22 +1,9 @@
 class AdminsController < ApplicationController
   layout "admin_base"
+  before_filter :redirect_if_loggedout    
   
   def index
     @admins = Admin.all
-  end
-
-  def login
-    if params[:admin]
-      @admin = Admin.find_by_email(params[:admin][:email])
-      if @admin.authenticate(params[:admin][:password])
-        redirect_to @admin
-      else 
-        render "login"
-      end
-      
-    else 
-      render "login"
-    end
   end
   
   def show
@@ -30,10 +17,20 @@ class AdminsController < ApplicationController
   
   def create
     @admin = Admin.new(params[:admin])
-    @admin.password = @admin.password_confirmation = ("random"* 10) + rand(10000).to_s
+    @admin.password = @admin.password_confirmation = SecureRandom.urlsafe_base64
     
     if @admin.save
-      redirect_to @admin
+      link_item = change_pw_url({ email: @admin.email, secret: Digest::MD5.hexdigest(@admin.updated_at.to_s) })
+
+      #AdminPasswordMailer.email_new_user(@admin, _link)#.deliver
+      logger.debug "Saving User. Trying to send email..."
+      logger.debug @admin.email
+      logger.debug link_item
+      mail = AdminPasswordMailer.email_new_user(@admin, link_item)
+      mail.deliver
+      
+      flash.now[:success] = "Admin Saved. Invitation email has been sent."
+      render 'show'
     else
       render 'new'
     end
@@ -44,9 +41,23 @@ class AdminsController < ApplicationController
     @admin.updating_password  = false
 
     if @admin.update_without_password_confirmation(params[:admin])
+      flash.now[:success] = "Admin Account update successful!"
       redirect_to @admin
     else
       render 'edit'
+    end
+  end
+  
+  def destroy 
+    @admin = Admin.find(params[:id])
+    
+    if @admin.id == current_admin.id
+      @admin.delete
+      sign_out
+      redirect_to '/'
+    else 
+      @admin.destroy
+      redirect_to '/admins'
     end
   end
   
@@ -57,12 +68,16 @@ class AdminsController < ApplicationController
     @admin = Admin.find(params[:id])
   end
 
-  def change_password
-  end
-
   def manage_posts
   end
 
   def spam
   end
+  
+  private def redirect_if_loggedout
+    if !admin_signedin? 
+      redirect_to "/signin"
+    end
+  end
+  
 end
