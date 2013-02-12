@@ -1,37 +1,37 @@
 <div class="entry-item">
   <div class="entry-header-area">
-    <h3 class="user-name pull-left">This is a Title # <%= count %></h3>
+    <h3 class="user-name pull-left"><%= @post.title %></h3>
     <div class="timestamp-area pull-right">
-    <%= link_to "February 2, 2013", single_url(hash: ("Permalink_String" + rand(10000).to_s)) %>
+    <%= link_to "February 2, 2013", single_url(hash: (@post.permalink)) %>
     </div>
     <div class="clear"></div>
   </div>
   <div class="user-post">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. D  onec eu tincidunt libero. Phasellus a nibh at elit accumsan euismod. Donec pretium eleifend porttitor. Sed viverra tristique diam, quis metus.    
+    <%= @post.entry %>    
   </div>
   <div class="user-source-data">
-    <h4 class="user-name pull-right">Someone, 23, Former Something</h4>
+    <h4 class="user-name pull-right"><%= @post.name %>, <%= @post.age %>, <%= @post.former_job %></h4>
     <div class="clear"></div>
   </div>
   <div class="entry-votes">
     <button class="voter-element btn btn-small pull-left">
       <i class="icon-hand-up"></i>
-      <span>Right way to do it <strong>(251)</strong></span>
+      <span>Right way to do it <strong><%= @post.total_good %></strong></span>
     </button>
     <button class="voter-element btn btn-small pull-left">
       <i class="icon-hand-down"></i>
-      <span>Wrong way to do it <strong>(17)</strong></span>
+      <span>Wrong way to do it <strong><%= @post.total_bad %></strong></span>
     </button>
     
     <ul class="like-buttons">
       <li class="fb-like">
-        <fb:like href="<%= single_url(hash: "Permalink_String") %>" send="false" layout="button_count" width="100" show_faces="false"></fb:like>
+        <fb:like href="<%= single_url(hash: (@post.permalink)) %>" send="false" layout="button_count" width="100" show_faces="false"></fb:like>
       </li>
       <li class="twitter-like">
-        <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= single_url(hash: "Permalink_String") %>" data-via="pikittakbo">Tweet</a>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= single_url(hash: (@post.permalink)) %>" data-via="pikittakbo">Tweet</a>
       </li>
       <li class="g-plus-one">
-        <g:plusone size="medium" href="<%= single_url(hash: "Permalink_String") %>"></g:plusone>
+        <g:plusone size="medium" href="<%= single_url(hash: (@post.permalink)) %>"></g:plusone>
       </li>
     </ul>    
     <div class="clear"></div>
