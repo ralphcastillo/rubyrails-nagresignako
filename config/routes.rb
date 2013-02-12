@@ -29,6 +29,8 @@ Resignako::Application.routes.draw do
   get "posts/vote_down"
   get "posts/report"
   get "posts/single"
+  post "posts/create"
+  get "posts/verify"
   
   match 'about' => 'company#about'
   #For Posts...

@@ -9,8 +9,8 @@
 <% end %>
 
 <div id="hot-entries-area">
-<% (11..20).each do |i| %>
-  <%= render 'layouts/entry', count: i %>
+<% @posts.each do |post| @post = post %>
+  <%= render 'layouts/entry' %>
 <% end %>
 </div>
 
