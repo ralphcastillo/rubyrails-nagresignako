@@ -1,0 +1,29 @@
+<div id="admin-actions-manage-posts">
+<h2>Manage Spam</h2>
+<p>You can remove or delete spam using this tool.</p>
+<table class="table table-striped">
+  <thead>
+    <tr><th>ID</th><th>Title</th>
+      <th style="width: 200px">Entry</th><th>User</th><th>Name</th><th>Age</th><th>Former Job</th>
+      <th>Votes<br>Good# | Bad# | Spam#</th>
+      <th>Action</th></tr>
+  </thead>
+  <tbody>
+<% @posts.each do |post| %>
+<tr>
+  <td><%= post.id %></td>
+  <td><%= post.title %></td>
+  <td>This is a Placeholder for the Entries</td>
+  <td>THis is the email of user <br/> for the to many part</td>
+  <td><%= post.name %></td>
+  <td><%= post.age %></td>
+  <td><%= post.former_job %></td>
+  <td><%= post.total_good %> | <%= post.total_bad %> | <%= post.reported_spam %></td>
+  <td><%= link_to "Spam", manage_posts_url(post, "hide"), method: "post" 
+              %><br/>
+        <%= link_to "Delete", manage_posts_url(post, "delete"), method: "delete"
+            %></td>
+</tr>
+<% end %>
+  </tbody>
+</div>

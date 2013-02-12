@@ -67,12 +67,6 @@ class AdminsController < ApplicationController
   def edit
     @admin = Admin.find(params[:id])
   end
-
-  def manage_posts
-  end
-
-  def spam
-  end
   
   private def redirect_if_loggedout
     if !admin_signedin? 

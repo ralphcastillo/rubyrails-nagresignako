@@ -19,8 +19,9 @@
         <ul class="nav nav-tabs nav-stacked">
           <li><%= link_to "View Admins", admins_path %></li>
           <li><%= link_to "Add Admins", new_admin_path %></li>
-          <li><%= link_to "Add Seed Content", "#" %></li>
-          <li><%= link_to "Manage Spammers", "#" %></li>
+          <li><%= link_to "Add Seed Content", admin_actions_add_seed_path %></li>
+          <li><%= link_to "Manage Posts", admin_actions_manage_posts_path %>
+          <li><%= link_to "Manage Spammers", admin_actions_manage_spam_path %></li>
           <li><%= link_to "See Today's Top Entries", "#"%></li>
           <li><%= link_to "Find User Entries", "#"%></li>
           <li><%= link_to "Logout", signout_path, method: "delete" %></li>

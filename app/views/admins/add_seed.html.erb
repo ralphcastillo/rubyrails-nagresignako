@@ -1,0 +1,18 @@
+<div id="admin-add-seed-page">
+<h3>Add Seed Content</h3>
+<%= form_for :post, url: create_seed_url do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  
+  <%= f.label :name %>
+  <%= f.number_field :name %>
+  
+  <%= f.label :age %>
+  <%= f.number_field :age %>
+  
+  <%= f.label :former_job %>
+  <%= f.text_field :former_job %>
+  
+  <%= f.submit "Add Content" %>
+<% end %>
+</div>

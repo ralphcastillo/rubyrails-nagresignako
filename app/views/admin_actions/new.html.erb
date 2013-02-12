@@ -1,0 +1,16 @@
+<div id="admins-new">
+  <h2>Add New Admin</h2>
+<%#form type="POST" action="<%= edit_admin_path(@admin) " class="form-horizontal"> %>
+  <%= form_for @admin, url: admin_action_path do |f| %>
+      <%= render 'shared/admin_error_messages' %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+     
+      <div class="clear"></div>
+      <%= f.submit "Add New Admin", class: "btn btn-large btn-primary" %>
+  <% end %>
+  <%#/form> %>
+</div>

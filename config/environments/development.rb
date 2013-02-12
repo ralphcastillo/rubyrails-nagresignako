@@ -42,6 +42,4 @@ Resignako::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
   
-  Rails.logger = Logger.new(STDOUT)
-  Rails.logger = Log4r::Logger.new("Application Log")
 end
