@@ -14,7 +14,7 @@
 <div id="hot-entries-area">
 <% #(11..20).each do |i| %>
 <% @posts.each do |post| @post = post %>
-  <%= render 'layouts/entry' %>
+  <%= render 'layouts/entry', post: @post %>
 <% end %>
 </div>
 
