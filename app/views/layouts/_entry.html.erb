@@ -2,7 +2,7 @@
   <div class="entry-header-area">
     <h3 class="user-name pull-left"><%= @post.title %></h3>
     <div class="timestamp-area pull-right">
-    <%= link_to "February 2, 2013", single_url(hash: (@post.permalink)) %>
+    <%= link_to @post.created_at.to_formatted_s(:long), single_url(hash: (@post.permalink)) %>
     </div>
     <div class="clear"></div>
   </div>
