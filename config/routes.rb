@@ -1,17 +1,20 @@
 Resignako::Application.routes.draw do
   
   #add action for admins other than the resource
-  get "admin_actions/add_seed"
-  post "admin_actions/create_seed"
   
-  get "admin_actions/manage_spam"
+  
   match 'admin_actions/manage_spam/:id/:task' => 'admin_actions#manage_spam', as: 'manage_spam'
-  
-  get "admin_actions/manage_posts"
   match 'admin_actions/manage_posts/:id/:task' => 'admin_actions#manage_posts', as: 'manage_posts'
   
-  get "admin_actions/facebook_push"
+  match 'admin_actions/force_push/:id' => 'admin_actions#force_push', as: 'force_push', via: [:post]
+  match 'admin_actions/delete_queue/:id' => 'admin_actions#delete_queue', as: 'delete_queue', via: [:delete]
   
+  get "admin_actions/manage_queue"
+  get "admin_actions/manage_spam"
+  get "admin_actions/manage_posts"  
+  get "admin_actions/facebook_push"
+  get "admin_actions/add_seed"  
+  post "admin_actions/create_seed"
   
   get "admins/login"
   resources :admins
@@ -37,12 +40,15 @@ Resignako::Application.routes.draw do
   get "posts/hot"
   get "posts/new"
   get "posts/submit"
-  get "posts/vote_up"
+#  get "posts/vote_up"
   get "posts/vote_down"
   get "posts/report"
   get "posts/single"
   post "posts/create"
   get "posts/verify"
+  
+  match "posts/vote_up/:id", to: 'posts#vote_up', as: 'post_vote_up'
+  match "posts/vote_down/:id", to: 'posts#vote_down', as: 'post_vote_down'
   
   match 'about' => 'company#about'
   #For Posts...
@@ -52,6 +58,8 @@ Resignako::Application.routes.draw do
   match 'hot' => 'posts#hot'
   match 'submit' => 'posts#submit'
   match 'free/:hash' => 'posts#single', :as => :single
+  
+  match 'feed' => 'posts#feed'
   
   #For Users...
   match 'register' => 'users#register'

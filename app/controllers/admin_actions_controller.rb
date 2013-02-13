@@ -1,7 +1,7 @@
 class AdminActionsController < ApplicationController
   layout "admin_base"
+
   def add_seed
-      
       @post = Post.new
   end
   
@@ -88,6 +88,37 @@ class AdminActionsController < ApplicationController
       
   end
 
+  def manage_queue
+    #Order this by datetime
+
+    pushed = params[:pushed] != nil && params[:pushed] == "true"
+    
+    #TODO make activerecord
+    _cond = pushed ? "pushed='t'" : "pushed='f'"
+    @queue_items = PostQueue.find(:all, :conditions => [_cond])
+    @pushed = pushed
+  end
+  
+  def delete_queue      
+      _queue_item = PostQueue.find(params[:id])
+      _queue_item.delete
+      
+      flash.now[:success] = "Deletion of post item from queue successful!"
+      redirect_to request.referrer
+  end
+  
+  def force_push
+    _queue_item = PostQueue.find(params[:id])
+    
+    #DO FACEBOOK HERE
+    
+    _queue_item.pushed = TRUE
+    _queue_item.save
+    
+    flash.now[:success] = "Post item has been pushed successfully!"
+    redirect_to request.referrer
+  end
+  
   def facebook_push
   end
 
