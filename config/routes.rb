@@ -1,12 +1,33 @@
 Resignako::Application.routes.draw do
+  
+  #add action for admins other than the resource
+  get "admin_actions/add_seed"
+  post "admin_actions/create_seed"
+  
+  get "admin_actions/manage_spam"
+  match 'admin_actions/manage_spam/:id/:task' => 'admin_actions#manage_spam', as: 'manage_spam'
+  
+  get "admin_actions/manage_posts"
+  match 'admin_actions/manage_posts/:id/:task' => 'admin_actions#manage_posts', as: 'manage_posts'
+  
+  get "admin_actions/facebook_push"
+  
+  
+  get "admins/login"
+  resources :admins
+  
+  #SESSIONS for ADMINS
+  resources :admin_sessions, only: [:new, :create, :destroy]
+  match '/signin', to: 'admin_sessions#new'
+  match '/signout', to: 'admin_sessions#destroy', via: :delete
+  
+  match '/change_password', to: 'admin_sessions#change_password', via: [:get, :post]
+  match '/change_pw', to: 'admin_sessions#admin_change_password', via: [:get, :put]
+  
   get "contact_form/new"
-
   get "contact_form/create"
-
   get "company/about"
-
   get "company/contact"
-
   get "company/terms"
 
   get "users/add"

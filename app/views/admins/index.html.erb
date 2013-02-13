@@ -1,0 +1,16 @@
+<h1>Admin List</h1>
+<table class="table table-striped">
+  <tr><th>ID</th><th>Name</th><th>Email</th><th>Role</th><th>Action</th></tr>
+  <% @admins.each do |admin| %>
+  <tr>
+    <td><%= admin.id %></td>
+    <td><%= admin.name %></td>
+    <td><%= admin.email %></td>
+    <td><%= admin.role %></td>
+    <td>
+      <%= link_to "Edit", edit_admin_path(admin) %> |
+      <%= link_to "Delete", admin_path(admin), method: "delete" %>
+    </td>
+  </tr>
+  <% end %>
+</table>
