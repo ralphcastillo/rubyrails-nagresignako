@@ -9,7 +9,7 @@
 <% end %>
 
 <div id="hot-entries-area">
-<% @posts.each do |post| %>
+<% @posts.each do |post| @post = post %>
   <%= render 'layouts/entry', post: post %>
 <% end %>
 </div>
