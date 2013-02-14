@@ -109,8 +109,10 @@ class AdminActionsController < ApplicationController
   
   def force_push
     _queue_item = PostQueue.find(params[:id])
-    
+
     #DO FACEBOOK HERE
+    facebook_post()
+    #tweet()
     
     _queue_item.pushed = TRUE
     _queue_item.save
@@ -118,11 +120,6 @@ class AdminActionsController < ApplicationController
     flash.now[:success] = "Post item has been pushed successfully!"
     redirect_to request.referrer
   end
-  
-  def facebook_push
-  end
 
-  def twitter_push
-  end
   
 end
