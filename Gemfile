@@ -8,6 +8,7 @@ gem 'mail_form'
 gem 'jquery-ui-rails' #For JQuery UI  stuff
 gem 'activerecord-postgresql-adapter'
 gem 'fb_graph'
+#gem 'delayed_job_active_record'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

@@ -2,22 +2,26 @@
   <div>
     <nav class="right-pull navbar">
       <ul class="nav">
+        <li><%= link_to "Queued Items", "?pushed=false"%></li>
         <li><%= link_to "Pushed Items", "?pushed=true" %></li>
-        <li><%= link_to "Queued Items", "?pushed=false", class: "active" %></li>
+        <li><%= link_to "Consume Queue", admin_actions_consume_queue_path, method: "post" %></li>
       </ul>
     </nav>
     <div class="clear"></div>
   </div>
   <table class="table table-striped">
     <thead>
-      <tr><th>Post ID</th><th style="width: 400px;">Post Entry</th><th>Entry Date</th><th>Date Pushed</th><th>Action</th></tr>
+      <tr><th>Post ID</th><th style="width: 400px;">Post Entry</th><th>Entry Date</th><th>Date Queued</th><th>Action</th></tr>
     </thead>
     <tbody>
       <% @queue_items.each do |item| %>
         <tr>
           <td><%= item.post_id %></td>
-          <td>&nbsp;</td>
-          <td><%= item.timestamp_pushed %></td>
+          <td><p><strong>Name, Age, Former Job:</strong>
+                <%= "#{item.post.name} | #{item.post.age} | #{item.post.former_job}" %></p>
+              <p><%= item.post.entry %></p>
+            </td>
+          <td><%= item.post.created_at %></td>
           <td><%= item.created_at %></td>
           <td>
             <% if !item.pushed %>

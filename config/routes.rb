@@ -14,6 +14,7 @@ Resignako::Application.routes.draw do
   get "admin_actions/manage_posts"  
   get "admin_actions/add_seed"  
   post "admin_actions/create_seed"
+  post "admin_actions/consume_queue"
   
   get "admins/login"
   resources :admins

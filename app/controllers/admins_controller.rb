@@ -68,10 +68,4 @@ class AdminsController < ApplicationController
     @admin = Admin.find(params[:id])
   end
   
-  private def redirect_if_loggedout
-    if !admin_signedin? 
-      redirect_to "/signin"
-    end
-  end
-  
 end

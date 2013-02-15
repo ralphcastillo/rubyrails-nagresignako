@@ -7,4 +7,9 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError.new('Not Found')
   end
   
+  def redirect_if_loggedout
+    if !admin_signedin? 
+      redirect_to "/signin"
+    end
+  end
 end

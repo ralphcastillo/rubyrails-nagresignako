@@ -12,4 +12,5 @@
 
 class PostQueue < ActiveRecord::Base
   attr_accessible :post_id, :pushed
+  belongs_to :post
 end
