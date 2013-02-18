@@ -16,6 +16,10 @@ NAGRESIGNAKO.posts.submit = function (){
     return false;
   });
   
+  $('#verification-dialog #verify-facebook .btn').bind("click", function(){
+  	window.location.href = "posts/fb_verify";
+  });
+  
   $('#verification-dialog #verify-email .btn').bind("click", function(){
   	var email = $('#verification-dialog #verify-email input[type=text]').val();
   	$('<input>').attr({type: 'hidden', name: 'email', value: email}).appendTo("#new_post");

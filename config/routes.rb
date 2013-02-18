@@ -1,5 +1,9 @@
 Resignako::Application.routes.draw do
   
+  get "fb_oauth/start"
+
+  get "fb_oauth/callback"
+
   #add action for admins other than the resource
   get "admin_actions/add_seed"
   post "admin_actions/create_seed"
@@ -55,6 +59,9 @@ Resignako::Application.routes.draw do
   
   #For Users...
   match 'register' => 'users#register'
+  
+  get 'posts/fb_verify'
+  get 'posts/callback'
   
   # The priority is based upon order of creation  :
   # first created -> highest priority.
