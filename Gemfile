@@ -7,6 +7,8 @@ gem 'bcrypt-ruby', '3.0.1' #For encrypting
 gem 'mail_form'
 gem 'jquery-ui-rails' #For JQuery UI  stuff
 gem 'activerecord-postgresql-adapter'
+gem 'fb_graph'
+#gem 'delayed_job_active_record'
 
 gem 'fbgraph'
 gem 'fb_graph'

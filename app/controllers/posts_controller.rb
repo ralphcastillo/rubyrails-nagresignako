@@ -65,9 +65,63 @@ class PostsController < ApplicationController
   end
 
   def vote_up
+    #check_if_ajax
+    @post = Post.find(params[:id])
+    @unique = "This-is-a-placeholder"
+    
+    @post_vote = PostsVote.find(:all, :conditions => ["post_id = #{@post.id}", "unique_identifier=#{@unique}"], :limit => 1)
+    
+    if @post_vote[0] != nil
+      _postvote = @post_vote.first
+      
+      if _postvote.vote_bad
+        _postvote.vote_bad = FALSE
+        _postvote.vote_good = TRUE
+        _postvote.save
+        
+        @post.total_good = @post.total_good + 1
+        @post.total_bad = @post.total_bad - 1
+        
+        @post.save
+      end
+    else
+      PostsVote.create(post_id: params[:id], unique_identifier: @unique, vote_good: TRUE, vote_bad: FALSE)
+      @post.total_good = @post.total_good + 1
+      @post.total_tally = @post.total_tally + 1
+      
+      @post.save
+      
+    end
+#    @post.total_good++
   end
 
   def vote_down
+    @post = Post.find(params[:id])
+    @unique = "This-is-a-placeholder"
+    
+    @post_vote = PostsVote.find(:all, :conditions => ["post_id = #{@post.id}", "unique_identifier=#{@unique}"], :limit => 1)
+    
+    if @post_vote[0] != nil
+      _postvote = @post_vote.first
+      
+      if _postvote.vote_good
+        _postvote.vote_good = FALSE
+        _postvote.vote_bad = TRUE
+        _postvote.save
+        
+        @post.total_bad = @post.total_good + 1
+        @post.total_good = @post.total_bad - 1
+        
+        @post.save
+      end
+    else
+      PostsVote.create(post_id: params[:id], unique_identifier: @unique, vote_bad: TRUE, vote_good: FALSE)
+      @post.total_bad = @post.total_bad + 1
+      @post.total_tally = @post.total_tally + 1
+      
+      @post.save
+      
+    end
   end
 
   def report
@@ -110,5 +164,8 @@ class PostsController < ApplicationController
    
     flash[:notice] = 'Thank you for posting.'
     redirect_to :action => "new"
+  end
+
+  def feed
   end
 end

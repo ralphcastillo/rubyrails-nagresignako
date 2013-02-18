@@ -1,6 +1,6 @@
 <div id="single-post-item">
   <h2><%= @post.name %></h2>
-  <%= render 'layouts/entry' %>
+  <%= render 'layouts/entry', post: @post %>
   
   <div class="fb-comments" data-href="<%= single_url(hash: (@post.permalink)) %>" data-width="650" data-num-posts="10"></div>
 </div>

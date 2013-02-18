@@ -245,3 +245,7 @@ footer {
     }
   }
 }
+
+.error-validation {
+  @include bordered(red, dotted, 0, 0, 0, 1px);
+}

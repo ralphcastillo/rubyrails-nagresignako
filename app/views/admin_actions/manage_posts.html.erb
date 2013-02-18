@@ -22,7 +22,8 @@
   <td><%= link_to "Spam", manage_posts_url(post, "hide"), method: "post" 
               %><br/>
         <%= link_to "Delete", manage_posts_url(post, "delete"), method: "delete"
-            %></td>
+        %><br/>
+        <%= link_to "Add Queue", "#" %></td>
 </tr>
 <% end %>
   </tbody>

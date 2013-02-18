@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130211022600) do
+ActiveRecord::Schema.define(:version => 20130213131340) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",           :null => false
@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(:version => 20130211022600) do
   end
 
   add_index "admins", ["remember_token"], :name => "index_admins_on_remember_token"
+
+  create_table "post_queues", :force => true do |t|
+    t.integer  "post_id"
+    t.boolean  "pushed"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.datetime "timestamp_pushed"
+  end
 
   create_table "posts", :force => true do |t|
     t.integer  "user_id",                          :null => false
@@ -39,7 +47,7 @@ ActiveRecord::Schema.define(:version => 20130211022600) do
     t.boolean  "verified",      :default => false
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
-    t.text     "entry",                            :null => false
+    t.text     "entry"
   end
 
   create_table "posts_votes", :force => true do |t|
@@ -49,6 +57,14 @@ ActiveRecord::Schema.define(:version => 20130211022600) do
     t.boolean  "set_spam"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "post_id"
+  end
+
+  create_table "pushqueues", :force => true do |t|
+    t.integer  "post_id"
+    t.boolean  "pushed"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -58,7 +74,7 @@ ActiveRecord::Schema.define(:version => 20130211022600) do
     t.text     "others"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.string   "email",      :null => false
+    t.string   "email"
   end
 
 end

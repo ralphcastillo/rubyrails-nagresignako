@@ -1,7 +1,8 @@
 class AdminActionsController < ApplicationController
   layout "admin_base"
+  before_filter :redirect_if_loggedout  
+  
   def add_seed
-      
       @post = Post.new
   end
   
@@ -88,10 +89,41 @@ class AdminActionsController < ApplicationController
       
   end
 
-  def facebook_push
+  def manage_queue
+    #Order this by datetime
+
+    pushed = params[:pushed] != nil && params[:pushed] == "true"
+    
+    #TODO make activerecord
+    @queue_items = PostQueue.where(pushed: pushed)
+    @pushed = pushed
+  end
+  
+  def delete_queue      
+      _queue_item = PostQueue.find(params[:id])
+      _queue_item.delete
+      
+      flash.now[:success] = "Deletion of post item from queue successful!"
+      redirect_to request.referrer
+  end
+  
+  def force_push
+    _queue_item = PostQueue.find(params[:id])
+
+    PostsHelper.social_push _queue_item
+    
+    flash.now[:success] = "Post item has been pushed successfully!"
+    redirect_to request.referrer
+  end
+  
+  def consume_queue
+    #PostsHelper
+    social_push
+    flash.now[:success] = "Queue has been consumed!"
+    
+    redirect_to request.referrer
+    
   end
 
-  def twitter_push
-  end
   
 end
