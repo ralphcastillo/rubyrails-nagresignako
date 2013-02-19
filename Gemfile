@@ -17,6 +17,9 @@ gem 'kaminari'
 gem 'omniauth'
 #gem 'delayed_job_active_record'
 
+gem 'fbgraph'
+gem 'fb_graph'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

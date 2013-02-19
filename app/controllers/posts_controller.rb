@@ -8,7 +8,8 @@ class PostsController < ApplicationController
 
   def new
     @page = params[:page] ? Integer(params[:page]) : 0
-    @posts = Post.find(:all)
+    # @posts = Post.find(:all)
+    @posts = Post.where("verified = ?", true)
     check_if_ajax 
   end
   
@@ -27,28 +28,45 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(params[:post])
     
-    @users = User.where("email = ?", params[:email])
-    
-    if @users.count < 1
-      @user = User.new
-      @user.email = params[:email]
-      @user.save
+    @via = params[:via]
+    if @via == 'fb'
+      
+        if @post.save
+          session[:post_id] = @post.id
+          redirect_to client.authorization.authorize_url(:redirect_uri => "http://localhost:3000/posts/callback/" ,
+      :client_id => '366867723400168',:scope => 'email')
+        else
+          respond_to do |format|
+          format.html  { render :action => "submit" }
+          format.json  { render :json => @post.errors,
+                      :status => :unprocessable_entity }
+          end
+        end
+      
     else
-      @user = @users[0]
-    end
+      @users = User.where("email = ?", params[:email])
     
-    @post.user_id = @user.id
-    @post.permalink = Digest::MD5.hexdigest(@user.email + '' + Date.today.to_formatted_s(:db))
-    
-    respond_to do |format|
-      if @post.save
-        UserMailer.verify_user(@user, @post).deliver        
-        flash[:notice] = 'Please check your mail to verify your post. Thank you for posting.'
-        format.html  { redirect_to :action => "new" } 
+      if @users.count < 1
+        @user = User.new
+        @user.email = params[:email]
+        @user.save
       else
-        format.html  { render :action => "submit" }
-        format.json  { render :json => @post.errors,
-                    :status => :unprocessable_entity }
+        @user = @users[0]
+      end
+      
+      @post.user_id = @user.id
+      @post.permalink = Digest::MD5.hexdigest(@user.email + '' + Date.today.to_formatted_s(:db))
+      
+      respond_to do |format|
+        if @post.save
+          UserMailer.verify_user(@user, @post).deliver        
+          flash[:notice] = 'Please check your mail to verify your post. Thank you for posting.'
+          format.html  { redirect_to :action => "new" } 
+        else
+          format.html  { render :action => "submit" }
+          format.json  { render :json => @post.errors,
+                      :status => :unprocessable_entity }
+        end
       end
     end
   end
@@ -58,6 +76,8 @@ class PostsController < ApplicationController
     
     respond_to do |format|
       if @posts.count > 0
+        @posts[0].verified = true
+        @posts[0].save
         format.html  { redirect_to :action => "single", :hash => @posts[0].permalink }
       else
         not_found
@@ -157,6 +177,43 @@ class PostsController < ApplicationController
     end  
   end
   
+  def fb_verify    
+    redirect_to client.authorization.authorize_url(:redirect_uri => "http://localhost:3000/posts/callback/" ,
+      :client_id => '366867723400168',:scope => 'email')
+  end
+  
+  def callback
+    @access_token = client.authorization.process_callback(params[:code], :redirect_uri => "http://localhost:3000/posts/callback/")
+    session[:access_token] = @access_token
+    @fb_user = client.selection.me.info!
+   
+    @post = Post.find(session[:post_id])
+    @users = User.where("email = ?", @fb_user[:email])
+    
+    if @users.count < 1
+      @user = User.new
+      @user.email = @fb_user[:email]
+      @user.save
+    else
+      @user = @users[0]
+    end
+    
+    @post.user_id = @user.id
+    @post.permalink = Digest::MD5.hexdigest(@user.email + '' + Date.today.to_formatted_s(:db))
+    @post.verified = true
+    
+    respond_to do |format|
+      if @post.save        
+        flash[:notice] = 'Thank you for posting.'
+        format.html  { redirect_to :action => "new" } 
+      else
+        format.html  { render :action => "submit" }
+        format.json  { render :json => @post.errors,
+                    :status => :unprocessable_entity }
+      end
+    end
+  end
+
   def feed
   end
 end

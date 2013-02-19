@@ -70,9 +70,18 @@ GEM
       multi_json (>= 1.3)
       rack-oauth2 (>= 0.14.4)
       tzinfo
+    fbgraph (1.10.0)
+      activesupport
+      faraday (>= 0.7.5)
+      hashie (>= 1.0.0)
+      i18n
+      json (>= 1.0.0)
+      oauth2 (>= 0.5.0)
+      rest-client
     ffi (1.1.5)
-    hashie (1.2.0)
+    hashie (2.0.0)
     hike (1.2.1)
+    httpauth (0.2.0)
     httpclient (2.3.2)
     i18n (0.6.1)
     journey (1.0.4)
@@ -86,6 +95,8 @@ GEM
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    jwt (0.1.5)
+      multi_json (>= 1.0)
     libwebsocket (0.1.5)
       addressable
     mail (2.4.4)
@@ -96,17 +107,25 @@ GEM
       actionmailer (~> 3.0)
     mime-types (1.19)
     multi_json (1.4.0)
+    multi_xml (0.5.3)
     multipart-post (1.1.5)
     nokogiri (1.5.5)
     omniauth (1.1.3)
       hashie (~> 1.2)
       rack
+    oauth2 (0.9.0)
+      faraday (~> 0.8)
+      httpauth (~> 0.1)
+      jwt (~> 0.1.4)
+      multi_json (~> 1.0)
+      multi_xml (~> 0.5)
+      rack (~> 1.2)
     pg (0.12.2)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
-    rack-oauth2 (1.0.1)
+    rack-oauth2 (1.0.3)
       activesupport (>= 2.3)
       attr_required (>= 0.0.5)
       httpclient (>= 2.2.0.2)
@@ -135,6 +154,8 @@ GEM
     rake (10.0.2)
     rdoc (3.12)
       json (~> 1.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -193,6 +214,7 @@ DEPENDENCIES
   coffee-rails (= 3.2.2)
   factory_girl_rails (= 4.1.0)
   fb_graph
+  fbgraph
   jquery-rails (= 2.0.2)
   jquery-ui-rails
   kaminari

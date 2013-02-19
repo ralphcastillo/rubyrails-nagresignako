@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130213131340) do
+ActiveRecord::Schema.define(:version => 20130218160900) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",           :null => false
-    t.string   "password_digest", :null => false
+    t.string   "password",        :null => false
+    t.string   "repeat_password", :null => false
     t.string   "name"
-    t.string   "role"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.string   "remember_token"
@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(:version => 20130213131340) do
   end
 
   create_table "posts", :force => true do |t|
-    t.integer  "user_id",                          :null => false
     t.string   "title",                            :null => false
     t.string   "name",                             :null => false
     t.integer  "age",                              :null => false
@@ -47,7 +46,8 @@ ActiveRecord::Schema.define(:version => 20130213131340) do
     t.boolean  "verified",      :default => false
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
-    t.text     "entry"
+    t.text     "entry",                            :null => false
+    t.integer  "user_id"
   end
 
   create_table "posts_votes", :force => true do |t|
@@ -60,13 +60,6 @@ ActiveRecord::Schema.define(:version => 20130213131340) do
     t.integer  "post_id"
   end
 
-  create_table "pushqueues", :force => true do |t|
-    t.integer  "post_id"
-    t.boolean  "pushed"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "users", :force => true do |t|
     t.string   "name"
     t.integer  "age"
@@ -74,7 +67,7 @@ ActiveRecord::Schema.define(:version => 20130213131340) do
     t.text     "others"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.string   "email"
+    t.string   "email",      :null => false
   end
 
 end
