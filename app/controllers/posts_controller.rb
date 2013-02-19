@@ -59,7 +59,7 @@ class PostsController < ApplicationController
       
       respond_to do |format|
         if @post.save
-          UserMailer.verify_user(@user, @post).deliver        
+          UserMailer.verify_user(@user, @post, "http://#{request.domain}/posts/verify").deliver        
           flash[:notice] = 'Please check your mail to verify your post. Thank you for posting.'
           format.html  { redirect_to :action => "new" } 
         else
