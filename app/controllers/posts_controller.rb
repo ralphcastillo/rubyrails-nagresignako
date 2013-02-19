@@ -28,7 +28,7 @@ class PostsController < ApplicationController
       
         if @post.save
           session[:post_id] = @post.id
-          redirect_to client.authorization.authorize_url(:redirect_uri => "http://localhost:3000/posts/callback/" ,
+          redirect_to client.authorization.authorize_url(:redirect_uri => "http://#{request.domain}/posts/callback/" ,
       :client_id => '366867723400168',:scope => 'email')
         else
           respond_to do |format|
@@ -173,12 +173,12 @@ class PostsController < ApplicationController
   end
   
   def fb_verify    
-    redirect_to client.authorization.authorize_url(:redirect_uri => "http://localhost:3000/posts/callback/" ,
+    redirect_to client.authorization.authorize_url(:redirect_uri => "http://#{request.domain}/posts/callback/" ,
       :client_id => '366867723400168',:scope => 'email')
   end
   
   def callback
-    @access_token = client.authorization.process_callback(params[:code], :redirect_uri => "http://localhost:3000/posts/callback/")
+    @access_token = client.authorization.process_callback(params[:code], :redirect_uri => "http://#{request.domain}/posts/callback/")
     session[:access_token] = @access_token
     @fb_user = client.selection.me.info!
    

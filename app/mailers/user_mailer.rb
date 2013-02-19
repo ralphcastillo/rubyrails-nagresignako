@@ -4,7 +4,7 @@ class UserMailer < ActionMailer::Base
   def verify_user(user, post)
     @post = post
     @user = user
-    @url = "http://localhost:3000/posts/verify"
+    @url = "http://#{request.domain}/posts/verify"
     mail(:to => user.email, :subject => "Verify Your Post")
   end
 end
