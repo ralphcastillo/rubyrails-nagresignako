@@ -17,12 +17,16 @@ NAGRESIGNAKO.posts.submit = function (){
   });
   
   $('#verification-dialog #verify-facebook .btn').bind("click", function(){
-  	window.location.href = "posts/fb_verify";
+  	// window.location.href = "posts/fb_verify";
+  	var email = $('#verification-dialog #verify-email input[type=text]').val();
+  	$('<input>').attr({type: 'hidden', name: 'via', value: 'fb'}).appendTo("#new_post");
+  	$("#new_post").submit();
   });
   
   $('#verification-dialog #verify-email .btn').bind("click", function(){
   	var email = $('#verification-dialog #verify-email input[type=text]').val();
   	$('<input>').attr({type: 'hidden', name: 'email', value: email}).appendTo("#new_post");
+  	$('<input>').attr({type: 'hidden', name: 'via', value: 'email'}).appendTo("#new_post");
   	$("#new_post").submit();
   });
 };
