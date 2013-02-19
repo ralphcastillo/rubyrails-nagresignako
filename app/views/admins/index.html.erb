@@ -1,3 +1,4 @@
+<div class="admin-action-pages">
 <h1>Admin List</h1>
 <table class="table table-striped">
   <tr><th>ID</th><th>Name</th><th>Email</th><th>Role</th><th>Action</th></tr>
@@ -14,3 +15,5 @@
   </tr>
   <% end %>
 </table>
+<%= paginate @admins %>
+</div>

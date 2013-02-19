@@ -1,6 +1,6 @@
 // posts/new.js
 
-NAGRESIGNAKO.posts.new = function (){
+NAGRESIGNAKO.posts.top_bad = function (){
   // Your js code for the cars controller here
   var loading = false;
   var page = 0;
@@ -15,7 +15,7 @@ NAGRESIGNAKO.posts.new = function (){
   
   $(document).bind("posts.new.load-items", function () {
     $.ajax({
-      url : "/new",
+      url : "/topbad",
       data : { page: ++page },
       dataType : "html", 
       complete : function() {},

@@ -26,4 +26,5 @@ class Post < ActiveRecord::Base
     self.permalink = Digest::MD5.hexdigest(Time.zone.now.to_s)
   end
   
+  has_one :post_queue, :dependent => :destroy
 end

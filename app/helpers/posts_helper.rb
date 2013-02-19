@@ -1,21 +1,34 @@
 module PostsHelper
   FB_PAGE_ID = "336926053091417"
-  FB_TOKEN = "AAAG8YOiNydQBADF2ZC5GWk21tuhlyZA8OAF0cyDmoj7SRYj4U01zlz3lkEe1qGuUlZBYJv6lxCObcIzVeSXZCd6swNtc5iW7GSHCdHzTxJfdd8RuUWCO"
+  FB_TOKEN = "AAAG8YOiNydQBAKj8e6wi7KCFHalHBrr6gm01Qc4PEZBrr1YqErz1HlnVM17XMrqVovfcWMUClV31PBusDhC5BNJqcj5em7XEEQZC1WZAgZDZD"
+  FB_APP_ID = "488599381199316"
+  FB_APPLICATION_SECRET = "572a38ed645c0b275a2ca541ac98bc3d"
+  
+  
+  TWITTER_CONSUMER_KEY = "ZwZLZhbZHTFvHX7IdLXnQ"
+  TWITTER_SECRET_KEY = "CebPu35efOX59xD1U4LCdd8oq4l0jUagnA5QVNAM"
+  TWITTER_ACCESS_TOKEN = "1181218364-YnwNxrsuJ554CpL1cn3PuWUpbZTck2PBNDwhRo5"
+  TWITTER_ACCESS_TOKEN_SECRET = "tnX9yYN0BrpdvLUCFRH9uyBKYJXg1s9ze5WW2be728"
 
   
   def tweet(post)
     Twitter.configure do |config|
-      config.consumer_key = APP_CONFIG['twitter_consumer_key']
-      config.consumer_secret = APP_CONFIG['twitter_consumer_secret']
-      config.oauth_token = APP_CONFIG['twitter_access_token']
-      config.oauth_token_secret = APP_CONFIG['twitter_secret_token']
+      config.consumer_key = TWITTER_CONSUMER_KEY
+      config.consumer_secret = TWITTER_SECRET_KEY
+      config.oauth_token = TWITTER_ACCESS_TOKEN
+      config.oauth_token_secret = TWITTER_ACCESS_TOKEN_SECRET
     end    
-    shorted_url = shorten_url(single_url(hash: post.permalink))
-    Twitter.update("#{post.title} - #{shorted_url}")
+    #shorted_url = shorten_url(single_url(hash: post.permalink))
+    #link = single_url(hash: post.permalink)
+    link = "http://secret-falls-8426.herokuapp.com"
+    Twitter.update("#{post.title} - #{link}")
   end
   
   #post
   def facebook_post(post)
+#    fb_auth = FbGraph::Auth.new(FB_APP_ID, FB_APPLICATION_SECRET)
+#    fb_auth.exchange_token! 'short-life-access-token'
+#    fb_auth.access_token # => Rack::OAuth2::AccessToken
   
     owner = FbGraph::User.me(FB_TOKEN)
     
@@ -29,7 +42,7 @@ module PostsHelper
     page.feed!(
       :message => "Resignako.com message!",
       :description => post.entry,
-      :link => single_url(hash: post.permalink)
+      :link => "http://secret-falls-8426.herokuapp.com" #single_url(hash: post.permalink)
     )
   end
   
@@ -40,8 +53,8 @@ module PostsHelper
     end
     
     #DO FACEBOOK HERE
-    #facebook_post queue_item.post
-    #tweet()
+    facebook_post queue_item.post
+    tweet queue_item.post
     
     queue_item.pushed = TRUE
     queue_item.save

@@ -3,6 +3,7 @@
 NAGRESIGNAKO.posts.hot = function (){
   // Your js code for the cars controller here
   var loading = false;
+  var page = 0;
   
   $(window).scroll(function () { 
     if (($(window).scrollTop() >= $(document).height() - $(window).height() - 10)
@@ -14,8 +15,8 @@ NAGRESIGNAKO.posts.hot = function (){
   
   $(document).bind("posts.hot.load-items", function () {
     $.ajax({
-      url : "/new",
-      data : {},
+      url : "/hot",
+      data : { page: ++page },
       dataType : "html", 
       complete : function() {},
       success : function(data) {

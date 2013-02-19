@@ -1,0 +1,90 @@
+<div id="manage-adverts-page">
+  <h2>Advert Management</h2>
+  <article>This area allows the user to change the adverts being shown in the site. 
+      They should all redirect to a URL described by the client. For now, only developers can change the URL for
+      the redirection.</article>
+  <table class="table table-striped">
+    <thead>
+      <tr><th>Image Banner</th>
+          <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <%#Main Banner%>
+        <td>
+          <h5>Right Sidebar Banner</h5>
+          <%= image_tag load_advert "sidebar-right", "http://placehold.it/651x85" %>
+        </td>
+        <td><%= form_for :advert, url: upload_advert_url(0), multipart: true do |f| %>
+             <%= f.label "Select File" %>
+             <%= f.file_field "upload" %>
+
+              <%= submit_tag "Upload" %>
+          <% end %></td>
+      </tr>
+      <tr>
+        <%#Rolling Banner # 1%>
+        <td>
+          <h5>Rolling Advert Banner # 1</h5>
+          <%= image_tag load_advert "scrolling-advert-1", "http://placehold.it/651x85" %>
+        </td>
+        <td><%= form_for :advert, url: upload_advert_url(1), multipart: true do |f| %>
+             <%= f.label "Select File" %>
+             <%= f.file_field "upload" %>
+
+              <%= submit_tag "Upload" %>
+          <% end %></td>
+      </tr>
+      <tr>
+        <td>
+            <h5>Rolling Advert Banner # 2</h5>
+            <%= image_tag load_advert "scrolling-advert-2", "http://placehold.it/651x85" %>
+        </td>
+        <td><%= form_for :advert, url: upload_advert_url(2), multipart: true do |f| %>
+             <%= f.label "Select File" %>
+             <%= f.file_field "upload" %>
+
+              <%= submit_tag "Upload" %>
+          <% end %></td>
+      </tr>
+      <tr>
+        <td>
+          <h5>Rolling Advert Banner # 3</h5>
+          <%= image_tag load_advert "scrolling-advert-3", "http://placehold.it/651x85" %>
+        </td>
+        <td><%= form_for :advert, url: upload_advert_url(3), multipart: true do |f| %>
+             <%= f.label "Select File" %>
+             <%= f.file_field "upload" %>
+
+              <%= submit_tag "Upload" %>
+          <% end %></td>
+      </tr>
+      <tr>
+        <td>
+          <h5>Rolling Advert Banner # 4</h5>
+          <%= image_tag load_advert "scrolling-advert-4", "http://placehold.it/651x85" %>
+        </td>
+        <td>
+          <%= form_for :advert, url: upload_advert_url(4), multipart: true do |f| %>
+             <%= f.label "Select File" %>
+             <%= f.file_field "upload" %>
+
+              <%= submit_tag "Upload" %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h5>Rolling Advert Banner # 5</h5>
+          <%= image_tag load_advert "scrolling-advert-5", "http://placehold.it/651x85" %>
+        </td>
+        <td><%= form_for :advert, url: upload_advert_url(5), multipart: true do |f| %>
+             <%= f.label "Select File" %>
+             <%= f.file_field "upload" %>
+
+              <%= submit_tag "Upload" %>
+          <% end %></td> 
+      </tr>
+    </tbody>
+</div>

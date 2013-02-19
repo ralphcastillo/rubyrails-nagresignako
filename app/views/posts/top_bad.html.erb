@@ -1,6 +1,23 @@
-<h1>Top Bad Items</h1>
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% end %>
+
+<% if !@is_ajax %>
+  <div id="new-entries-container">
+    <h1>Top Bad Items</h1>
+<% else %>
+    <div class="entry-line-adverts">
+        <%= link_to (image_tag load_advert "scrolling-advert-#{(@page % 5) + 1}", "http://placehold.it/651x85"), "http://www.freelancer.com" %>
+    </div>
+<% end %>
+
 <div id="hot-entries-area">
+<% #(11..20).each do |i| %>
 <% @posts.each do |post| @post = post %>
-  <%= render 'layouts/entry', post: post %>
+  <%= render 'layouts/entry', post: @post %>
 <% end %>
 </div>
+
+<% if !@is_ajax %>
+  </div>
+<% end %>

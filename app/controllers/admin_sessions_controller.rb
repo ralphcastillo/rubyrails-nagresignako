@@ -26,7 +26,7 @@ class AdminSessionsController < ApplicationController
       @admin = Admin.find_by_email(params[:session][:email])
       if @admin
         _link = change_pw_url({ email: @admin.email, secret: Digest::MD5.hexdigest(@admin.updated_at.to_s) })
-#        AdminPasswordMailer.email_password(@admin, _link).deliver
+        AdminPasswordMailer.email_password(@admin, _link).deliver
         flash.now[:success] = 'Reset Email request has been sent!'
       else 
         flash.now[:error] = 'Email does not exist in our records.'

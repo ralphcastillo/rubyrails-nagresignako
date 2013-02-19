@@ -1,20 +1,25 @@
 class PostsController < ApplicationController  
   def hot
+    @page = params[:page] ? Integer(params[:page]) : 0
+    
     @posts = Post.find(:all)
     check_if_ajax 
   end
 
   def new
+    @page = params[:page] ? Integer(params[:page]) : 0
     @posts = Post.find(:all)
     check_if_ajax 
   end
   
   def top_good
+    @page = params[:page] ? Integer(params[:page]) : 0
     @posts = Post.find(:all)
     check_if_ajax 
   end
   
   def top_bad
+    @page = params[:page] ? Integer(params[:page]) : 0
     @posts = Post.find(:all)
     check_if_ajax 
   end

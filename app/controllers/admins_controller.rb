@@ -3,7 +3,7 @@ class AdminsController < ApplicationController
   before_filter :redirect_if_loggedout    
   
   def index
-    @admins = Admin.all
+    @admins = Admin.page(params[:page]).per(10)
   end
   
   def show

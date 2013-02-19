@@ -1,6 +1,10 @@
 class AdminActionsController < ApplicationController
   layout "admin_base"
   before_filter :redirect_if_loggedout  
+
+  def index
+    redirect_to '/admins'
+  end
   
   def add_seed
       @post = Post.new
@@ -19,18 +23,17 @@ class AdminActionsController < ApplicationController
     @post.verified = TRUE
     @post.save
 
-    @post = Post.new
-    flash.now[:success] = "Seed content successfully added!"
-    render 'add_seed'
+    redirect_to request.referer, flash: { success: "Seed content successfully added!" }
   end
 
   def manage_posts
     #TODO: PAGINATE THIS BITCH
     id ||= params[:id]
     action  ||= params[:task]
+    params[:page] = params[:page] ? params[:page] : 0
     
     if request.get?
-      @posts = Post.all
+      @posts = Post.order("id").page(params[:page]).per(5)
       #where reported_spam < 10
     elsif request.post?
       _post = Post.find(id)
@@ -43,11 +46,15 @@ class AdminActionsController < ApplicationController
         _post.reported_spam += 10
         _post.save
         
-        flash.now[:success] = "Post id #{_post.id} has been marked as spam."
+        redirect_to request.referer, flash: { success: "Post id #{_post.id} has been marked as spam." }
+      elsif (action == "queue")
+        PostQueue.create(post: _post, pushed: FALSE)
+        redirect_to request.referer, flash: {success: "Post ID #{_post.id} has been added to the Social Push Queue."}
+      elsif (action == "unqueue")
+        _post.post_queue.destroy
+        redirect_to request.referer, flash: {success: "Post ID #{_post.id} has been removed from the Social Push Queue."}
       end
       
-      @posts = Post.all
-      render 'manage_posts'
     elsif request.delete?
       _post = Post.find(id) #catch null
       
@@ -57,34 +64,32 @@ class AdminActionsController < ApplicationController
       
       _post.destroy
       
-      flash.now[:success] = "Post id #{_post.id} has been deleted."
-      
-      @posts = Post.all
-      render 'manage_posts'
+      redirect_to request.referer, flash: { success: "Post id #{_post.id} has been deleted." } 
     end
   end
 
   def manage_spam
     task = params[:task] || nil
+    params[:page] = params[:page] ? params[:page] : 0
     
     if request.get?
-      @posts =     Post.find(:all, :conditions => ["reported_spam > 0"])
+      @posts =     Post.where("reported_spam > 0").page(params[:page]).per(5)
     elsif request.post? && task=="show" #post is not a spam
       _post = Post.find(params[:id])
       _post.reported_spam = 0
       _post.save
       
-      flash.now[:success] = "Successfully removed spam status of entry id #{_post.id}"
       
-      @posts =     Post.find(:all, :conditions => ["reported_spam > 0"])
-      render 'manage_spam'
+      @posts =     Post.where("reported_spam > 0").page(params[:page]).per(5)
+      
+      redirect_to request.referer, flash: { success: "Successfully removed spam status of entry id #{_post.id}" }
+      
     elsif request.delete? && task=="delete"
       _post = Post.find(params[:id])
       _post.destroy
       
-      flash.now[:success] = "Successfully deleted spam from database"
-      @posts =     Post.find(:all, :conditions => ["reported_spam > 0"])
-      render 'manage_spam'
+      @posts =     Post.where("reported_spam > 0").page(params[:page]).per(5)
+      redirect_to request.referer, flash: { success: "Successfully deleted spam from database"}
     end
       
   end
@@ -95,35 +100,49 @@ class AdminActionsController < ApplicationController
     pushed = params[:pushed] != nil && params[:pushed] == "true"
     
     #TODO make activerecord
-    @queue_items = PostQueue.where(pushed: pushed)
+    @queue_items = PostQueue.where(pushed: pushed).page(params[:page]).per(5)
     @pushed = pushed
-  end
-  
-  def delete_queue      
-      _queue_item = PostQueue.find(params[:id])
-      _queue_item.delete
-      
-      flash.now[:success] = "Deletion of post item from queue successful!"
-      redirect_to request.referrer
   end
   
   def force_push
     _queue_item = PostQueue.find(params[:id])
 
-    PostsHelper.social_push _queue_item
-    
-    flash.now[:success] = "Post item has been pushed successfully!"
-    redirect_to request.referrer
+    social_push _queue_item
+    redirect_to request.referrer, flash: { success: "Post item has been pushed successfully!" }
   end
   
   def consume_queue
     #PostsHelper
-    social_push
-    flash.now[:success] = "Queue has been consumed!"
-    
-    redirect_to request.referrer
+    social_push  
+    redirect_to request.referrer, flash: { success: "Queue has been consumed!"}
     
   end
 
+  def manage_adverts
+  end
+  
+  def upload_advert
+    logger.info "Entered UPLOAD ADVERT!!"
+    id ||= Integer(params[:id])
+    tmp = params[:advert][:upload].tempfile
+  
+    filename = params[:advert][:upload].original_filename
+    extension = File.extname(params[:advert][:upload].original_filename)
+    
+    if (! %w[.jpg .gif .png].include? extension.downcase )  
+      redirect_to request.referer, flash: { error: "Invalid File Format. Only Accepts: jpg, gif, and png" }
+      return
+    end
+    
+    file = File.join("app/assets/images/adverts", id > 0 ? "scrolling-advert-#{id}#{extension}" : "sidebar-right#{extension}")
+    FileUtils.cp tmp.path, file
+    
+    #FileUtils.rm file
+    
+    logger.info "LEAVING upload_adverts!!"
+    
+    advert = id > 0 ? "Scrolling Advert banner # #{id}" : "Sidebar Advert"
+    redirect_to request.referer, flash: { success: "#{advert} Successfully Updated!"}
+  end
   
 end

@@ -22,10 +22,10 @@
               <p><%= item.post.entry %></p>
             </td>
           <td><%= item.post.created_at %></td>
-          <td><%= item.created_at %></td>
+          <td><%=  item.created_at %></td>
           <td>
             <% if !item.pushed %>
-              <%= link_to "Unqueue", delete_queue_url(item), method: "delete" %><br />
+              <%= link_to "Unqueue", manage_posts_url(item.post, "unqueue"), method: "post" %><br />
               <%= link_to "Force Push", force_push_url(item), method: "post" %>            
             <% end %>            
           </td>
@@ -34,4 +34,5 @@
       
     </tbody>
   </table>
+  <%= paginate @queue_items %>
 </div>

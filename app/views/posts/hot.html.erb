@@ -1,10 +1,9 @@
-
 <% if !@is_ajax %>
   <div id="hot-entries-container">
     <h1>Hot Items</h1>
 <% else %>
-    <div class="entry-line-adverts progress progress-striped">
-      <div class="bar" style="width: 100%; color: white;">Advertisement</div>
+    <div class="entry-line-adverts">
+      <%= link_to (image_tag load_advert "scrolling-advert-#{(@page % 5) + 1}", "http://placehold.it/651x85"), "http://www.freelancer.com" %>
     </div>
 <% end %>
 

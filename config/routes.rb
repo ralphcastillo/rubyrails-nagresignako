@@ -8,11 +8,15 @@ Resignako::Application.routes.draw do
   
   match 'admin_actions/force_push/:id' => 'admin_actions#force_push', as: 'force_push', via: [:post]
   match 'admin_actions/delete_queue/:id' => 'admin_actions#delete_queue', as: 'delete_queue', via: [:delete]
+  match 'admin_actions/upload_advert/:id' => 'admin_actions#upload_advert', as: 'upload_advert', via: [:post, :get]
   
+  match "admin_actions"   => 'admin_actions#index'
+  
+  get "admin_actions/manage_adverts"
   get "admin_actions/manage_queue"
   get "admin_actions/manage_spam"
   get "admin_actions/manage_posts"  
-  get "admin_actions/add_seed"  
+  get "admin_actions/add_seed"
   post "admin_actions/create_seed"
   post "admin_actions/consume_queue"
   
