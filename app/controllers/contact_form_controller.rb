@@ -4,15 +4,12 @@ class ContactFormController < ApplicationController
   end
 
   def create
-    logger.info "Sending message"
     begin
       @contact_form = ContactForm.new(params[:contact_form])
       @contact_form.request = request
       if @contact_form.deliver
-        logger.info "feedback delivered"
-        flash.now[:notice] = 'Thank you for your message!'
+        flash.now[:notice] = 'Thank you for your message! We\'ll get back to you as soon as possible.'
       else
-        logger.info "feedback not delivered"
         render :new
       end
     rescue ScriptError
