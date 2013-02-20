@@ -17,6 +17,8 @@ class ContactForm < MailForm::Base
   end
   
   def from_header
+    Rails.logger.info self.email
+    Rails.logger.info email
     email.blank? ? %('contact_form.headers.from') : email
   end
 end
