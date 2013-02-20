@@ -7,4 +7,9 @@ class UserMailer < ActionMailer::Base
     @url = url
     mail(:to => user.email, :subject => "Verify Your Post")
   end
+  
+  def send_feedback(contact)
+    @contact = contact
+    mail(:to => "ichetester@gmail.com", :from => contact.email, :subject => "Feedback and Support")
+  end
 end
