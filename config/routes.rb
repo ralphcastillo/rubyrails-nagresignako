@@ -66,6 +66,7 @@ Resignako::Application.routes.draw do
   match 'hot' => 'posts#hot'
   match 'submit' => 'posts#submit'
   match 'free/:hash' => 'posts#single', :as => :single
+  match 'contact' => 'contact_form#new'
   
   match 'feed' => 'posts#feed'
   

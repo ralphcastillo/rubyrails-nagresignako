@@ -12,7 +12,11 @@ class ContactForm < MailForm::Base
     {
       :subject => "Feedback and Support",
       :to => "ichetester@gmail.com",
-      :from => %("#{name}" <#{email}>)
+      :from => "#{from_header}"
     }
+  end
+  
+  def from_header
+    email.blank? ? %('contact_form.headers.from') : email
   end
 end
