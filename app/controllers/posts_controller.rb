@@ -33,8 +33,8 @@ class PostsController < ApplicationController
       
         if @post.save
           session[:post_id] = @post.id
-          redirect_to client.authorization.authorize_url(:redirect_uri => "http://#{request.domain}/posts/callback/" ,
-      :client_id => '366867723400168',:scope => 'email')
+          redirect_to client.authorization.authorize_url(:redirect_uri => "http://#{ENV['URL']}/posts/callback/" ,
+      :client_id => '488599381199316',:scope => 'email')
         else
           respond_to do |format|
           format.html  { render :action => "submit" }
@@ -59,7 +59,7 @@ class PostsController < ApplicationController
       
       respond_to do |format|
         if @post.save
-          UserMailer.verify_user(@user, @post, "http://#{request.domain}/posts/verify").deliver        
+          UserMailer.verify_user(@user, @post, "http://#{ENV['URL']}/posts/verify").deliver        
           flash[:notice] = 'Please check your mail to verify your post. Thank you for posting.'
           format.html  { redirect_to :action => "new" } 
         else
@@ -178,12 +178,12 @@ class PostsController < ApplicationController
   end
   
   def fb_verify    
-    redirect_to client.authorization.authorize_url(:redirect_uri => "http://#{request.domain}/posts/callback/" ,
-      :client_id => '366867723400168',:scope => 'email')
+    redirect_to client.authorization.authorize_url(:redirect_uri => "http://#{ENV['URL']}/posts/callback/" ,
+      :client_id => '488599381199316',:scope => 'email')
   end
   
   def callback
-    @access_token = client.authorization.process_callback(params[:code], :redirect_uri => "http://#{request.domain}/posts/callback/")
+    @access_token = client.authorization.process_callback(params[:code], :redirect_uri => "http://#{ENV['URL']}/posts/callback/")
     session[:access_token] = @access_token
     @fb_user = client.selection.me.info!
    
