@@ -75,6 +75,8 @@ Resignako::Application.routes.draw do
   get 'posts/fb_verify'
   get 'posts/callback'
   
+  post "contact_form/create"
+  
   # The priority is based upon order of creation  :
   # first created -> highest priority.
 
