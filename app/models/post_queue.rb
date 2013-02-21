@@ -11,6 +11,11 @@
 #
 
 class PostQueue < ActiveRecord::Base
+
   attr_accessible :post_id, :pushed, :post
   belongs_to :post
+  
+  def self.social_push
+    ApplicationController.helpers.social_push
+  end
 end

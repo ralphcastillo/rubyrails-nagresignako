@@ -27,14 +27,15 @@
       <br/>
       <% if post.post_queue != nil %>
         <% if !post.post_queue.pushed %>
-          <%= link_to "Unqueue", manage_posts_url(post, "unqueue"), method: "post" %></td>
+          <%= link_to "Unqueue", manage_posts_url(post, "unqueue"), method: "post" %>
           <%= link_to "Delete", manage_posts_url(post, "delete"), method: "delete" %><br/>
         <% else %>
           Pushed
         <% end %>
       <% else %>
-        <%= link_to "Add Queue", manage_posts_url(post, "queue"), method: "post" %></td>
+        <%= link_to "Queue", manage_posts_url(post, "queue"), method: "post" %>
       <% end%>
+  </td>
 </tr>
 <% end %>
 </tbody>
