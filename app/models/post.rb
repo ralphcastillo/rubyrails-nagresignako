@@ -20,11 +20,28 @@
 #
 
 class Post < ActiveRecord::Base
-  attr_accessible :age, :former_job, :name, :permalink, :reported_spam, :title, :total_bad, :total_good, :total_tally, :user, :verified, :entry  
+  attr_accessible :age, :former_job, :name, :permalink, 
+                  :reported_spam, :title, :total_bad,
+                  :total_good, :total_tally, :user, 
+                  :verified, :entry,
+                  :queued
+                  
   #Set a permalink based on the timestamp before sending
   before_save do
     self.permalink = Digest::MD5.hexdigest(Time.zone.now.to_s)
   end
   
   has_one :post_queue, :dependent => :destroy
+  
+  def self.queue_top
+    
+    post = Post.where(:queued => FALSE).order("total_tally DESC").first
+    
+    PostQueue.create(post: post, pushed: FALSE)
+    
+    post.queued = TRUE
+    post.save
+    
+  end
+  
 end

@@ -48,9 +48,16 @@ class AdminActionsController < ApplicationController
         
         redirect_to request.referer, flash: { success: "Post id #{_post.id} has been marked as spam." }
       elsif (action == "queue")
+       
+        _post.queued = TRUE
+        _post.save
+        
         PostQueue.create(post: _post, pushed: FALSE)
         redirect_to request.referer, flash: {success: "Post ID #{_post.id} has been added to the Social Push Queue."}
       elsif (action == "unqueue")
+        _post.queued = FALSE
+        _post.save
+        
         _post.post_queue.destroy
         redirect_to request.referer, flash: {success: "Post ID #{_post.id} has been removed from the Social Push Queue."}
       end

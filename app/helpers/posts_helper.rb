@@ -48,10 +48,11 @@ module PostsHelper
     # for notes on how to get the FB_TOKEN go to 
     # https://developers.facebook.com/docs/howtos/login/login-as-page/
 #    puts single_url(hash: post.permalink)
+    link = url_for(controller: "posts", action: "single", hash: post.permalink)
     owner.feed!(
       :message => "This is a Resignako.com message!",
       :description => post.entry,
-      :link => url_for(controller: "posts", action: "single", hash: post.permalink) #Rails.env.production? ? single_url(hash: post.permalink) : TEMPORARY_OUTLINK
+      :link =>  link #Rails.env.production? ? single_url(hash: post.permalink) : TEMPORARY_OUTLINK
     )
   end
   
