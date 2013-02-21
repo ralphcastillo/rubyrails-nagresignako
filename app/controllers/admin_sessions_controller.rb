@@ -39,8 +39,12 @@ class AdminSessionsController < ApplicationController
     if request.put?
       @admin = Admin.find_by_email(params[:admin][:email])
       if @admin
-        @admin.update_attributes(params[:admin])
-        redirect_to '/signin'
+        if( @admin.update_attributes(params[:admin]) ) 
+          redirect_to '/signin'
+        else
+          flash.now[:error] = "Password Error. Please Try again"
+          render 'admin_change_password'
+        end
       end
     else 
       @admin = Admin.find_by_email(params[:email])

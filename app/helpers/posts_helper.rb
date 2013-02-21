@@ -1,6 +1,11 @@
 module PostsHelper
+  require 'fileutils' 
+  
   FB_PAGE_ID = "336926053091417"
-  FB_TOKEN = "AAAG8YOiNydQBAKj8e6wi7KCFHalHBrr6gm01Qc4PEZBrr1YqErz1HlnVM17XMrqVovfcWMUClV31PBusDhC5BNJqcj5em7XEEQZC1WZAgZDZD"
+#  FB_TOKEN = "AAAG8YOiNydQBAKj8e6wi7KCFHalHBrr6gm01Qc4PEZBrr1YqErz1HlnVM17XMrqVovfcWMUClV31PBusDhC5BNJqcj5em7XEEQZC1WZAgZDZD"
+
+#PAGE ACCESS TOKEN :
+  FB_TOKEN = "AAAG8YOiNydQBAJM5jC910hq8SZBwLmzICxZC2OohZB0cNqy6Y2dOKAKbcnlrxOM3ZAav9EiilBSC5Pxw35JG0TLgwNW7n3FfNZCvSYRIl0ZCP7aRHi9ZAgZC"
   FB_APP_ID = "488599381199316"
   FB_APPLICATION_SECRET = "572a38ed645c0b275a2ca541ac98bc3d"
   
@@ -10,6 +15,7 @@ module PostsHelper
   TWITTER_ACCESS_TOKEN = "1181218364-YnwNxrsuJ554CpL1cn3PuWUpbZTck2PBNDwhRo5"
   TWITTER_ACCESS_TOKEN_SECRET = "tnX9yYN0BrpdvLUCFRH9uyBKYJXg1s9ze5WW2be728"
 
+  TEMPORARY_OUTLINK = "http://secret-falls-8426.herokuapp.com"
   
   def tweet(post)
     Twitter.configure do |config|
@@ -20,7 +26,7 @@ module PostsHelper
     end    
     #shorted_url = shorten_url(single_url(hash: post.permalink))
     #link = single_url(hash: post.permalink)
-    link = "http://secret-falls-8426.herokuapp.com"
+    link = Rails.env.production? ? single_url(hash: post.permalink) : TEMPORARY_OUTLINK
     Twitter.update("#{post.title} - #{link}")
   end
   
@@ -32,17 +38,18 @@ module PostsHelper
   
     owner = FbGraph::User.me(FB_TOKEN)
     
-    pages = owner.accounts
+#    pages = owner.accounts
     
     #Searches for the correct page
-    page = pages.detect do |page|
-      page.identifier == FB_PAGE_ID
-    end
-    
-    page.feed!(
-      :message => "Resignako.com message!",
+#    page = pages.detect do |page|
+#      page.identifier == FB_PAGE_ID
+#    end
+    # for notes on how to get the FB_TOKEN go to 
+    # https://developers.facebook.com/docs/howtos/login/login-as-page/
+    owner.feed!(
+      :message => "This is a Resignako.com message!",
       :description => post.entry,
-      :link => "http://secret-falls-8426.herokuapp.com" #single_url(hash: post.permalink)
+      :link => Rails.env.production? ? single_url(hash: post.permalink) : TEMPORARY_OUTLINK
     )
   end
   
@@ -54,10 +61,13 @@ module PostsHelper
     
     #DO FACEBOOK HERE
     facebook_post queue_item.post
-    tweet queue_item.post
+    #tweet queue_item.post
     
-    queue_item.pushed = TRUE
-    queue_item.save
+    #queue_item.pushed = TRUE
+    #queue_item.save
+
+#    f.each do |line|
+#    end
   end
   
 end
