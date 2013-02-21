@@ -157,7 +157,7 @@ class PostsController < ApplicationController
       @content = "This is a sample content!";
       @hash = params[:hash]
       
-      @posts = Post.where("permalink = ?", @hash)
+      @posts = Post.where("permalink LIKE ?", @hash)
       if @posts.count > 0
         @post = @posts[0]
         @user = User.find(@post.user_id)
