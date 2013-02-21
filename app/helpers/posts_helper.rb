@@ -61,13 +61,11 @@ module PostsHelper
     
     #DO FACEBOOK HERE
     facebook_post queue_item.post
-    #tweet queue_item.post
+    tweet queue_item.post
     
-    #queue_item.pushed = TRUE
-    #queue_item.save
+    queue_item.pushed = TRUE
+    queue_item.save
 
-#    f.each do |line|
-#    end
   end
   
 end

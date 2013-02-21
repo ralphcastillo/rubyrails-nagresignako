@@ -114,7 +114,12 @@ class AdminActionsController < ApplicationController
   def consume_queue
     #PostsHelper
     social_push  
-    redirect_to request.referrer, flash: { success: "Queue has been consumed!"}
+    
+    if request.get?
+      render :nothing => true, :status => 200, :content_type => 'text/html'
+    else
+      redirect_to request.referrer, flash: { success: "Queue has been consumed!"}
+    end
     
   end
 
