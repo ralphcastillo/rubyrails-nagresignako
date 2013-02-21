@@ -153,8 +153,7 @@ class PostsController < ApplicationController
   end
   
   def single
-    if defined? params[:hash]
-      @content = "This is a sample content!";
+    if params[:hash]
       @hash = params[:hash]
       
       @posts = Post.where("permalink LIKE ?", @hash)

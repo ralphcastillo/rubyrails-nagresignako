@@ -13,6 +13,7 @@ Resignako::Application.routes.draw do
   match 'admin_actions/force_push/:id' => 'admin_actions#force_push', as: 'force_push', via: [:post]
   match 'admin_actions/delete_queue/:id' => 'admin_actions#delete_queue', as: 'delete_queue', via: [:delete]
   match 'admin_actions/upload_advert/:id' => 'admin_actions#upload_advert', as: 'upload_advert', via: [:post, :get]
+  match 'free/:hash' => 'posts#single', :as => :single
   
   match "admin_actions"   => 'admin_actions#index'
   
@@ -66,7 +67,6 @@ Resignako::Application.routes.draw do
   match 'new' => 'posts#new'
   match 'hot' => 'posts#hot'
   match 'submit' => 'posts#submit'
-  match 'free/:hash' => 'posts#single', :as => :single
   match 'contact' => 'contact_form#new'
   
   match 'feed' => 'posts#feed'
