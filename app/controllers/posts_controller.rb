@@ -111,7 +111,7 @@ class PostsController < ApplicationController
     #check_if_ajax
     @post = Post.find(params[:id])
     # @unique = "This-is-a-placeholder"
-    @unique = "random-#{rand(1..10000)}"
+    @unique = "random#{rand(1..10000)}"
     
     logger.info @unique
     @post_vote = PostsVote.find(:all, :conditions => { :post_id => @post.id, :unique_identifier => @unique }, :limit => 1)
@@ -146,7 +146,7 @@ class PostsController < ApplicationController
   def vote_down
     @post = Post.find(params[:id])
     # @unique = "This-is-a-placeholder"
-    @unique = "random-#{rand(1..10000)}"
+    @unique = "random#{rand(1..10000)}"
     
     @post_vote = PostsVote.find(:all, :conditions => { :post_id => @post.id, :unique_identifier => @unique }, :limit => 1)
     # @post_vote = PostsVote.find(:all, :conditions => ["post_id = #{@post.id}", "unique_identifier=#{@unique}"], :limit => 1)
