@@ -14,11 +14,11 @@
     <div class="clear"></div>
   </div>
   <div class="entry-votes">
-    <button class="voter-element btn btn-small pull-left">
+    <button class="voter-element btn btn-small pull-left up" post-id="<%= @post.id %>">
       <i class="icon-hand-up"></i>
       <span>Right way to do it <strong><%= @post.total_good %></strong></span>
     </button>
-    <button class="voter-element btn btn-small pull-left">
+    <button class="voter-element btn btn-small pull-left down" post-id="<%= @post.id %>">
       <i class="icon-hand-down"></i>
       <span>Wrong way to do it <strong><%= @post.total_bad %></strong></span>
     </button>

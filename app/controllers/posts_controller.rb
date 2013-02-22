@@ -1,27 +1,45 @@
 class PostsController < ApplicationController  
   def hot
     @page = params[:page] ? Integer(params[:page]) : 0
-    
-    @posts = Post.find(:all)
+    if (@page * 1) <= Post.find(:all, :conditions => { :verified => true }).length
+    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @page * 1, :limit => 1, :order => 'total_tally desc')
+    @display = true
+    else
+    @display = false
+    end
     check_if_ajax 
   end
 
   def new
     @page = params[:page] ? Integer(params[:page]) : 0
-    # @posts = Post.find(:all)
-    @posts = Post.where("verified = ?", true)
+    if (@page * 1) <= Post.find(:all, :conditions => { :verified => true }).length
+    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @page * 1, :limit => 1, :order => 'id desc')
+    @display = true
+    else
+    @display = false
+    end
     check_if_ajax 
   end
   
   def top_good
     @page = params[:page] ? Integer(params[:page]) : 0
-    @posts = Post.find(:all)
+    if (@page * 1) <= Post.find(:all, :conditions => { :verified => true }).length
+    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @page * 1, :limit => 1, :order => 'total_good desc')
+    @display = true
+    else
+    @display = false
+    end
     check_if_ajax 
   end
   
   def top_bad
     @page = params[:page] ? Integer(params[:page]) : 0
-    @posts = Post.find(:all)
+    if (@page * 1) <= Post.find(:all, :conditions => { :verified => true }).length
+    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @page * 1, :limit => 1, :order => 'total_bad desc')
+    @display = true
+    else
+    @display = false
+    end
     check_if_ajax 
   end
 
@@ -92,9 +110,12 @@ class PostsController < ApplicationController
   def vote_up
     #check_if_ajax
     @post = Post.find(params[:id])
-    @unique = "This-is-a-placeholder"
+    # @unique = "This-is-a-placeholder"
+    @unique = "random-#{rand(1..10000)}"
     
-    @post_vote = PostsVote.find(:all, :conditions => ["post_id = #{@post.id}", "unique_identifier=#{@unique}"], :limit => 1)
+    logger.info @unique
+    @post_vote = PostsVote.find(:all, :conditions => { :post_id => @post.id, :unique_identifier => @unique }, :limit => 1)
+    # @post_vote = PostsVote.find(:all, :conditions => ["post_id = #{@post.id}", "unique_identifier=#{@unique}"], :limit => 1)
     
     if @post_vote[0] != nil
       _postvote = @post_vote.first
@@ -118,13 +139,17 @@ class PostsController < ApplicationController
       
     end
 #    @post.total_good++
+
+    check_if_ajax
   end
 
   def vote_down
     @post = Post.find(params[:id])
-    @unique = "This-is-a-placeholder"
+    # @unique = "This-is-a-placeholder"
+    @unique = "random-#{rand(1..10000)}"
     
-    @post_vote = PostsVote.find(:all, :conditions => ["post_id = #{@post.id}", "unique_identifier=#{@unique}"], :limit => 1)
+    @post_vote = PostsVote.find(:all, :conditions => { :post_id => @post.id, :unique_identifier => @unique }, :limit => 1)
+    # @post_vote = PostsVote.find(:all, :conditions => ["post_id = #{@post.id}", "unique_identifier=#{@unique}"], :limit => 1)
     
     if @post_vote[0] != nil
       _postvote = @post_vote.first
@@ -147,6 +172,8 @@ class PostsController < ApplicationController
       @post.save
       
     end
+    
+    check_if_ajax
   end
 
   def report
