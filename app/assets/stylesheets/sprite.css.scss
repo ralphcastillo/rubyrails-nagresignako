@@ -1,0 +1,20 @@
+@mixin dim($width, $height, $top, $left) {
+  width: $width;  
+  height: $height;
+  background-position: $top $left;
+}
+
+i.resign-sprite { 
+  display: inline-block;
+  background-image: url(/assets/base/sprite.png);
+  background-repeat: no-repeat;
+
+  &.submit-active { @include dim(108px, 52px, 0, 0); }
+  &.hot-active {@include dim(109px, 52px, 0, -52px);  }
+  &.new-active {@include dim(109px, 52px, 0, -105px);  }
+  
+  &.submit-inactive { @include dim(108px, 43px, -110px, 0); }
+  &.hot-inactive { @include dim(108px, 43px, -110px, -88px); }
+  &.new-inactive { @include dim(108px, 43px, -110px, -44px); }
+}
+

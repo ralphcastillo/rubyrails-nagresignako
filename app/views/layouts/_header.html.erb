@@ -1,15 +1,21 @@
     <header class="navbar navbar-banner navbar-inverse">
       <div class="navbar-inner">
         <div class="container">
-          <%= link_to "This is Something Not Yet Made", '#', id: "logo" %>
+          <%= link_to (image_tag "base/header.png"), root_url, id: "logo" %>
 
           <nav>
             <ul class="nav pull-left">
-              <li><%= link_to "New",    new_path, class: "hd-link-item new-path" %></li>
-              <li><%= link_to "Hot",    hot_path, class: "hd-link-item hot-path" %></li>
-              <li><%= link_to "Top Good",    topgood_path, class: "hd-link-item hot-path" %></li>
-              <li><%= link_to "Top Bad",    topbad_path, class: "hd-link-item hot-path" %></li>
-              <li><%= link_to "Submit", submit_path, class: "hd-link-item submit-path" %></li>
+              <li class="new-nav-item">
+                <%= link_to (sprite_tag is_new? ? "new-active" : "new-inactive"),   new_path, class: "hd-link-item new-path" %>
+              </li>
+              <li class="hot-nav-item">
+                <%= link_to (sprite_tag is_hot? ? "hot-active" : "hot-inactive"),    hot_path, class: "hd-link-item hot-path" %>
+              </li>
+              <%# li><%= link_to "Top Good",    topgood_path, class: "hd-link-item hot-path" </li> %>
+              <%# li><%= link_to "Top Bad",    topbad_path, class: "hd-link-item hot-path" </li>%>
+              <li class="submit-nav-item">
+                <%= link_to (sprite_tag is_submit? ? "submit-active" : "submit-inactive"), submit_path, class: "hd-link-item submit-path" %>
+              </li>
             </ul>
           </nav>
         </div>

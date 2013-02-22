@@ -33,7 +33,9 @@
 }
 
 body, header { text-align: center; }
-
+body {
+  background-image: url(/assets/base/bg.jpg);
+}
 .clear { clear: both; }
 
 .gravatar-icon {
@@ -90,12 +92,37 @@ footer {
   
 }
 /* HEADER */
-header {
+header.navbar-banner {
   #logo {
-    font-size: 28px;
-    padding: 25px 0;
     display: inline-block;
+    img {
+      width: 969px;
+      margin-left: 18px;
+      margin-top: 50px;
+    }
  }
+
+  nav {
+    display: inline-block;
+    width: 690px;
+    height: 52px;
+    
+    ul { width: 100%; 
+      
+      li {
+        a { padding: 0px !important; } ;
+        &.active { background: none; 
+          a {background-color: transparent !important;}
+        }
+        
+        &.new-nav-item { margin-right: 10px; }
+        &.submit-nav-item { float: right; }
+      
+      
+      }
+    }
+  }
+ 
 }
 
 header.navbar-scrolled { /* This is the fixed nav bar */
