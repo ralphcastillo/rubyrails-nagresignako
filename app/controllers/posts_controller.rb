@@ -1,8 +1,9 @@
 class PostsController < ApplicationController  
-  def hot
+  def hot    
     @page = params[:page] ? Integer(params[:page]) : 0
-    if (@page * 1) <= Post.find(:all, :conditions => { :verified => true }).length
-    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @page * 1, :limit => 1, :order => 'total_tally desc')
+    @post_count = params[:post_count] ? Integer(params[:post_count]) : 0
+    if (@post_count) < Post.find(:all, :conditions => { :verified => true }).length
+    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @post_count, :limit => 3, :order => 'total_tally desc')
     @display = true
     else
     @display = false
@@ -12,8 +13,9 @@ class PostsController < ApplicationController
 
   def new
     @page = params[:page] ? Integer(params[:page]) : 0
-    if (@page * 1) <= Post.find(:all, :conditions => { :verified => true }).length
-    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @page * 1, :limit => 1, :order => 'id desc')
+    @post_count = params[:post_count] ? Integer(params[:post_count]) : 0
+    if (@post_count) < Post.find(:all, :conditions => { :verified => true }).length
+    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @post_count, :limit => 3, :order => 'id desc')
     @display = true
     else
     @display = false
@@ -23,24 +25,26 @@ class PostsController < ApplicationController
   
   def top_good
     @page = params[:page] ? Integer(params[:page]) : 0
-    if (@page * 1) <= Post.find(:all, :conditions => { :verified => true }).length
-    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @page * 1, :limit => 1, :order => 'total_good desc')
+    @post_count = params[:post_count] ? Integer(params[:post_count]) : 0
+    if (@post_count) < Post.find(:all, :conditions => { :verified => true }).length
+    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @post_count, :limit => 3, :order => 'total_good desc')
     @display = true
     else
     @display = false
     end
-    check_if_ajax 
+    check_if_ajax
   end
   
-  def top_bad
+  def top_bad    
     @page = params[:page] ? Integer(params[:page]) : 0
-    if (@page * 1) <= Post.find(:all, :conditions => { :verified => true }).length
-    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @page * 1, :limit => 1, :order => 'total_bad desc')
+    @post_count = params[:post_count] ? Integer(params[:post_count]) : 0
+    if (@post_count) < Post.find(:all, :conditions => { :verified => true }).length
+    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @post_count, :limit => 3, :order => 'total_bad desc')
     @display = true
     else
     @display = false
     end
-    check_if_ajax 
+    check_if_ajax
   end
 
   def create
@@ -108,14 +112,10 @@ class PostsController < ApplicationController
   end
 
   def vote_up
-    #check_if_ajax
     @post = Post.find(params[:id])
-    # @unique = "This-is-a-placeholder"
-    @unique = "random#{(1..10000).to_a.sample}"
+    @unique = "#{request.remote_ip}"
     
-    logger.info @unique
-    @post_vote = PostsVote.find(:all, :conditions => { :post_id => @post.id, :unique_identifier => @unique }, :limit => 1)
-    # @post_vote = PostsVote.find(:all, :conditions => ["post_id = #{@post.id}", "unique_identifier=#{@unique}"], :limit => 1)
+    @post_vote = PostsVote.where("post_id = ? AND unique_identifier = ? AND vote_good is not NULL AND vote_bad is not NULL", @post.id, @unique).limit(1)
     
     if @post_vote[0] != nil
       _postvote = @post_vote.first
@@ -134,22 +134,30 @@ class PostsController < ApplicationController
       PostsVote.create(post_id: params[:id], unique_identifier: @unique, vote_good: TRUE, vote_bad: FALSE)
       @post.total_good = @post.total_good + 1
       @post.total_tally = @post.total_tally + 1
+      cookies[:unique_resignako_id] = @unique
       
       @post.save
       
     end
-#    @post.total_good++
 
+    check_if_ajax
+  end
+
+  def update_vote_up
+    @post = Post.find(params[:id])
+    check_if_ajax
+  end
+  
+  def update_vote_down
+    @post = Post.find(params[:id])
     check_if_ajax
   end
 
   def vote_down
     @post = Post.find(params[:id])
-    # @unique = "This-is-a-placeholder"
-    @unique = "random#{(1..10000).to_a.sample}"
+    @unique = "#{request.remote_ip}"
     
-    @post_vote = PostsVote.find(:all, :conditions => { :post_id => @post.id, :unique_identifier => @unique }, :limit => 1)
-    # @post_vote = PostsVote.find(:all, :conditions => ["post_id = #{@post.id}", "unique_identifier=#{@unique}"], :limit => 1)
+    @post_vote = PostsVote.where("post_id = ? AND unique_identifier = ? AND vote_good is not NULL AND vote_bad is not NULL", @post.id, @unique).limit(1)
     
     if @post_vote[0] != nil
       _postvote = @post_vote.first
@@ -159,8 +167,8 @@ class PostsController < ApplicationController
         _postvote.vote_bad = TRUE
         _postvote.save
         
-        @post.total_bad = @post.total_good + 1
-        @post.total_good = @post.total_bad - 1
+        @post.total_bad = @post.total_bad + 1
+        @post.total_good = @post.total_good - 1
         
         @post.save
       end
@@ -168,6 +176,7 @@ class PostsController < ApplicationController
       PostsVote.create(post_id: params[:id], unique_identifier: @unique, vote_bad: TRUE, vote_good: FALSE)
       @post.total_bad = @post.total_bad + 1
       @post.total_tally = @post.total_tally + 1
+      cookies[:unique_resignako_id] = @unique
       
       @post.save
       
@@ -177,6 +186,18 @@ class PostsController < ApplicationController
   end
 
   def report
+    @post = Post.find(params[:id])
+    @unique = "#{request.remote_ip}"
+    
+    @post_vote = PostsVote.find(:all, :conditions => { :post_id => @post.id, :unique_identifier => @unique, :set_spam => true }, :limit => 1)
+    
+    if @post_vote[0] == nil
+      PostsVote.create(post_id: params[:id], unique_identifier: @unique, set_spam: TRUE)
+      @post.reported_spam = @post.reported_spam + 1
+      cookies[:unique_resignako_id] = @unique
+      
+      @post.save
+    end
   end
   
   def single

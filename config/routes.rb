@@ -59,6 +59,9 @@ Resignako::Application.routes.draw do
   
   match "posts/vote_up/:id", to: 'posts#vote_up', as: 'post_vote_up'
   match "posts/vote_down/:id", to: 'posts#vote_down', as: 'post_vote_down'
+  match "posts/update_vote_up/:id", to: 'posts#update_vote_up', as: 'post_update_vote_up'
+  match "posts/update_vote_down/:id", to: 'posts#update_vote_down', as: 'post_update_vote_down'
+  match "posts/report/:id", to: 'posts#report', as: 'post_report'
   
   match 'about' => 'company#about'
   #For Posts...

@@ -36,10 +36,17 @@
     </ul>    
     <div class="clear"></div>
     <div class="report-spam-area pull-right">
-      <a href="#">
+    <%
+    	@post_vote = PostsVote.find(:all, :conditions => { :post_id => @post.id, :unique_identifier => cookies[:unique_resignako_id], :set_spam => true }, :limit => 1)
+    	if @post_vote[0] == nil 
+    %>
+      <a href="#" post-id="<%= @post.id %>">
         <i class="icon-flag"></i>
         <span>Report as Spam</span>
       </a>
+    <%
+    	end
+    %>	
     </div>
     <div class="clear"></div>
   </div>

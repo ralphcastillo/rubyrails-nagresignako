@@ -4,10 +4,12 @@ NAGRESIGNAKO.posts.new = function() {
 	// Your js code for the cars controller here
 	var loading = false;
 	var page = 0;
+	var post_count = 0;
 
 	$(document).ready(function() {
 		bind_vote_down();
 		bind_vote_up();
+		bind_report_spam();
 	});
 
 	$(window).scroll(function() {
@@ -16,6 +18,7 @@ NAGRESIGNAKO.posts.new = function() {
 			$(document).trigger("posts.new.load-items");
 			bind_vote_up();
 			bind_vote_down();
+			bind_report_spam();
 		}
 	});
 
@@ -23,7 +26,8 @@ NAGRESIGNAKO.posts.new = function() {
 		$.ajax({
 			url : "/new",
 			data : {
-				page : ++page
+				page : ++page,
+				post_count : post_count += 3,
 			},
 			dataType : "html",
 			complete : function() {
@@ -57,10 +61,9 @@ NAGRESIGNAKO.posts.new = function() {
 				url : "/posts/vote_up/" + post_id,
 				data : {},
 				dataType : "html",
-				complete : function() {
-				},
 				success : function(data) {
 					$this.html(data);
+					$(document).trigger("posts.update.vote_down", [$this.siblings('.entry-item .entry-votes .btn.down'), post_id]);
 				}
 			});
 
@@ -77,10 +80,49 @@ NAGRESIGNAKO.posts.new = function() {
 				url : "/posts/vote_down/" + post_id,
 				data : {},
 				dataType : "html",
-				complete : function() {
-				},
 				success : function(data) {
 					$this.html(data);
+					$(document).trigger("posts.update.vote_up", [$this.siblings('.entry-item .entry-votes .btn.up'), post_id]);
+				}
+			});
+
+			return false;
+		});
+	}
+
+	$(document).bind("posts.update.vote_up", function(event, element, id) {
+		$.ajax({
+			url : "/posts/update_vote_up/" + id,
+			data : {},
+			dataType : "html",
+			success : function(data) {
+				element.html(data);
+			}
+		});
+	})
+
+	$(document).bind("posts.update.vote_down", function(event, element, id) {
+		$.ajax({
+			url : "/posts/update_vote_down/" + id,
+			data : {},
+			dataType : "html",
+			success : function(data) {
+				element.html(data);
+			}
+		});
+	})
+	bind_report_spam = function() {
+		$('.report-spam-area a').bind("click", function() {
+
+			var post_id = $(this).attr('post-id');
+			var $this = $(this);
+
+			$.ajax({
+				url : "/posts/report/" + post_id,
+				data : {},
+				dataType : "html",
+				success : function(data) {
+					$this.hide();
 				}
 			});
 
