@@ -27,7 +27,7 @@ NAGRESIGNAKO.posts.hot = function() {
 			url : "/hot",
 			data : {
 				page : ++page,
-				post_count : post_count += 3,
+				post_count : post_count += 10,
 			},
 			dataType : "html",
 			complete : function() {

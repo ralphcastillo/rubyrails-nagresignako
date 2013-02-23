@@ -27,7 +27,7 @@ NAGRESIGNAKO.posts.top_good = function() {
 			url : "/topgood",
 			data : {
 				page : ++page,
-				post_count : post_count += 3,
+				post_count : post_count += 10,
 			},
 			dataType : "html",
 			complete : function() {

@@ -3,7 +3,7 @@ class PostsController < ApplicationController
     @page = params[:page] ? Integer(params[:page]) : 0
     @post_count = params[:post_count] ? Integer(params[:post_count]) : 0
     if (@post_count) < Post.find(:all, :conditions => { :verified => true }).length
-    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @post_count, :limit => 3, :order => 'total_tally desc')
+    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @post_count, :limit => 10, :order => 'total_tally desc')
     @display = true
     else
     @display = false
@@ -15,7 +15,7 @@ class PostsController < ApplicationController
     @page = params[:page] ? Integer(params[:page]) : 0
     @post_count = params[:post_count] ? Integer(params[:post_count]) : 0
     if (@post_count) < Post.find(:all, :conditions => { :verified => true }).length
-    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @post_count, :limit => 3, :order => 'id desc')
+    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @post_count, :limit => 10, :order => 'id desc')
     @display = true
     else
     @display = false
@@ -27,7 +27,7 @@ class PostsController < ApplicationController
     @page = params[:page] ? Integer(params[:page]) : 0
     @post_count = params[:post_count] ? Integer(params[:post_count]) : 0
     if (@post_count) < Post.find(:all, :conditions => { :verified => true }).length
-    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @post_count, :limit => 3, :order => 'total_good desc')
+    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @post_count, :limit => 10, :order => 'total_good desc')
     @display = true
     else
     @display = false
@@ -39,7 +39,7 @@ class PostsController < ApplicationController
     @page = params[:page] ? Integer(params[:page]) : 0
     @post_count = params[:post_count] ? Integer(params[:post_count]) : 0
     if (@post_count) < Post.find(:all, :conditions => { :verified => true }).length
-    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @post_count, :limit => 3, :order => 'total_bad desc')
+    @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @post_count, :limit => 10, :order => 'total_bad desc')
     @display = true
     else
     @display = false
