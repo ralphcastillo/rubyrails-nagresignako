@@ -130,8 +130,10 @@ class PostsController < ApplicationController
         
         @post.save
       end
+      
+      @target_post_vote = _postvote
     else
-      PostsVote.create(post_id: params[:id], unique_identifier: @unique, vote_good: TRUE, vote_bad: FALSE)
+      @target_post_vote = PostsVote.create(post_id: params[:id], unique_identifier: @unique, vote_good: TRUE, vote_bad: FALSE)
       @post.total_good = @post.total_good + 1
       @post.total_tally = @post.total_tally + 1
       cookies[:unique_resignako_id] = @unique
@@ -144,12 +146,18 @@ class PostsController < ApplicationController
   end
 
   def update_vote_up
+    @unique = "#{request.remote_ip}"
     @post = Post.find(params[:id])
+    @target_post_vote = PostsVote.where("post_id = ? AND unique_identifier = ? ", @post.id, @unique).limit(1).first
+    
     check_if_ajax
   end
   
   def update_vote_down
+    @unique = "#{request.remote_ip}"
     @post = Post.find(params[:id])
+    @target_post_vote = PostsVote.where("post_id = ? AND unique_identifier = ? ", @post.id, @unique).limit(1).first
+    
     check_if_ajax
   end
 
@@ -172,8 +180,10 @@ class PostsController < ApplicationController
         
         @post.save
       end
+      
+      @target_post_vote = _postvote
     else
-      PostsVote.create(post_id: params[:id], unique_identifier: @unique, vote_bad: TRUE, vote_good: FALSE)
+      @target_post_vote = PostsVote.create(post_id: params[:id], unique_identifier: @unique, vote_bad: TRUE, vote_good: FALSE)
       @post.total_bad = @post.total_bad + 1
       @post.total_tally = @post.total_tally + 1
       cookies[:unique_resignako_id] = @unique

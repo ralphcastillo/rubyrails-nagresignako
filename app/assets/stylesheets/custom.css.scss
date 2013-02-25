@@ -84,11 +84,19 @@ footer {
   &:last-child { border-width: 0; }
   .entry-votes { text-align: center; position: relative;
     .voter-element {
-      margin-right: 5px;
-      
+      margin-right: 10px;
       background: none;
       border: none;
+      padding: 0;
       
+      &.btn {
+        &:active {
+          -webkit-box-shadow: none;
+          box-shadow: none;
+        }
+        
+        background: none;
+      }
       span {
         display: inline-block;
         vertical-align: top;

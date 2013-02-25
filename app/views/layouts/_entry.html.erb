@@ -14,11 +14,11 @@
     <div class="clear"></div>
   </div>
   <div class="entry-votes">
-    <button class="voter-element pull-left up" post-id="<%= @post.id %>">
+    <button class="voter-element pull-left btn up" post-id="<%= @post.id %>">
       <%= sprite_tag "upvote-inactive" %>
       <span><strong><%= @post.total_good %></strong></span>
     </button>
-    <button class="voter-element pull-left down" post-id="<%= @post.id %>">
+    <button class="voter-element pull-left btn down" post-id="<%= @post.id %>">
       <%= sprite_tag "downvote-inactive" %>
       <span><strong><%= @post.total_bad %></strong></span>
     </button>

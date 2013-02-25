@@ -1,2 +1,2 @@
-<i class="icon-hand-up"></i>
-<span>Right way to do it <strong><%= @post.total_good %></strong></span>
+<%= sprite_tag @target_post_vote.vote_good ? "upvote-active" : "upvote-inactive" %> 
+<span><strong><%= @post.total_good %></strong></span>

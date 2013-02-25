@@ -1,2 +1,2 @@
-<i class="icon-hand-down"></i>
-<span>Wrong way to do it <strong><%= @post.total_bad %></strong></span>
+<%= sprite_tag @target_post_vote.vote_bad ? "downvote-active" : "downvote-inactive" %> 
+<span><strong><%= @post.total_bad %></strong></span>
