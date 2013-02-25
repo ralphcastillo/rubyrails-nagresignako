@@ -35,6 +35,7 @@
 body, header { text-align: center; }
 body {
   background-image: url(/assets/base/bg.jpg);
+  padding-bottom: 100px;
 }
 .clear { clear: both; }
 
@@ -49,8 +50,13 @@ footer, header > div.navbar-inner, #page-container {
   width: 1027px;
 }
 
+#page-container { margin-top: -4px; }
+
 footer {
   width: 100%;
+  nav {
+    width: 294px;
+  }
 }
 .navbar-banner > .navbar-inner {
   background: none;
@@ -60,14 +66,38 @@ footer {
 
 /* ENTRY AREA */
 .entry-item {
-  padding: 22px 0;
-  border: 1px dotted lightgray;
+  padding: 20px;
   border-width: 0 0 1px;
-
+  background-color: white;
+  margin-bottom: 20px;
+  
+  .entry-header-area {
+    border: 1px solid #bed9d4;
+    border-width: 0 0 2px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+  }
+  .user-source-data {
+    margin: 10px 0;
+  }
+  
   &:last-child { border-width: 0; }
-  .entry-votes { text-align: center; 
+  .entry-votes { text-align: center; position: relative;
     .voter-element {
       margin-right: 5px;
+      
+      background: none;
+      border: none;
+      
+      span {
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 9px;
+        
+        strong {
+          font-weight: normal !important;
+        }
+      } 
     }
     
     ul.like-buttons{
@@ -84,7 +114,13 @@ footer {
     }
   }
   
-  .timestamp-area, .report-spam-area { visibility: hidden; font-size: 12px; margin-top: 5px;}
+  .timestamp-area, .report-spam-area { visibility: hidden; font-size: 12px; 
+      margin-top: 5px;
+   }
+   .report-spam-area { position: absolute;
+      right: -12px;
+      bottom: -14px;
+    }
   .timestamp-area { color: gray; }
   &:hover .report-spam-area,
   &:hover .timestamp-area { visibility: visible; }
@@ -93,6 +129,8 @@ footer {
 }
 /* HEADER */
 header.navbar-banner {
+  margin-bottom: 0px;
+  
   #logo {
     display: inline-block;
     img {
@@ -100,11 +138,16 @@ header.navbar-banner {
       margin-left: 18px;
       margin-top: 50px;
     }
- }
-
-  nav {
+    
+  }
+  
+  .navbar-inner .container {
+     position: relative;
+  }
+  
+  nav#main-nav-area {
     display: inline-block;
-    width: 690px;
+    width: 678px;
     height: 52px;
     
     ul { width: 100%; 
@@ -122,7 +165,18 @@ header.navbar-banner {
       }
     }
   }
- 
+  
+  nav#hot-top-items {
+    position: absolute;
+    bottom: -123px;
+    left: -137px;
+
+    ul {
+      list-style-type: none;
+      li { margin-bottom: 10px;}
+    }
+  }
+  
 }
 
 header.navbar-scrolled { /* This is the fixed nav bar */
@@ -255,6 +309,11 @@ footer {
   margin-bottom: 20px;
 }
 
+#twitter-sidebar-area {
+  width: 294px;
+  margin-top:20px;
+}
+
 /**/
 
 .controls-row [class*=span] {
@@ -275,4 +334,17 @@ footer {
 
 .error-validation {
   @include bordered(red, dotted, 0, 0, 0, 1px);
+}
+
+
+/* For container fluid*/
+.container-fluid {
+  padding: 0;
+}
+
+/* ABOUT US
+ */
+div.info-pages {
+  background-color: #fbf4df;
+  padding: 10px;
 }

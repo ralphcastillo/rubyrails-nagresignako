@@ -5,6 +5,13 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+
+  <%# Open Graph Metas %>
+    
+  <meta property="og:image" content="http://<%= request.host_with_port %>/assets/boy.png"/>
+  <meta property="og:title" content="NagResignAko"/>
+  <meta property="og:description" content="Information about NagResignAko" />
+
 </head>
 <body data-controller="<%= controller_name %>" data-action="<%= action_name %>">
 <%= render 'layouts/header'%>

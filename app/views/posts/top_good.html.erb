@@ -4,7 +4,6 @@
 
 <% if !@is_ajax %>
   <div id="new-entries-container">
-    <h1>Top Good Items</h1>
 <% else %>
     <div class="entry-line-adverts">
         <%= link_to (image_tag load_advert "scrolling-advert-#{(@page % 5) + 1}", "http://placehold.it/651x85"), "http://www.freelancer.com" %>

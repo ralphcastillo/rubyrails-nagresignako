@@ -16,4 +16,12 @@ module ApplicationHelper
   def is_submit?
     action_name == "submit"
   end
+  
+  def is_topgood?
+    action_name == "top_good"
+  end
+  
+  def is_topbad?
+    action_name == "top_bad"
+  end
 end

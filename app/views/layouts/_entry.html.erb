@@ -10,17 +10,17 @@
     <%= @post.entry %>    
   </div>
   <div class="user-source-data">
-    <h4 class="user-name pull-right"><%= @post.name %>, <%= @post.age %>, <%= @post.former_job %></h4>
+    <h4 class="user-name pull-right">- <%= @post.name %>, <%= @post.age %>, <%= @post.former_job %></h4>
     <div class="clear"></div>
   </div>
   <div class="entry-votes">
-    <button class="voter-element btn btn-small pull-left up" post-id="<%= @post.id %>">
-      <i class="icon-hand-up"></i>
-      <span>Right way to do it <strong><%= @post.total_good %></strong></span>
+    <button class="voter-element pull-left up" post-id="<%= @post.id %>">
+      <%= sprite_tag "upvote-inactive" %>
+      <span><strong><%= @post.total_good %></strong></span>
     </button>
-    <button class="voter-element btn btn-small pull-left down" post-id="<%= @post.id %>">
-      <i class="icon-hand-down"></i>
-      <span>Wrong way to do it <strong><%= @post.total_bad %></strong></span>
+    <button class="voter-element pull-left down" post-id="<%= @post.id %>">
+      <%= sprite_tag "downvote-inactive" %>
+      <span><strong><%= @post.total_bad %></strong></span>
     </button>
     
     <ul class="like-buttons">

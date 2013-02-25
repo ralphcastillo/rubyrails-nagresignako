@@ -3,13 +3,13 @@
         <div class="container">
           <%= link_to (image_tag "base/header.png"), root_url, id: "logo" %>
 
-          <nav>
+          <nav id="main-nav-area">
             <ul class="nav pull-left">
               <li class="new-nav-item">
                 <%= link_to (sprite_tag is_new? ? "new-active" : "new-inactive"),   new_path, class: "hd-link-item new-path" %>
               </li>
               <li class="hot-nav-item">
-                <%= link_to (sprite_tag is_hot? ? "hot-active" : "hot-inactive"),    hot_path, class: "hd-link-item hot-path" %>
+                <%= link_to (sprite_tag (is_hot? || is_topgood? || is_topbad?) ? "hot-active" : "hot-inactive"),    hot_path, class: "hd-link-item hot-path" %>
               </li>
               <%# li><%= link_to "Top Good",    topgood_path, class: "hd-link-item hot-path" </li> %>
               <%# li><%= link_to "Top Bad",    topbad_path, class: "hd-link-item hot-path" </li>%>
@@ -18,6 +18,18 @@
               </li>
             </ul>
           </nav>
+          <% if is_hot? or is_topgood? or is_topbad? %>
+          <nav id="hot-top-items"> 
+          	<ul>
+          		<li>
+          			<%= link_to (sprite_tag is_topgood? ? "topgood-active" : "topgood-inactive"), topgood_path, class: "hd-link-item topgood-path" %>
+          		</li>
+          		<li>
+          			<%= link_to (sprite_tag is_topbad? ? "topbad-active" : "topbad-inactive"), topbad_path, class: "hd-link-item topbad-path" %>
+          		</li>
+          	</ul>
+          </nav>
+          <% end %>
         </div>
       </div>
     </header>

@@ -1,7 +1,7 @@
-@mixin dim($width, $height, $top, $left) {
+@mixin dim($width, $height, $left, $top) {
   width: $width;  
   height: $height;
-  background-position: $top $left;
+  background-position: $left $top;
 }
 
 i.resign-sprite { 
@@ -12,9 +12,19 @@ i.resign-sprite {
   &.submit-active { @include dim(108px, 52px, 0, 0); }
   &.hot-active {@include dim(109px, 52px, 0, -52px);  }
   &.new-active {@include dim(109px, 52px, 0, -105px);  }
+  &.topgood-active { @include dim(112px, 44px, -332px, -100px); }
+  &.topbad-active { @include dim(112px, 44px, -219px, -100px); }
   
   &.submit-inactive { @include dim(108px, 43px, -110px, 0); }
   &.hot-inactive { @include dim(108px, 43px, -110px, -88px); }
   &.new-inactive { @include dim(108px, 43px, -110px, -44px); }
+  &.topgood-inactive { @include dim(112px, 44px, -332px, -55px); }
+  &.topbad-inactive { @include dim(112px, 44px, -219px, -55px); }
+  
+  &.downvote-active { @include dim(133px, 27px, -219px, 0px); }
+  &.downvote-inactive { @include dim(133px, 27px, -219px, -27px); }  
+  
+  &.upvote-active { @include dim(116px, 27px, -353px, 0px); }
+  &.upvote-inactive { @include dim(116px, 27px, -353px, -27px); }  
 }
 
