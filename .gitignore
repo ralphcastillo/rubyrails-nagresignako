@@ -21,3 +21,5 @@ db/development.sqlite3
 *.orig
 
 *.gitkeep
+
+.project
