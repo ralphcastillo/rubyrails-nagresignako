@@ -1,3 +1,32 @@
 // Place all the styles related to the contact_form controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#new_contact_form {
+  margin-top: 10px;
+  #contact-form-container {
+    .form-field {
+      margin-bottom: 10px;
+      input {
+        margin: 0;
+        width: 74.46809%;
+      }
+      
+      textarea {
+        width: 74.46809%;
+      }
+    }
+    
+    &:last-child {
+      text-align: center;
+      
+      button.btn-submit {
+        background: #01BDE6;
+        color: #FFFFFF;
+        &:hover {
+          background: #02a0c2;
+        }
+      }
+    }
+  }
+}

@@ -2,20 +2,23 @@
 <p id="notice"><%= notice %></p>
 <% end %>
 
-<h1>ContactForm</h1>
+<h1>MAY GUSTO KA PANG SABIHIN NO?</h1>
 <%= form_for @contact_form, :url => url_for(:action => 'create') do |f| %>
 <div id="contact-form-container">
 	<div class="form-field">
-		<div class="form-field-input"><input type="text" name="contact_form[name]" placeholder="Name" /></div>
+		<div style="width: 100px; text-align: right; display: inline-block;">Your Name</div>
+		<input type="text" name="contact_form[name]" />
 	</div>
 	<div class="form-field">
-		<div class="form-field-input"><input type="text" name="contact_form[email]" placeholder="Email" /></div>
+		<div style="width: 100px; text-align: right; display: inline-block;">Your E-mail</div>
+		<input type="text" name="contact_form[email]" />
 	</div>
 	<div class="form-field">
-		<textarea rows="5" name="contact_form[message]" placeholder="Enter your text here"></textarea>
+		<div style="width: 100px; text-align: right; display: inline-block;">Ano gusto mo sabihin?</div>
+		<textarea rows="5" name="contact_form[message]" ></textarea>
 	</div>
 	<div class="form-field">
-		<button id="submit-feedback" class="btn btn-small btn-primary pull-right">
+		<button id="submit-feedback" class="btn btn-submit">
       		Submit
     	</button>
 	</div>
