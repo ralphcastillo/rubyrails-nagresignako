@@ -2,8 +2,14 @@ class PostsController < ApplicationController
   def hot    
     @page = params[:page] ? Integer(params[:page]) : 0
     @post_count = params[:post_count] ? Integer(params[:post_count]) : 0
-    if (@post_count) < Post.find(:all, :conditions => { :verified => true }).length
+    @total_count = Post.find(:all, :conditions => { :verified => true }).length
+    if (@post_count) < @total_count
     @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @post_count, :limit => 10, :order => 'total_tally desc')
+    
+    @post_votes_bad = PostsVote.find(:all, :conditions => { :unique_identifier => cookies[:unique_resignako_id], :vote_bad => true })
+    @post_votes_good = PostsVote.find(:all, :conditions => { :unique_identifier => cookies[:unique_resignako_id], :vote_good => true })
+    @post_votes_spam = PostsVote.find(:all, :conditions => { :unique_identifier => cookies[:unique_resignako_id], :set_spam => true })
+    
     @display = true
     else
     @display = false
@@ -14,8 +20,14 @@ class PostsController < ApplicationController
   def new
     @page = params[:page] ? Integer(params[:page]) : 0
     @post_count = params[:post_count] ? Integer(params[:post_count]) : 0
-    if (@post_count) < Post.find(:all, :conditions => { :verified => true }).length
+    @total_count = Post.find(:all, :conditions => { :verified => true }).length
+    if (@post_count) < @total_count
     @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @post_count, :limit => 10, :order => 'id desc')
+    
+    @post_votes_bad = PostsVote.find(:all, :conditions => { :unique_identifier => cookies[:unique_resignako_id], :vote_bad => true })
+    @post_votes_good = PostsVote.find(:all, :conditions => { :unique_identifier => cookies[:unique_resignako_id], :vote_good => true })
+    @post_votes_spam = PostsVote.find(:all, :conditions => { :unique_identifier => cookies[:unique_resignako_id], :set_spam => true })
+    
     @display = true
     else
     @display = false
@@ -26,8 +38,14 @@ class PostsController < ApplicationController
   def top_good
     @page = params[:page] ? Integer(params[:page]) : 0
     @post_count = params[:post_count] ? Integer(params[:post_count]) : 0
-    if (@post_count) < Post.find(:all, :conditions => { :verified => true }).length
+    @total_count = Post.find(:all, :conditions => { :verified => true }).length
+    if (@post_count) < @total_count
     @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @post_count, :limit => 10, :order => 'total_good desc')
+    
+    @post_votes_bad = PostsVote.find(:all, :conditions => { :unique_identifier => cookies[:unique_resignako_id], :vote_bad => true })
+    @post_votes_good = PostsVote.find(:all, :conditions => { :unique_identifier => cookies[:unique_resignako_id], :vote_good => true })
+    @post_votes_spam = PostsVote.find(:all, :conditions => { :unique_identifier => cookies[:unique_resignako_id], :set_spam => true })
+    
     @display = true
     else
     @display = false
@@ -38,8 +56,14 @@ class PostsController < ApplicationController
   def top_bad    
     @page = params[:page] ? Integer(params[:page]) : 0
     @post_count = params[:post_count] ? Integer(params[:post_count]) : 0
-    if (@post_count) < Post.find(:all, :conditions => { :verified => true }).length
+    @total_count = Post.find(:all, :conditions => { :verified => true }).length
+    if (@post_count) < @total_count
     @posts = Post.find(:all, :conditions => { :verified => true }, :offset => @post_count, :limit => 10, :order => 'total_bad desc')
+    
+    @post_votes_bad = PostsVote.find(:all, :conditions => { :unique_identifier => cookies[:unique_resignako_id], :vote_bad => true })
+    @post_votes_good = PostsVote.find(:all, :conditions => { :unique_identifier => cookies[:unique_resignako_id], :vote_good => true })
+    @post_votes_spam = PostsVote.find(:all, :conditions => { :unique_identifier => cookies[:unique_resignako_id], :set_spam => true })
+    
     @display = true
     else
     @display = false
@@ -47,47 +71,45 @@ class PostsController < ApplicationController
     check_if_ajax
   end
 
-  def create
+   def create
     @post = Post.new(params[:post])
-    
+
     @via = params[:via]
     if @via == 'fb'
-      
-        if @post.save
-          session[:post_id] = @post.id
-          redirect_to client.authorization.authorize_url(:redirect_uri => "http://#{request.host_with_port}/posts/callback/" ,
+
+      if @post.save
+        session[:post_id] = @post.id
+        redirect_to client.authorization.authorize_url(:redirect_uri => "http://#{request.host_with_port}/posts/callback/" ,
       :client_id => '488599381199316',:scope => 'email')
-        else
-          respond_to do |format|
-          format.html  { render :action => "submit" }
-          format.json  { render :json => @post.errors,
-                      :status => :unprocessable_entity }
-          end
+      else
+        respond_to do |format|
+          flash[:error] = @post.errors
+          format.html  { redirect_to :action => "submit" }
         end
-      
+      end
+
     else
       @users = User.where("email = ?", params[:email])
-    
+
       if @users.count < 1
         @user = User.new
         @user.email = params[:email]
-        @user.save
+      @user.save
       else
         @user = @users[0]
       end
-      
+
       @post.user_id = @user.id
       @post.permalink = Digest::MD5.hexdigest(@user.email + '' + Date.today.to_formatted_s(:db))
-      
+
       respond_to do |format|
         if @post.save
-          UserMailer.verify_user(@user, @post, "http://#{request.host_with_port}/posts/verify").deliver        
-          flash[:notice] = 'Please check your mail to verify your post. Thank you for posting.'
-          format.html  { redirect_to :action => "new" } 
+          UserMailer.verify_user(@user, @post, "http://#{request.host_with_port}/posts/verify").deliver
+          flash[:notice] = 'Verification email sent. This post will be visible upon verification. Go to <a href="/">Homepage</a>.'
+          format.html  { redirect_to :action => "new" }
         else
-          format.html  { render :action => "submit" }
-          format.json  { render :json => @post.errors,
-                      :status => :unprocessable_entity }
+          flash[:error] = @post.errors
+          format.html  { redirect_to :action => "submit" }
         end
       end
     end
@@ -100,6 +122,7 @@ class PostsController < ApplicationController
       if @posts.count > 0
         @posts[0].verified = true
         @posts[0].save
+        flash[:notice] = 'Thank you for posting. Go to <a href="/">Homepage</a>.'
         format.html  { redirect_to :action => "single", :hash => @posts[0].permalink }
       else
         not_found
@@ -261,8 +284,8 @@ class PostsController < ApplicationController
     
     respond_to do |format|
       if @post.save        
-        flash[:notice] = 'Thank you for posting.'
-        format.html  { redirect_to :action => "new" } 
+        flash[:notice] = 'Thank you for posting. Go to <a href="/">Homepage</a>.'
+        format.html  { redirect_to :action => "single", :hash => @post.permalink } 
       else
         format.html  { render :action => "submit" }
         format.json  { render :json => @post.errors,

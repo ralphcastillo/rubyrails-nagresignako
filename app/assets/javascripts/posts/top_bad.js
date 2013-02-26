@@ -23,6 +23,7 @@ NAGRESIGNAKO.posts.top_bad = function() {
 	});
 
 	$(document).bind("posts.new.load-items", function() {
+		if(post_count < parseInt($(document).find('#new-entries-container').attr('total-count'))){
 		$.ajax({
 			url : "/topbad",
 			data : {
@@ -50,6 +51,9 @@ NAGRESIGNAKO.posts.top_bad = function() {
 
 			}
 		});
+		}else{
+			$(document).find('#end-of-file').show();
+		}
 	})
 	bind_vote_up = function() {
 		$('.entry-item .entry-votes .btn.up').bind("click", function() {

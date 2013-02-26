@@ -1,59 +1,76 @@
-<h1>Submit Entry</h1>
-<p>Share the reason why you resigned from your previous job!</p>
+
+<% if flash[:error] %>
+<div style="background-color: #F0F0F0; border: 2px solid #FF1E00">
+<h4 style="background-color: #CD1500; color: #FFFFFF; padding: 5px;">There were problems with the following field(s):</h4>
+<ul style="padding-top: 5px;">
+<% flash[:error].full_messages.each do |message| %>
+<li><%=message%></li>
+<% end %>
+</ul>
+</div>
+<% end %>
+
+<p>Hate your old job? Want the world to know why it sucks? Nangangati ka na to send a word of warning sa lahat? Fill out the form below and tell us why your ex-job is the worst. BUT FOLLOW THE RULES, OKAY?</p>
+<ol>
+<li>Don't mention any ex-company/boss/officemate's name. (Clues are okay.)</li>
+<li>Don't be vulgar. (Censor yours if, please.)</li>
+<li>THAT'S IT</li>
+</ol>
+
+<br />
+
 <!-- <form id="submit-form-area" method="POST" action="/posts/create"> -->
 <%= form_for @post, :url => url_for(:action => 'create') do |f| %>
 <div id="form-proper">
   <div class="controls controls-row">
-    <input class="span7" type="text" name="post[name]" placeholder="Name"/>
-    <input class="span2" type="text" name="post[age]" placeholder="Age"/>
-  </div>
-  <div class="controls controls-row">
-    <input class="span9" type="text" name="post[former_job]" placeholder="Previous Job"/>
+  	<div style="width: 100px; text-align: right; display: inline-block;">Your Name</div>
+  	<input class="span7" type="text" name="post[name]"/>
   </div>
   
   <div class="controls controls-row">
-    <input class="span11" type="text" name="post[title]" placeholder="Title"/>
+    <div style="width: 100px; text-align: right; display: inline-block;">Age</div>
+    <input class="span2" type="text" name="post[age]"/>
+  </div>
+  
+  <div class="controls controls-row">
+  	<div style="width: 100px; text-align: right; display: inline-block;">Your Ex-Job</div>
+    <input class="span9" type="text" name="post[former_job]"/>
+  </div>
+  
+  <div class="controls controls-row">
+  	<div style="width: 100px; text-align: right; display: inline-block;">Story Title</div>
+    <input class="span11" type="text" name="post[title]"/>
   </div>
   
   
   <div class="controls">
-    <textarea rows="5" name="post[entry]" placeholder="Why you resigned"></textarea>
+  	<div style="width: 100px; text-align: right; display: inline-block;">Why You Quit Your Job</div>
+    <textarea maxlength="1000" rows="5" name="post[entry]"></textarea>
   </div>
   <div id="submission-area">
-    <div id="character-count-area" class="pull-left">
-      <span id="actual-counter">200</span>
+    <!-- <div id="character-count-area" class="pull-left">
+      <span id="actual-counter">1000</span>
       <span>Character/s left.</span>
-    </div>
-    <button id="submit-entry" class="btn btn-small btn-primary pull-right">
+    </div> -->
+    <button id="submit-entry" class="btn btn-submit">
       Submit
     </button>
     <div class="clear"></div>
   </div>
-  <div id="etiquette-area">
-    <h3>Etiquette</h3>
-    <ul>
-    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tincidunt eros nec ante eleifend id </li>
-    <li>Malesuada nulla tempus. Sed eget magna sed enim rhoncus aliquet. </li>
-    <li>Ut eleifend tristique mauris dignissim malesuada. Mauris eleifend, metus ac malesuada commodo.</li>
-    <li>Enim magna ultrices massa, id auctor neque lorem ut diam. </li>
-    <li>Integer eget tortor et nunc hendrerit aliquet id non nunc. </li>
-    <li>Duis suscipit, augue vitae eleifend tristique, lacus tellus mattis enim, vel rhoncus nibh neque vel arcu. </li>
-    <li>Phasellus ac nisl turpis, sit amet accumsan sapien. </li>
-    <li>Vivamus enim ante, tempus eu consequat a, luctus suscipit ante. </li>                
-    </ul>
-  </div>
   <div id="verification-dialog">
-    <div id="verify-facebook" class="verify-dialog-item pull-left">
-      <h3>Verify with Facebook</h3>
-      <button class="btn btn-info">Verify with Facebook</button>
-    </div>
-    <div id="verify-email" class="verify-dialog-item pull-left">
-      <h3>Verify with Email</h3>
+  	<div id="verify-email" class="verify-dialog-item pull-left">
+      <p><strong>CONFIRM YOUR SUBMISSION VIA E-MAIL</strong></p>
+      <p>Check your e-mail to confirm your entry.</p>
       <!-- <form> -->
         <div class="input-append">
-          <input type="text" class="span3" name="email" placeholder="Email"><button class="btn" type="button">Submit</button>
+          <div style="text-align: right; display: inline-block;">Your E-mail</div>
+          <input type="text" class="span3" name="email">
+          <button class="btn" type="button">SUBMIT</button>
         </div>
       <!-- </form> -->
+    </div>
+    <div id="verify-facebook" class="verify-dialog-item pull-left">
+      <button class="btn btn-info">Verify with Facebook</button>
     </div>
   </div>
 </div>

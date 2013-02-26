@@ -4,8 +4,8 @@ NAGRESIGNAKO.posts.submit = function (){
   $("#verification-dialog").dialog({
     autoOpen: false,
     modal: true,
-    title: "Verification Dialog",
-    width: 660,
+    title: "LAST NA 'TO! Final step before we post your story:",
+    width: 760,
     open: function() {
       $("input[name='email']").focus();
     }
@@ -28,5 +28,12 @@ NAGRESIGNAKO.posts.submit = function (){
   	$('<input>').attr({type: 'hidden', name: 'email', value: email}).appendTo("#new_post");
   	$('<input>').attr({type: 'hidden', name: 'via', value: 'email'}).appendTo("#new_post");
   	$("#new_post").submit();
+  });
+  
+  $('#form-proper textarea').bind("input propertychange", function(){
+  	var length = $('#form-proper textarea').val().length;
+  	var maxlength = parseInt($('#form-proper textarea').attr("maxlength"));
+  	
+  	$('#submission-area #character-count-area #actual-counter').html(maxlength - length);
   });
 };

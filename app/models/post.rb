@@ -25,6 +25,12 @@ class Post < ActiveRecord::Base
                   :total_good, :total_tally, :user, 
                   :verified, :entry,
                   :queued
+            
+  validates :name, :presence => true
+  validates :age, :presence => true
+  validates :former_job, :presence => true
+  validates :title, :presence => true
+  validates :entry, :presence => true
                   
   #Set a permalink based on the timestamp before sending
   before_save do

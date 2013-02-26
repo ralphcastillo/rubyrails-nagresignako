@@ -23,33 +23,38 @@ NAGRESIGNAKO.posts.new = function() {
 	});
 
 	$(document).bind("posts.new.load-items", function() {
-		$.ajax({
-			url : "/new",
-			data : {
-				page : ++page,
-				post_count : post_count += 10,
-			},
-			dataType : "html",
-			complete : function() {
-			},
-			success : function(data) {
-				$("#new-entries-container").append(data);
-				loading = false;
-
-				var new_div = $("<div/>").attr("id", "new-information").append(data);
-				$("body").append(new_div);
-
-				try {
-					FB.XFBML.parse(document.getElementById("new-information"), function() {
-					});
-				} catch(ex) {
+		if(post_count < parseInt($(document).find('#new-entries-container').attr('total-count'))){
+			$.ajax({
+				url : "/new",
+				data : {
+					page : ++page,
+					post_count : post_count += 10,
+				},
+				dataType : "html",
+				complete : function() {
+				},
+				success : function(data) {
+					$("#new-entries-container").append(data);
+					loading = false;
+	
+					var new_div = $("<div/>").attr("id", "new-information").append(data);
+					$("body").append(new_div);
+	
+					try {
+						FB.XFBML.parse(document.getElementById("new-information"), function() {
+						});
+					} catch(ex) {
+					}
+	
+					$("#hot-entries-container").append($("#new-information").html())
+					new_div.remove();
+	
 				}
-
-				$("#hot-entries-container").append($("#new-information").html())
-				new_div.remove();
-
-			}
-		});
+			});
+		}else{
+			$(document).find('#end-of-file').show();
+		}
+		
 	})
 	bind_vote_up = function() {
 		$('.entry-item .entry-votes .btn.up').bind("click", function() {
@@ -75,6 +80,9 @@ NAGRESIGNAKO.posts.new = function() {
 
 			var post_id = $(this).attr('post-id');
 			var $this = $(this);
+
+			// var current_value = parseInt($this.find('span strong').html());
+			// $this.find('span strong').html(++current_value);
 
 			$.ajax({
 				url : "/posts/vote_down/" + post_id,

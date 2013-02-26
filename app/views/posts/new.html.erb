@@ -4,7 +4,7 @@
 <% end %>
 
 <% if !@is_ajax %>
-  <div id="new-entries-container">
+  <div id="new-entries-container" total-count="<%=@total_count%>">
 <% else %>
     <div class="entry-line-adverts">
         <%= link_to (image_tag load_advert "scrolling-advert-#{(@page % 5) + 1}", "http://placehold.it/651x85"), "http://www.freelancer.com" %>
@@ -23,4 +23,10 @@
 <% if !@is_ajax %>
   </div>
 <% end %>
+<% end %>
+
+<% if @is_ajax %>
+<div id="end-of-file">
+	No more older posts
+</div>
 <% end %>

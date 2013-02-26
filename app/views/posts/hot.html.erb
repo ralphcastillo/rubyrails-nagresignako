@@ -1,6 +1,6 @@
 <% if @display %>
 <% if !@is_ajax %>
-  <div id="hot-entries-container">
+  <div id="hot-entries-container" total-count="<%=@total_count%>">
 <% else %>
     <div class="entry-line-adverts">
       <%= link_to (image_tag load_advert "scrolling-advert-#{(@page % 5) + 1}", "http://placehold.it/651x85"), "http://www.freelancer.com" %>
@@ -8,12 +8,20 @@
 <% end %>
 
 <div id="hot-entries-area">
+<% unless @posts.nil? %>
 <% @posts.each do |post| @post = post %>
   <%= render 'layouts/entry', post: post %>
+<% end %>
 <% end %>
 </div>
 
 <% if !@is_ajax %>
   </div>
 <% end %>
+<% end %>
+
+<% if @is_ajax %>
+<div id="end-of-file">
+	No more older posts
+</div>
 <% end %>

@@ -7,7 +7,7 @@
     <div class="clear"></div>
   </div>
   <div class="user-post">
-    <%= @post.entry %>    
+    <%= simple_format(@post.entry) %>    
   </div>
   <div class="user-source-data">
     <h4 class="user-name pull-right">- <%= @post.name %>, <%= @post.age %>, <%= @post.former_job %></h4>
@@ -15,11 +15,24 @@
   </div>
   <div class="entry-votes">
     <button class="voter-element pull-left btn up" post-id="<%= @post.id %>">
-      <%= sprite_tag "upvote-inactive" %>
+      <%
+      	@postVote = PostsVote.new
+      	@postVote.unique_identifier = cookies[:unique_resignako_id]
+      	@postVote.vote_good = true
+      	@postVote.post_id = @post.id
+      %>
+      
+      <%= sprite_tag @post_votes_good.include?(@postVote) ? "upvote-active" : "upvote-inactive" %>
       <span><strong><%= @post.total_good %></strong></span>
     </button>
     <button class="voter-element pull-left btn down" post-id="<%= @post.id %>">
-      <%= sprite_tag "downvote-inactive" %>
+      <%
+      	@postVote = PostsVote.new
+      	@postVote.unique_identifier = cookies[:unique_resignako_id]
+      	@postVote.vote_bad = true
+      	@postVote.post_id = @post.id
+      %>
+      <%= sprite_tag @post_votes_bad.include?(@postVote) ? "downvote-active" : "downvote-inactive" %>
       <span><strong><%= @post.total_bad %></strong></span>
     </button>
     
@@ -37,8 +50,11 @@
     <div class="clear"></div>
     <div class="report-spam-area pull-right">
     <%
-    	@post_vote = PostsVote.find(:all, :conditions => { :post_id => @post.id, :unique_identifier => cookies[:unique_resignako_id], :set_spam => true }, :limit => 1)
-    	if @post_vote[0] == nil 
+    	@postVote = PostsVote.new
+      	@postVote.unique_identifier = cookies[:unique_resignako_id]
+      	@postVote.vote_bad = true
+      	@postVote.post_id = @post.id
+    	if @post_votes_spam.include?(@postVote) == nil 
     %>
       <a href="#" post-id="<%= @post.id %>">
         <i class="icon-flag"></i>

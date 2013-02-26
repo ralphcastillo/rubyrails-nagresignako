@@ -7,3 +7,29 @@
   background-color: lightblue;
   padding: 10px 5px;
 }
+
+#page-container {
+  .container-fluid {
+    .row-fluid{
+      .span8 {
+        padding: 20px 15px 20px;
+        background: #fbf4df;
+      }
+      
+      #form-proper {
+        .controls-row {
+          margin-bottom: 10px;
+          
+          input[type=text] {
+            margin-bottom: 0;
+            width: 74.46809%;
+          }
+        }
+        
+        textarea {
+          width: 73%;
+        }
+      }
+    }
+  }
+}
