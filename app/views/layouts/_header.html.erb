@@ -37,11 +37,10 @@
     <%# This header will be invisible until user scrolls down%>
     <header class="navbar navbar-scrolled navbar-fixed-top">
       <div class="navbar-inner">
-        <%= link_to "Logo Area", new_path, class: "brand" %>
         <ul class="nav">
           <li class="<%=  "active" if action_name == "new" %>"><%= link_to "New", new_path%></li>
           <li class="<%=  "active" if action_name == "hot" %>"><%= link_to "Hot", hot_path%></li>
-          <li class="<%=  "active" if action_name == "submit" %>"><%= link_to "Submit", submit_path%></li>
+          <li class="pull-right <%=  "active" if action_name == "submit" %>"><%= link_to "Submit", submit_path%></li>
         </ul>  
       </div>
     </header>

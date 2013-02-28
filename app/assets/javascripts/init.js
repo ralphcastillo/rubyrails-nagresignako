@@ -26,12 +26,12 @@ NAGRESIGNAKO.common.init = function (){
   });
   
   $(document).bind("common.show.hiddencontrols", function() {
-    $("header.navbar-scrolled").animate({marginTop: "+=43"}, "fast");
+    $("header.navbar-scrolled").animate({marginTop: "+=40"}, "fast");
     $("footer.scroll-to-top-area").animate({marginBottom: "+=62"}, "fast");
   });
   
   $(document).bind("common.hide.hiddencontrols", function() {
-    $("header.navbar-scrolled").animate({marginTop: "-=43"}, "fast");
+    $("header.navbar-scrolled").animate({marginTop: "-=40"}, "fast");
     $("footer.scroll-to-top-area").animate({marginBottom: "-=62"}, "fast");
   })
 }

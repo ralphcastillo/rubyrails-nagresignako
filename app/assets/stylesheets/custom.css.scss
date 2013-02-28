@@ -1,5 +1,7 @@
 @import "bootstrap";
 
+$nsa_blue: #00bde6;
+$nsa_light_blue: #5cd4ef;
 @mixin radius($topleft, $topright: $topleft, $bottomright: $topleft, $bottomleft: $topleft) {
   -moz-border-radius: $topleft $topright $bottomright $bottomleft;
   -webkit-border-radius:          $topleft $topright $bottomright $bottomleft;
@@ -23,6 +25,18 @@
     -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
     -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+}
+
+@mixin noBackground() {
+    background-color: none;
+    background-image: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    
+    background-color: transparent;
+    border: none;
 }
 
 @mixin chosenWhiteBG() {
@@ -188,32 +202,42 @@ header.navbar-banner {
 }
 
 header.navbar-scrolled { /* This is the fixed nav bar */
-  margin-top: -43px;
+  margin-top: -40px;
+  background-color: $nsa_blue;
+  height: 40px;
+  
   .brand { margin-left: 0px}
   .navbar-inner {
-    @include whiteBackground();
-    @include bordered(#D4D4D4, solid, 0, 1px, 1px);
-    @include radius(0, 0, 4px, 4px);
-    
-    
+    @include noBackground();
   }
   
-  .nav > li {
+  .nav {
+    width: 680px;
+    
+    li {
+      border: white solid 1px;
+      border-width: 0 1px;
+      
+    &:first-child { border-width: 0 0 0 1px; }
+    &:last-child { float: right; }
+    &:hover { background-color: $nsa_light_blue; }
     
     &.active > a {
-      color: #555;
-      text-decoration: none;
-      @include chosenWhiteBG();
+      background-color: $nsa_light_blue;
+      /* color: #555; */
+      /* text-decoration: none; */
+      /* @include chosenWhiteBG(); */
     }
     
     a {
       float: none;
       padding: 10px 15px 11px;
-      color: #777;
-      text-decoration: none;
-      text-shadow: 0 1px 0 white;
+      
+      text-shadow: none;
+      color: white;
+      text-transform: uppercase;
+      
       &:hover {
-        color: #333333;
         text-decoration: none;
         background-color: transparent;
       }
@@ -221,14 +245,17 @@ header.navbar-scrolled { /* This is the fixed nav bar */
     
     &.active > a {
       &:hover {
+        background-color: transparent;
+        /*
         color: #555;
         text-decoration: none;
         background-color: #E5E5E5;
         -webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
         -moz-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
-        box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125); 
+        box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);*/ 
       }
     }
+   }
   }
 }
 
