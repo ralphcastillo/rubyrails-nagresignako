@@ -31,7 +31,11 @@ NAGRESIGNAKO.posts.top_good = function() {
 				post_count : post_count += 10,
 			},
 			dataType : "html",
+			beforeSend: function(){
+				$('#loading-container').show();
+			},
 			complete : function() {
+				$('#loading-container').hide();
 			},
 			success : function(data) {
 				$("#new-entries-container").append(data);

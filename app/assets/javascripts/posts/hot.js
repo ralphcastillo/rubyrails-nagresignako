@@ -31,7 +31,11 @@ NAGRESIGNAKO.posts.hot = function() {
 				post_count : post_count += 10,
 			},
 			dataType : "html",
+			beforeSend: function(){
+				$('#loading-container').show();
+			},
 			complete : function() {
+				$('#loading-container').hide();
 			},
 			success : function(data) {
 				// var new_div = $("<div/>").attr("id", "new-information").append(data);
