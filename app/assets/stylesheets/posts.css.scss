@@ -12,8 +12,10 @@
   .container-fluid {
     .row-fluid{
       .span8 {
-        padding: 20px 15px 20px;
-        background: #fbf4df;
+        .submit-container{
+          padding: 20px 15px 20px;
+          background: #fbf4df;
+        }
       }
       
       #form-proper {

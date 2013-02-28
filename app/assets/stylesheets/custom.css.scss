@@ -417,3 +417,28 @@ div.info-pages {
   background: #fbf4df;
   border: 2px solid #ff9c00;
 }
+
+.error-box {
+  background-color: #F0F0F0; 
+  border: 2px solid #FF9C00;
+  height: 137px;
+  
+  h4 {
+    background-color: #FF9C00; 
+    color: #FFFFFF; padding: 5px;
+  }
+  
+  ul {
+    list-style: none;
+    padding-top: 10px;
+    margin-left: 15px;
+    margin-right: 0;
+    float: left;
+    width: 500px;
+  }
+  
+  li:before {
+    content: "• ";
+    color: #FF9C00; /* or whatever color you prefer */
+  }
+}

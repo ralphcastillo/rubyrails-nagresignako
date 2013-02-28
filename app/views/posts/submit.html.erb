@@ -1,12 +1,15 @@
+<div class="submit-container">
+
 
 <% if flash[:error] %>
-<div style="background-color: #F0F0F0; border: 2px solid #FF1E00">
-<h4 style="background-color: #CD1500; color: #FFFFFF; padding: 5px;">There were problems with the following field(s):</h4>
-<ul style="padding-top: 5px;">
+<div class="error-box">
+<h4>There were problems with the following field(s):</h4>
+<ul>
 <% flash[:error].full_messages.each do |message| %>
 <li><%=message%></li>
 <% end %>
 </ul>
+<img style="float: right;" src="/assets/error.png" />
 </div>
 <% end %>
 
@@ -76,3 +79,4 @@
 </div>
 <% end %>
 <!-- </form> -->
+</div>
