@@ -33,9 +33,9 @@ class Post < ActiveRecord::Base
   validates :entry, :presence => true
                   
   #Set a permalink based on the timestamp before sending
-  before_save do
-    self.permalink = Digest::MD5.hexdigest(Time.zone.now.to_s)
-  end
+#  before_save do
+    #self.permalink = Digest::MD5.hexdigest(Time.zone.now.to_s)
+#  end
   
   has_one :post_queue, :dependent => :destroy
   

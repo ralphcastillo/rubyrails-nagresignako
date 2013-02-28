@@ -71,6 +71,12 @@ footer {
   nav {
     width: 294px;
   }
+  
+  &.scroll-to-top-area {
+    
+    .navbar-inner { @include noBackground(); }
+    .scroll-to-top {width: 100px;}
+  }
 }
 .navbar-banner > .navbar-inner {
   background: none;
@@ -205,6 +211,7 @@ header.navbar-scrolled { /* This is the fixed nav bar */
   margin-top: -40px;
   background-color: $nsa_blue;
   height: 40px;
+  opacity: 0;
   
   .brand { margin-left: 0px}
   .navbar-inner {
@@ -286,8 +293,11 @@ footer {
   
   /* For the scroll to top*/
   &.scroll-to-top-area {
-    margin-bottom: -62px;
+    margin-top: 0;
+    margin-bottom: -112px;
     border: none;
+    
+    opacity: 0;
     
     .navbar-inner {
       .brand { 
@@ -298,9 +308,6 @@ footer {
       }
       margin-right: 10px;
       text-align: center;
-      @include whiteBackground();
-      @include bordered(lightgray, solid, 1px, 1px, 0);
-      @include radius(4px, 4px, 0, 0);
     }
   }
 }

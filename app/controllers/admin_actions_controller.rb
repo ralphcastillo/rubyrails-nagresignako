@@ -21,6 +21,7 @@ class AdminActionsController < ApplicationController
     @post = Post.new(params[:post])
     @post.user_id = @user.id
     @post.verified = TRUE
+    @post.permalink = Digest::MD5.hexdigest(@user.email + '' + Date.today.to_formatted_s(:db))
     @post.save
 
     redirect_to request.referer, flash: { success: "Seed content successfully added!" }
