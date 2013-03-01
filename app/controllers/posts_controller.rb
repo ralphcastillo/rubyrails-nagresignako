@@ -100,7 +100,7 @@ class PostsController < ApplicationController
       end
 
       @post.user_id = @user.id
-      @post.permalink = Digest::MD5.hexdigest(@user.email + '#{Time.now.getutc}')
+      @post.permalink = Digest::MD5.hexdigest(@user.email + "#{Time.now.getutc}")
 
       respond_to do |format|
         if @post.save
@@ -282,7 +282,7 @@ class PostsController < ApplicationController
     end
     
     @post.user_id = @user.id
-    @post.permalink = Digest::MD5.hexdigest(@user.email + '#{Time.now.getutc}')
+    @post.permalink = Digest::MD5.hexdigest(@user.email + "#{Time.now.getutc}")
     @post.verified = true
     
     respond_to do |format|

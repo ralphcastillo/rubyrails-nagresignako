@@ -15,9 +15,9 @@ ActiveRecord::Schema.define(:version => 20130221161634) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",           :null => false
-    t.string   "password_digest", :null => false
+    t.string   "password",        :null => false
+    t.string   "repeat_password", :null => false
     t.string   "name"
-    t.string   "role"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.string   "remember_token"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20130221161634) do
     t.boolean  "verified",      :default => false
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
-    t.text     "entry"
+    t.text     "entry",                            :null => false
     t.integer  "user_id"
     t.boolean  "queued",        :default => false
   end
@@ -61,22 +61,14 @@ ActiveRecord::Schema.define(:version => 20130221161634) do
     t.integer  "post_id"
   end
 
-  create_table "pushqueues", :force => true do |t|
-    t.integer  "post_id"
-    t.boolean  "pushed"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "users", :force => true do |t|
+    t.string   "email"
     t.string   "name"
     t.integer  "age"
     t.string   "likes"
     t.text     "others"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.string   "email"
-    t.boolean  "queued",     :default => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end
