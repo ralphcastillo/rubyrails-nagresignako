@@ -22,6 +22,10 @@
 <% end %>
 
 <% if @is_ajax %>
+<div id="loading-container">Loading <img src="/assets/ajax-loader.gif" /></div>
+<% end %>
+
+<% if @is_ajax %>
 <div id="end-of-file">
 	<%= image_tag "boy.png" %>
 </div>

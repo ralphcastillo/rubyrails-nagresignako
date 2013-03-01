@@ -22,7 +22,7 @@
       	@postVote.post_id = @post.id
       %>
       
-      <%= sprite_tag @post_votes_good.include?(@postVote) ? "upvote-active" : "upvote-inactive" %>
+      <%= sprite_tag (@post_votes_good && @post_votes_good.include?(@postVote)) ? "upvote-active" : "upvote-inactive" %>
       <span><strong><%= @post.total_good %></strong></span>
     </button>
     <button class="voter-element pull-left btn down" post-id="<%= @post.id %>">
@@ -32,7 +32,7 @@
       	@postVote.vote_bad = true
       	@postVote.post_id = @post.id
       %>
-      <%= sprite_tag @post_votes_bad.include?(@postVote) ? "downvote-active" : "downvote-inactive" %>
+      <%= sprite_tag (@post_votes_bad && @post_votes_bad.include?(@postVote)) ? "downvote-active" : "downvote-inactive" %>
       <span><strong><%= @post.total_bad %></strong></span>
     </button>
     
@@ -54,7 +54,7 @@
       	@postVote.unique_identifier = cookies[:unique_resignako_id]
       	@postVote.vote_bad = true
       	@postVote.post_id = @post.id
-    	if @post_votes_spam.include?(@postVote) == nil 
+    	if @post_votes_spam && !@post_votes_spam.include?(@postVote) 
     %>
       <a href="#" post-id="<%= @post.id %>">
         <i class="icon-flag"></i>
