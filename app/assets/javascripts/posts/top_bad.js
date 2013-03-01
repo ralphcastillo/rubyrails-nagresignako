@@ -56,7 +56,7 @@ NAGRESIGNAKO.posts.top_bad = function() {
 			}
 		});
 		}else{
-			$(document).find('#end-of-file').show();
+			$(document).find('#new-entries-container').append('<div id="end-of-file"><img src="/assets/boy.png" /></div>');
 		}
 	})
 	bind_vote_up = function() {

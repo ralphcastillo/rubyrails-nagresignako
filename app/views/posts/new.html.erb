@@ -1,8 +1,4 @@
 <% if @display %>
-<% if notice %>
-<p id="notice"><%= notice %></p>
-<% end %>
-
 <% if !@is_ajax %>
   <div id="new-entries-container" total-count="<%=@total_count%>">
 <% else %>
@@ -27,10 +23,4 @@
 
 <% if @is_ajax %>
 <div id="loading-container">Loading <img src="/assets/ajax-loader.gif" /></div>
-<% end %>
-
-<% if @is_ajax %>
-<div id="end-of-file">
-	<%= image_tag "boy.png" %>
-</div>
 <% end %>

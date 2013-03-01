@@ -106,8 +106,8 @@ class PostsController < ApplicationController
         if @post.save
           UserMailer.verify_user(@user, @post, "http://#{request.host_with_port}/posts/verify").deliver
           flash[:notice] = "Verification email sent. This post will be visible upon verification. Go to #{view_context.link_to('Homepage', new_path)}".html_safe
-          format.html  { redirect_to :action => "new" }
-          # format.html  { redirect_to :action => "single", :hash => @post.permalink }
+          #format.html  { redirect_to :action => "new" }
+          format.html  { redirect_to :action => "single", :hash => @post.permalink }
         else
           flash[:error] = @post.errors
           format.html  { redirect_to :action => "submit" }
