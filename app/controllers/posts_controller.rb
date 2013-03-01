@@ -123,7 +123,7 @@ class PostsController < ApplicationController
       if @posts.count > 0
         @posts[0].verified = true
         @posts[0].save
-        flash[:notice] = 'Thank you for posting. Go to <a href="/">Homepage</a>.'
+        flash[:notice] = "Thank you for posting. Go to #{view_context.link_to('Homepage', new_path)}".html_safe
         format.html  { redirect_to :action => "single", :hash => @posts[0].permalink }
       else
         not_found
@@ -286,8 +286,8 @@ class PostsController < ApplicationController
     @post.verified = true
     
     respond_to do |format|
-      if @post.save        
-        flash[:notice] = 'Thank you for posting. Go to <a href="/">Homepage</a>.'
+      if @post.save     
+        flash[:notice] = "Thank you for posting. Go to #{view_context.link_to('Homepage', new_path)}".html_safe   
         format.html  { redirect_to :action => "single", :hash => @post.permalink } 
       else
         format.html  { render :action => "submit" }
