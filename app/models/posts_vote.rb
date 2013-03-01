@@ -28,6 +28,12 @@ class PostsVote < ActiveRecord::Base
             return true
           end
         end
+        
+        if self.set_spam != nil && other_object.set_spam != nil
+          if self.set_spam == other_object.set_spam
+            return true
+          end
+        end
       end
     return false
     else

@@ -11,7 +11,7 @@ class ContactFormController < ApplicationController
       UserMailer.send_feedback(@contact_form).deliver
       
       # if @contact_form.deliver
-        # flash.now[:notice] = 'Thank you for your message! We\'ll get back to you as soon as possible.'
+        flash[:notice] = "Thank you for your message! We\'ll get back to you as soon as possible. Go to #{view_context.link_to('Homepage', new_path)}".html_safe
       # else
         # render :new
       # end

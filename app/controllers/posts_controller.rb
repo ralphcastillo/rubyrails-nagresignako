@@ -137,7 +137,7 @@ class PostsController < ApplicationController
 
   def vote_up
     @post = Post.find(params[:id])
-    @unique = "#{request.remote_ip}"
+    @unique = cookies[:unique_resignako_id].nil? ? "#{request.remote_ip}_#{Time.now.getutc}" : cookies[:unique_resignako_id]
     
     @post_vote = PostsVote.where("post_id = ? AND unique_identifier = ? AND vote_good is not NULL AND vote_bad is not NULL", @post.id, @unique).limit(1)
     
@@ -161,16 +161,14 @@ class PostsController < ApplicationController
       @post.total_good = @post.total_good + 1
       @post.total_tally = @post.total_tally + 1
       cookies[:unique_resignako_id] = @unique
-      
       @post.save
-      
     end
 
     check_if_ajax
   end
 
   def update_vote_up
-    @unique = "#{request.remote_ip}"
+    @unique = cookies[:unique_resignako_id].nil? ? "#{request.remote_ip}_#{Time.now.getutc}" : cookies[:unique_resignako_id]
     @post = Post.find(params[:id])
     @target_post_vote = PostsVote.where("post_id = ? AND unique_identifier = ? ", @post.id, @unique).limit(1).first
     
@@ -178,7 +176,7 @@ class PostsController < ApplicationController
   end
   
   def update_vote_down
-    @unique = "#{request.remote_ip}"
+    @unique = cookies[:unique_resignako_id].nil? ? "#{request.remote_ip}_#{Time.now.getutc}" : cookies[:unique_resignako_id]
     @post = Post.find(params[:id])
     @target_post_vote = PostsVote.where("post_id = ? AND unique_identifier = ? ", @post.id, @unique).limit(1).first
     
@@ -187,7 +185,7 @@ class PostsController < ApplicationController
 
   def vote_down
     @post = Post.find(params[:id])
-    @unique = "#{request.remote_ip}"
+    @unique = cookies[:unique_resignako_id].nil? ? "#{request.remote_ip}_#{Time.now.getutc}" : cookies[:unique_resignako_id]
     
     @post_vote = PostsVote.where("post_id = ? AND unique_identifier = ? AND vote_good is not NULL AND vote_bad is not NULL", @post.id, @unique).limit(1)
     
@@ -221,7 +219,7 @@ class PostsController < ApplicationController
 
   def report
     @post = Post.find(params[:id])
-    @unique = "#{request.remote_ip}"
+    @unique = cookies[:unique_resignako_id].nil? ? "#{request.remote_ip}_#{Time.now.getutc}" : cookies[:unique_resignako_id]
     
     @post_vote = PostsVote.find(:all, :conditions => { :post_id => @post.id, :unique_identifier => @unique, :set_spam => true }, :limit => 1)
     
@@ -237,6 +235,10 @@ class PostsController < ApplicationController
   def single
     if params[:hash]
       @hash = params[:hash]
+      
+      @post_votes_bad = PostsVote.find(:all, :conditions => { :unique_identifier => cookies[:unique_resignako_id], :vote_bad => true })
+      @post_votes_good = PostsVote.find(:all, :conditions => { :unique_identifier => cookies[:unique_resignako_id], :vote_good => true })
+      @post_votes_spam = PostsVote.find(:all, :conditions => { :unique_identifier => cookies[:unique_resignako_id], :set_spam => true })
       
       @posts = Post.where("permalink LIKE ?", @hash)
       if @posts.count > 0

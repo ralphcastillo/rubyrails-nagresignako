@@ -12,6 +12,28 @@
   .container-fluid {
     .row-fluid{
       .span8 {
+        #new-entries-container {
+          .entry-item {
+            .notice-message {
+              background: #FF9C00;
+              color: #FFFFFF;
+              text-align: center;
+              padding: 5px 0;
+            }
+          }
+        }
+        
+        #hot-entries-container {
+          .entry-item {
+            .notice-message {
+              background: #FF9C00;
+              color: #FFFFFF;
+              text-align: center;
+              padding: 5px 0;
+            }
+          }
+        }
+        
         .submit-container{
           padding: 20px 15px 20px;
           background: #fbf4df;
@@ -39,7 +61,6 @@
 #loading-container {
   width: 100%; 
   background: #FFFFFF; 
-  display: none; 
   text-align: center; 
   padding: 10px 0;
 }

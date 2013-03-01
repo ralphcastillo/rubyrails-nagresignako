@@ -18,6 +18,7 @@ NAGRESIGNAKO.posts.top_good = function() {
 			$(document).trigger("posts.new.load-items");
 			bind_vote_up();
 			bind_vote_down();
+			$('.report-spam-area a').unbind("click");
 			bind_report_spam();
 		}
 	});
@@ -32,10 +33,10 @@ NAGRESIGNAKO.posts.top_good = function() {
 			},
 			dataType : "html",
 			beforeSend: function(){
-				$('#loading-container').show();
+				$(document).find('#new-entries-container').append('<div id="loading-container">Loading <img src="/assets/ajax-loader.gif" /></div>');
 			},
 			complete : function() {
-				$('#loading-container').hide();
+				$(document).find('#new-entries-container #loading-container').remove();
 			},
 			success : function(data) {
 				$("#new-entries-container").append(data);
@@ -65,16 +66,33 @@ NAGRESIGNAKO.posts.top_good = function() {
 			var post_id = $(this).attr('post-id');
 			var $this = $(this);
 
-			$.ajax({
-				url : "/posts/vote_up/" + post_id,
-				data : {},
-				dataType : "html",
-				success : function(data) {
-					$this.html(data);
-					$(document).trigger("posts.update.vote_down", [$this.siblings('.entry-item .entry-votes .btn.down'), post_id]);
+			if($this.find('i.resign-sprite').hasClass('upvote-active')){
+				return false;
+			}else{
+				var current_value = parseInt($this.find('span strong').html());
+				$this.find('span strong').html(++current_value);
+				$this.find('i.resign-sprite').removeClass('upvote-inactive');
+				$this.find('i.resign-sprite').addClass('upvote-active');
+				
+				var button_sibling = $this.siblings('.entry-item .entry-votes .btn.down');
+				
+				if(button_sibling.find('i.resign-sprite').hasClass('downvote-active')){
+					var sibling_current_value = parseInt(button_sibling.find('span strong').html());
+					button_sibling.find('span strong').html(--sibling_current_value);
+					button_sibling.find('i.resign-sprite').removeClass('downvote-active');
+					button_sibling.find('i.resign-sprite').addClass('downvote-inactive');
 				}
-			});
-
+				
+				$.ajax({
+					url : "/posts/vote_up/" + post_id,
+					data : {},
+					dataType : "html",
+					success : function(data) {
+						$(document).trigger("posts.update.vote_down", [$this.siblings('.entry-item .entry-votes .btn.down'), post_id]);
+					}
+				});
+			}			
+			
 			return false;
 		});
 	}
@@ -83,16 +101,33 @@ NAGRESIGNAKO.posts.top_good = function() {
 
 			var post_id = $(this).attr('post-id');
 			var $this = $(this);
-
-			$.ajax({
-				url : "/posts/vote_down/" + post_id,
-				data : {},
-				dataType : "html",
-				success : function(data) {
-					$this.html(data);
-					$(document).trigger("posts.update.vote_up", [$this.siblings('.entry-item .entry-votes .btn.up'), post_id]);
+			
+			if($this.find('i.resign-sprite').hasClass('downvote-active')){
+				return false;
+			}else{
+				var current_value = parseInt($this.find('span strong').html());
+				$this.find('span strong').html(++current_value);
+				$this.find('i.resign-sprite').removeClass('downvote-inactive');
+				$this.find('i.resign-sprite').addClass('downvote-active');
+				
+				var button_sibling = $this.siblings('.entry-item .entry-votes .btn.up');
+				
+				if(button_sibling.find('i.resign-sprite').hasClass('upvote-active')){
+					var sibling_current_value = parseInt(button_sibling.find('span strong').html());
+					button_sibling.find('span strong').html(--sibling_current_value);
+					button_sibling.find('i.resign-sprite').removeClass('upvote-active');
+					button_sibling.find('i.resign-sprite').addClass('upvote-inactive');
 				}
-			});
+				
+				$.ajax({
+					url : "/posts/vote_down/" + post_id,
+					data : {},
+					dataType : "html",
+					success : function(data) {
+						$(document).trigger("posts.update.vote_up", [$this.siblings('.entry-item .entry-votes .btn.up'), post_id]);
+					}
+				});
+			}
 
 			return false;
 		});
@@ -104,7 +139,7 @@ NAGRESIGNAKO.posts.top_good = function() {
 			data : {},
 			dataType : "html",
 			success : function(data) {
-				element.html(data);
+				//element.html(data);
 			}
 		});
 	})
@@ -115,7 +150,7 @@ NAGRESIGNAKO.posts.top_good = function() {
 			data : {},
 			dataType : "html",
 			success : function(data) {
-				element.html(data);
+				//element.html(data);
 			}
 		});
 	})
@@ -130,6 +165,7 @@ NAGRESIGNAKO.posts.top_good = function() {
 				data : {},
 				dataType : "html",
 				success : function(data) {
+					$('<div class="notice-message">Reported as Spam</div>').insertBefore($this.parent().parent().parent().find('.entry-header-area'));
 					$this.hide();
 				}
 			});

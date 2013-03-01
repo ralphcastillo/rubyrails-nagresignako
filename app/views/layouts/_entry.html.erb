@@ -52,9 +52,10 @@
     <%
     	@postVote = PostsVote.new
       	@postVote.unique_identifier = cookies[:unique_resignako_id]
-      	@postVote.vote_bad = true
+      	@postVote.set_spam = true
       	@postVote.post_id = @post.id
-    	if @post_votes_spam && !@post_votes_spam.include?(@postVote) 
+      	
+    	if (!@post_votes_spam || !@post_votes_spam.include?(@postVote)) 
     %>
       <a href="#" post-id="<%= @post.id %>">
         <i class="icon-flag"></i>

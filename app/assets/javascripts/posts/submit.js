@@ -25,6 +25,13 @@ NAGRESIGNAKO.posts.submit = function (){
   
   $('#verification-dialog #verify-email .btn').bind("click", function(){
   	var email = $('#verification-dialog #verify-email input[type=text]').val();
+  	
+  	if(email == ""){
+  		$(document).find('.input-append .error-message').remove();
+  		$('<div class="error-message">E-mail must not be empty.</div>').insertBefore($(document).find('.input-append button'))
+  		return false;
+  	}
+  	
   	$('<input>').attr({type: 'hidden', name: 'email', value: email}).appendTo("#new_post");
   	$('<input>').attr({type: 'hidden', name: 'via', value: 'email'}).appendTo("#new_post");
   	$("#new_post").submit();
