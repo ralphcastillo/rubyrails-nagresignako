@@ -6,7 +6,7 @@ module ApplicationHelper
   end
   
   def is_new?
-    action_name == "new"
+    action_name == "new" and controller_name == "posts"
   end
   
   def is_hot?
