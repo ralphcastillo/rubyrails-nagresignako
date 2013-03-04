@@ -12,6 +12,9 @@
   <meta property="og:title" content="NagResignAko"/>
   <meta property="og:description" content="Information about NagResignAko" />
 
+  <%# Livefyre
+   %>
+  <script type="text/javascript" src="http://zor.livefyre.com/wjs/v1.0/javascripts/CommentCount.js"></script>
 </head>
 <body data-controller="<%= controller_name %>" data-action="<%= action_name %>">
 <%= render 'layouts/header'%>
@@ -43,4 +46,12 @@
 
 <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 
+<script type="text/javascript">
+	LF.CommentCount({
+	    replacer: function(element, count) {
+	        element.innerHTML = count +' Comment'+ (count === 1 ? '' : 's');
+	    }
+	});
+</script>
+  
 </html>

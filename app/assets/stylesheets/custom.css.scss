@@ -128,6 +128,12 @@ footer {
       } 
     }
     
+    .livefyre-commentcount { padding: 2px;
+      margin-right: 3px;
+      vertical-align: top;
+      margin-top: 2px;
+    }
+    
     ul.like-buttons{
       float: left;
       list-style: none;
@@ -137,7 +143,13 @@ footer {
       li{
         display: block;
         float: left;
-        margin-right: 10px;
+        margin-right: 2px;
+        
+        &.twitter-like { iframe { width: 90px !important;} }
+        &.g-plus-one { 
+          & > div {width: 80px !important; } 
+          margin-right: 0;
+        }
       }
     }
   }
@@ -454,3 +466,18 @@ div.info-pages {
 .error-message {
   color: red;
 }
+
+
+/* FOR ADMIN */
+
+#admin-base { 
+  .nav-tabs > li > a { border: none; }
+
+  #admin-add-seed-page {
+    input[type=text], input[type=number], textarea {
+      width: 400px;
+    }
+  }
+}
+
+

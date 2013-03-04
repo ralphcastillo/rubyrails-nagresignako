@@ -15,7 +15,7 @@
   <td><%= post.id %></td>
   <td><%= link_to post.title, single_url(hash: post.permalink) %></td>
   <td><%= post.entry %></td>
-  <td>Admin</td>
+  <td><%= post.user_id != nil ? post.user.email : "Admin" %></td>
   <td><%= post.name %></td>
   <td><%= post.age %></td>
   <td><%= post.former_job %></td>
@@ -25,6 +25,9 @@
   </td>
   <td><%= link_to "Spam", manage_posts_url(post, "hide"), method: "post"  %>
       <br/>
+      <% if post.user_id == nil%>
+      	<%= link_to "Edit", edit_seed_url(post.id) %><br/>
+      <% end %>
       <% if post.post_queue != nil %>
         <% if !post.post_queue.pushed %>
           <%= link_to "Unqueue", manage_posts_url(post, "unqueue"), method: "post" %>

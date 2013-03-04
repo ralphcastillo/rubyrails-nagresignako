@@ -7,9 +7,24 @@ class AdminActionsController < ApplicationController
   end
   
   def add_seed
-      @post = Post.new
+    @post = Post.new
   end
   
+  def edit_seed
+    if request.get?
+      @post = Post.find(params[:id])
+    elsif request.put?
+      @post = Post.find(params[:id]) 
+      @post.name = params[:post][:name]
+      @post.age = params[:post][:age]
+      @post.entry = params[:post][:entry]
+      @post.former_job = params[:post][:former_job]
+      
+      if (@post.save)
+        redirect_to admin_actions_manage_posts_path, flash: { success: "Seed content successfully edited!" }
+      end
+    end  
+  end 
   def create_seed
     
       @user = User.find_by_email (current_admin.email)
@@ -18,7 +33,7 @@ class AdminActionsController < ApplicationController
         @user = User.create({ email: current_admin.email })
       end
     
-    @post = Post.new(params[:post])
+    @post = Post.new(params[:post]);
     @post.user_id = @user.id
     @post.verified = TRUE
     @post.permalink = Digest::MD5.hexdigest(@user.email + '' + Date.today.to_formatted_s(:db))
@@ -34,7 +49,7 @@ class AdminActionsController < ApplicationController
     params[:page] = params[:page] ? params[:page] : 0
     
     if request.get?
-      @posts = Post.order("id").page(params[:page]).per(5)
+      @posts = Post.order("id desc").page(params[:page]).per(5)
       #where reported_spam < 10
     elsif request.post?
       _post = Post.find(id)
@@ -81,7 +96,7 @@ class AdminActionsController < ApplicationController
     params[:page] = params[:page] ? params[:page] : 0
     
     if request.get?
-      @posts =     Post.where("reported_spam > 0").page(params[:page]).per(5)
+      @posts =     Post.where("reported_spam > 0").order("id desc").page(params[:page]).per(5)
     elsif request.post? && task=="show" #post is not a spam
       _post = Post.find(params[:id])
       _post.reported_spam = 0
@@ -108,7 +123,7 @@ class AdminActionsController < ApplicationController
     pushed = params[:pushed] != nil && params[:pushed] == "true"
     
     #TODO make activerecord
-    @queue_items = PostQueue.where(pushed: pushed).page(params[:page]).per(5)
+    @queue_items = PostQueue.where(pushed: pushed).order("id desc").page(params[:page]).per(5)
     @pushed = pushed
   end
   

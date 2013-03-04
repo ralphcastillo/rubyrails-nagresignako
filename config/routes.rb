@@ -10,6 +10,7 @@ Resignako::Application.routes.draw do
   match 'admin_actions/manage_spam/:id/:task' => 'admin_actions#manage_spam', as: 'manage_spam'
   match 'admin_actions/manage_posts/:id/:task' => 'admin_actions#manage_posts', as: 'manage_posts'
   
+  match 'admin_actions/edit_seed/:id' => 'admin_actions#edit_seed', as: 'edit_seed', via: [:get, :put]
   match 'admin_actions/force_push/:id' => 'admin_actions#force_push', as: 'force_push', via: [:post]
   match 'admin_actions/delete_queue/:id' => 'admin_actions#delete_queue', as: 'delete_queue', via: [:delete]
   match 'admin_actions/upload_advert/:id' => 'admin_actions#upload_advert', as: 'upload_advert', via: [:post, :get]

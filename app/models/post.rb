@@ -39,6 +39,8 @@ class Post < ActiveRecord::Base
   
   has_one :post_queue, :dependent => :destroy
   
+  belongs_to :user
+  
   def self.queue_top
     
     post = Post.where(:queued => FALSE).order("total_tally DESC").first

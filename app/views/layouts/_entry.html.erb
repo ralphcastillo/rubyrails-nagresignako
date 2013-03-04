@@ -1,6 +1,6 @@
 <div class="entry-item">
   <div class="entry-header-area">
-    <h3 class="user-name pull-left"><%= @post.title %></h3>
+    <h3 class="user-name pull-left"><%= link_to @post.title, single_url(hash: (@post.permalink)) %></h3>
     <div class="timestamp-area pull-right">
     <%= link_to @post.created_at.to_formatted_s(:long), single_url(hash: (@post.permalink)) %>
     </div>
@@ -16,7 +16,7 @@
   <div class="entry-votes">
     <button class="voter-element pull-left btn up" post-id="<%= @post.id %>">
       <%
-      	@postVote = PostsVote.new
+      	@postVote = PostsVote.new	
       	@postVote.unique_identifier = cookies[:unique_resignako_id]
       	@postVote.vote_good = true
       	@postVote.post_id = @post.id
@@ -36,6 +36,9 @@
       <span><strong><%= @post.total_bad %></strong></span>
     </button>
     
+    <%= link_to "0 Comments", single_url(hash: (@post.permalink)), class: "btn  livefyre-commentcount pull-left", #btn-info
+    						  :"data-lf-site-id" => 324888,
+    						  :"data-lf-article-id" => single_url(hash: (@post.permalink)) %>
     <ul class="like-buttons">
       <li class="fb-like">
         <fb:like href="<%= single_url(hash: (@post.permalink)) %>" send="false" layout="button_count" width="100" show_faces="false"></fb:like>

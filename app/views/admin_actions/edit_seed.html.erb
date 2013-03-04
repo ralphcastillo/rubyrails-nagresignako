@@ -1,5 +1,5 @@
 <div id="admin-add-seed-page">
-<%= form_for :post, url: admin_actions_create_seed_path do |f| %>
+<%= form_for @post, url: edit_seed_url(@post.id), :html=>{:method=>:put} do |f| %>
 
   <%= f.label :title %>
   <%= f.text_field :title %>
@@ -16,7 +16,7 @@
   <%= f.label :entry %>
   <%= f.text_area :entry, cols: 40, rows: 5 %>
   <div>
-    <%= f.submit "Add Content", class: "btn btn-primary" %>
+    <%= f.submit "Edit Content", class: "btn btn-primary" %>
   </div>
 <% end %>
 </div>
