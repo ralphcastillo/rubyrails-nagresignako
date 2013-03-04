@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "ichetester@gmail.com"
+  default from: "nagresignako@gmail.com"
   
   def verify_user(user, post, url)
     @post = post
@@ -10,6 +10,6 @@ class UserMailer < ActionMailer::Base
   
   def send_feedback(contact)
     @contact = contact
-    mail(:to => "ichetester@gmail.com", :from => contact.email, :subject => "Feedback and Support")
+    mail(:to => "nagresignako@gmail.com", :from => contact.email, :subject => "Feedback and Support")
   end
 end
