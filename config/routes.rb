@@ -65,6 +65,7 @@ Resignako::Application.routes.draw do
   match "posts/report/:id", to: 'posts#report', as: 'post_report'
   
   match 'about' => 'company#about'
+  match 'terms' => 'company#terms'
   #For Posts...
   match 'topgood' => 'posts#top_good'
   match 'topbad' => 'posts#top_bad'
