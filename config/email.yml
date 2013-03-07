@@ -2,13 +2,13 @@ development:
   :address: smtp.gmail.com
   :port: 587
   :authentication: plain
-  :user_name: nagresignako
+  :user_name: nagresignako@gmail.com
   :password: nagresignako_isaliveandkicking
   :enable_starttls_auto: true
 production:
   :address: smtp.gmail.com
   :port: 587
   :authentication: plain
-  :user_name: nagresignako
+  :user_name: nagresignako@gmail.com
   :password: nagresignako_isaliveandkicking
   :enable_starttls_auto: true
