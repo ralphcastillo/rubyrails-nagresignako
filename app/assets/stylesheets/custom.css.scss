@@ -73,6 +73,10 @@ footer {
   }
   
   &.scroll-to-top-area {
+    display: inline-block;
+    width: 150px;
+    right: 20px;
+    left: auto;
     
     .navbar-inner { @include noBackground(); }
     .scroll-to-top {width: 100px;}
@@ -443,6 +447,7 @@ div.info-pages {
   background-color: #F0F0F0; 
   border: 2px solid #FF9C00;
   height: 137px;
+  margin-bottom: 14px;
   
   h4 {
     background-color: #FF9C00; 

@@ -2,14 +2,52 @@
 <html>
   <head>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style>
+    	@import url(http://fonts.googleapis.com/css?family=Fresca);
+    </style>
   </head>
   <body>
-  	<h4>Hi <%= @post.name %>, </h4>
+  	<div id="u-m-nra-container" style="text-align: center;">
+  	<p>
+  		<%= image_tag "http://secret-falls-8426.herokuapp.com/assets/boy.png" %>
+  	</p>
+  	<h4 style="font-family: Fresca, arial, sans-serif;
+  				text-transform: uppercase;
+				font-size: 30px;
+				margin: 0;
+				color: #90e2f4;">Hi <%= @post.name %> Welcome To</h4>
   	
-    <h3>Welcome to nagresignako.com!</h3>
-    <p>
-      To verify your post, just click <a href="<%= @url + '?permalink=' + @post.permalink %>">here</a>.
-    </p>
-    <p>Thanks for posting and have a great day!</p>
+    <h2 style="
+	    margin: 0px;
+		padding: 20px 20px;
+		background-color: #90e2f4;
+		color: white;
+		font-family: Arial, sans-serif;
+		font-size: 40px;
+		margin: 0 5px;
+    ">nagresignako.com</h2>
+    
+    <%= link_to "To verify your post click here.",  
+    	@url + '?permalink=' + @post.permalink, 
+    	class: "u-m-click-here",
+    	style: "
+	    	display: inline-block;
+			background-color: #bed9d4;
+			color: white;
+			text-decoration: none;
+			margin-top: 28px;
+			padding: 10px;
+			font-family: Fresca, Arial, sans-serif;
+			font-weight: bold;
+			text-transform: uppercase;
+    	" 
+    	%>
+    <h5 style="
+	    font-size: 15px;
+	    color: #90e2f4;
+	    font-family: Fresca, Arial, sans-serif;
+	    text-transform: uppercase;
+	">Thanks for posting and have a great day!</h5>
+   </div>
   </body>
 </html>
