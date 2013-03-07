@@ -23,7 +23,16 @@
             articleId: articleId,
             url: fyre.conv.load.makeCollectionUrl(),
         }
-    }], function() {});
+    }], function(widget) {
+	    widget.on('commentPosted', function (data) {
+	        // Do something, perhaps using data
+	        	LF.CommentCount({ replacer: function(element, count) { 
+	    			element.innerHTML = count +' Comment'+ (count === 1 ? '' : 's');
+					}
+				});
+		    });
+		}
+    );
 }());
 </script>
 <!-- END: Livefyre Embed -->
