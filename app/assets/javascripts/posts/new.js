@@ -10,10 +10,6 @@ NAGRESIGNAKO.posts.new = function() {
 		if (($(window).scrollTop() >= $(document).height() - $(window).height() - 10) && !loading) {
 			loading = true;
 			$(document).trigger("posts.new.load-items");
-			bind_vote_up();
-			bind_vote_down();
-			$('.report-spam-area a').unbind("click");
-			bind_report_spam();
 		}
 	});
 
