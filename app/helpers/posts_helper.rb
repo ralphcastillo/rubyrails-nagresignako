@@ -5,7 +5,7 @@ module PostsHelper
 #  FB_TOKEN = "AAAG8YOiNydQBAKj8e6wi7KCFHalHBrr6gm01Qc4PEZBrr1YqErz1HlnVM17XMrqVovfcWMUClV31PBusDhC5BNJqcj5em7XEEQZC1WZAgZDZD"
 
 #PAGE ACCESS TOKEN :
-  FB_TOKEN = "AAAG8YOiNydQBAJM5jC910hq8SZBwLmzICxZC2OohZB0cNqy6Y2dOKAKbcnlrxOM3ZAav9EiilBSC5Pxw35JG0TLgwNW7n3FfNZCvSYRIl0ZCP7aRHi9ZAgZC"
+  FB_TOKEN = "AAAG8YOiNydQBAATdVMoZAO9Ffoe2T0ad9S3LlpUzA8pd3KBXuqrb0NJhvdAfP7otUOg5YWEPa3Lk7bG9feVcZAKLwMO2crYBWr2ng2ifEUnqHDAcL7SaGOjVvfbAcZD"
   FB_APP_ID = "488599381199316"
   FB_APPLICATION_SECRET = "572a38ed645c0b275a2ca541ac98bc3d"
   
@@ -15,7 +15,7 @@ module PostsHelper
   TWITTER_ACCESS_TOKEN = "1181218364-YnwNxrsuJ554CpL1cn3PuWUpbZTck2PBNDwhRo5"
   TWITTER_ACCESS_TOKEN_SECRET = "tnX9yYN0BrpdvLUCFRH9uyBKYJXg1s9ze5WW2be728"
 
-  TEMPORARY_OUTLINK = "http://secret-falls-8426.herokuapp.com"
+  TEMPORARY_OUTLINK = "http://www.nagresignako.com"
   
   def tweet(post)
     Twitter.configure do |config|
@@ -28,7 +28,7 @@ module PostsHelper
     #link = single_url(hash: post.permalink)
     
     link = url_for(controller: "posts", action: "single", hash: post.permalink) #Rails.env.production? ? single_url(hash: post.permalink) : TEMPORARY_OUTLINK
-    Twitter.update("#{post.title} - #{link}")
+    Twitter.update("#{post.title} - #nagresignako #{link}")
   end
   
   #post
@@ -50,9 +50,10 @@ module PostsHelper
 #    puts single_url(hash: post.permalink)
     link = url_for(controller: "posts", action: "single", hash: post.permalink)
     owner.feed!(
-      :message => "This is a Resignako.com message!",
+      :message => "#{post.title} - " + help.truncate(post.entry, :length => 20),
       :description => post.entry,
-      :link =>  link #Rails.env.production? ? single_url(hash: post.permalink) : TEMPORARY_OUTLINK
+      :name => post.title,
+      :link =>  Rails.env.production? ? url_for(controller: "posts", action: "single", hash: post.permalink) : TEMPORARY_OUTLINK
     )
   end
   
