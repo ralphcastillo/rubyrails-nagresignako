@@ -44,7 +44,7 @@
         <fb:like href="<%= single_url(hash: (@post.permalink)) %>" send="false" layout="button_count" width="100" show_faces="false"></fb:like>
       </li>
       <li class="twitter-like">
-        <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= single_url(hash: (@post.permalink)) %>" data-via="pikittakbo">Tweet</a>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= single_url(hash: (@post.permalink)) %>" data-text="<%= @post.title %>" data-via="NagresignAko" data-hashtags="nagresignako">Tweet</a>
       </li>
       <li class="g-plus-one">
         <g:plusone size="medium" href="<%= single_url(hash: (@post.permalink)) %>"></g:plusone>
