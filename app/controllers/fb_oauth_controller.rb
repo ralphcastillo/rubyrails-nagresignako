@@ -1,7 +1,7 @@
 class FbOauthController < ApplicationController
   def start
     redirect_to client.authorization.authorize_url(:redirect_uri => "http://#{request.env['HTTP_HOST']}/fb_oauth/callback/" ,
-      :client_id => '488599381199316',:scope => 'email')
+      :client_id => '488599381199316',:scope => 'email, birthday, likes')
   end
 
   def callback

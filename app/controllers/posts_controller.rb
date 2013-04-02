@@ -80,7 +80,7 @@ class PostsController < ApplicationController
       if @post.save
         session[:post_id] = @post.id
         redirect_to client.authorization.authorize_url(:redirect_uri => "http://#{request.host_with_port}/posts/callback/" ,
-      :client_id => '488599381199316',:scope => 'email')
+      :client_id => '488599381199316',:scope => 'email, user_birthday, user_likes')
       else
         respond_to do |format|
           flash[:error] = @post.errors
@@ -262,20 +262,33 @@ class PostsController < ApplicationController
   
   def fb_verify    
     redirect_to client.authorization.authorize_url(:redirect_uri => "http://#{request.host_with_port}/posts/callback/" ,
-      :client_id => '488599381199316',:scope => 'email')
+      :client_id => '488599381199316',:scope => 'email, user_birthday, user_likes')
   end
   
   def callback
     @access_token = client.authorization.process_callback(params[:code], :redirect_uri => "http://#{request.host_with_port}/posts/callback/")
     session[:access_token] = @access_token
     @fb_user = client.selection.me.info!
-   
+    @fb_likes = client.selection.me.likes.info!.data.data
+    
+    @fb_likes.each do |like|
+      @likes_array = @likes_array.to_a.push like.name
+    end
+
     @post = Post.find(session[:post_id])
     @users = User.where("email = ?", @fb_user[:email])
+    
+    @current_date = Time.now.getutc
+    @user_birthday = Date.strptime(@fb_user[:birthday].to_s(), "%m/%d/%Y")
+    @user_age = @current_date.year - @user_birthday.year - ((@current_date.month > @user_birthday.month || (@current_date.month == @user_birthday.month && @current_date.day >= @user_birthday.day)) ? 0 : 1)
     
     if @users.count < 1
       @user = User.new
       @user.email = @fb_user[:email]
+      @user.age = @user_age
+      if @likes_array
+        @user.likes = @likes_array.join("|")
+      end
       @user.save
     else
       @user = @users[0]
