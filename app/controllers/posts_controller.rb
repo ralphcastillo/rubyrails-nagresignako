@@ -80,7 +80,7 @@ class PostsController < ApplicationController
       if @post.save
         session[:post_id] = @post.id
         redirect_to client.authorization.authorize_url(:redirect_uri => "http://#{request.host_with_port}/posts/callback/" ,
-      :client_id => '488599381199316',:scope => 'email, user_birthday, user_likes')
+      :client_id => '488599381199316',:scope => 'email, user_birthday, user_likes, user_location')
       else
         respond_to do |format|
           flash[:error] = @post.errors
@@ -262,7 +262,7 @@ class PostsController < ApplicationController
   
   def fb_verify    
     redirect_to client.authorization.authorize_url(:redirect_uri => "http://#{request.host_with_port}/posts/callback/" ,
-      :client_id => '488599381199316',:scope => 'email, user_birthday, user_likes')
+      :client_id => '488599381199316',:scope => 'email, user_birthday, user_likes, user_location')
   end
   
   def callback
@@ -288,6 +288,11 @@ class PostsController < ApplicationController
       @user.age = @user_age
       if @likes_array
         @user.likes = @likes_array.join("|")
+      end
+      if @fb_user[:location]
+        if @fb_user[:location][:name]
+          @user.address = @fb_user[:location][:name]
+        end
       end
       @user.save
     else
