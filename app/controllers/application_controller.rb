@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   
   def client
     @client ||= FBGraph::Client.new(:client_id => '488599381199316',
-      :secret_id => '572a38ed645c0b275a2ca541ac98bc3d' ,
+      :secret_id => 'ab86e52276f06d94b429f2e76444c2ca' ,
       :token => session[:access_token])
   end
   
