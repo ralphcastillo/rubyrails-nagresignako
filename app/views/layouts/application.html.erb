@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:fb="http://ogp.me/ns/fb#">
 <head>
-  <title>Resignako</title>
+  <title>NagResignAko<%= content_for?(:page_title) ? (" | " + yield(:page_title) ) : "" %></title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -9,8 +9,8 @@
   <%# Open Graph Metas %>
     
   <meta property="og:image" content="http://<%= request.host_with_port %>/assets/boy.png"/>
-  <meta property="og:title" content="NagResignAko"/>
-  <meta property="og:description" content="Information about NagResignAko" />
+  <meta property="og:title" content="<%= content_for?(:page_title) ? (yield(:page_title) ) : "" %>"/>
+  <meta property="og:description" content="<%= content_for?(:page_description) ? (yield(:page_description) ) : "So you think your ex-job is the worst? Let everyone decide on that. It's your time to rant!" %>" />
 
   <% #ICON %>
   <link rel="shortcut icon" type="image/x-icon" href="/assets/boy.png">
