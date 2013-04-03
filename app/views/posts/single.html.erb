@@ -1,5 +1,6 @@
 <% content_for :page_title, @post.title %>
 <% content_for :page_description, truncate(@post.entry, :length => 100) %>
+<% content_for :page_url, single_url(hash: (@post.permalink)) %>
 <% if notice %>
 <p id="notice"><%= notice %></p>
 <% end %>

@@ -11,7 +11,13 @@
   <meta property="og:image" content="http://<%= request.host_with_port %>/assets/boy.png"/>
   <meta property="og:title" content="<%= content_for?(:page_title) ? (yield(:page_title) ) : "" %>"/>
   <meta property="og:description" content="<%= content_for?(:page_description) ? (yield(:page_description) ) : "So you think your ex-job is the worst? Let everyone decide on that. It's your time to rant!" %>" />
+  <meta property="og:type" content="website" />
+  
+  <% if content_for?(:page_url) %>
+    <meta property="og:url" content="<%=  yield(:page_url)  %>" />
+  <% end %>
 
+  
   <% #ICON %>
   <link rel="shortcut icon" type="image/x-icon" href="/assets/boy.png">
   <%# Livefyre
