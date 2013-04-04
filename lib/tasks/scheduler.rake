@@ -9,7 +9,7 @@ task :social_push => :environment do
   #puts "Pushing Top Message to Social Media"
   #PostQueue.social_push
   #puts "Social Push : Done"
-  open('http://secret-falls-8426.herokuapp.com/admin_actions/consume_queue?secret_push_message=e05e121f2ca8d1180eb49e37b761533e').read
+  open('http://www.nagresignako.com/admin_actions/consume_queue?secret_push_message=e05e121f2ca8d1180eb49e37b761533e').read
 end
 
 task :test_rake => :environment do
