@@ -123,7 +123,7 @@ class AdminActionsController < ApplicationController
     pushed = params[:pushed] != nil && params[:pushed] == "true"
     
     #TODO make activerecord
-    @queue_items = PostQueue.where(pushed: pushed).order("id desc").page(params[:page]).per(5)
+    @queue_items = PostQueue.where("pushed = #{pushed} AND post_id IS NOT NULL").order("id desc").page(params[:page]).per(5)
     @pushed = pushed
   end
   
