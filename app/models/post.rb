@@ -45,11 +45,12 @@ class Post < ActiveRecord::Base
     
     post = Post.where(:queued => FALSE).order("total_tally DESC").first
     
-    PostQueue.create(post: post, pushed: FALSE)
-    
-    post.queued = TRUE
-    post.save
-    
+    if (post != nil)
+      PostQueue.create(post: post, pushed: FALSE)
+      
+      post.queued = TRUE
+      post.save
+    end
   end
   
 end

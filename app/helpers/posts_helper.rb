@@ -65,7 +65,7 @@ module PostsHelper
   def social_push(queue_item=nil) 
     if queue_item == nil
       #get the first item from the queue
-      queue_item = PostQueue.where("pushed = FALSE AND post_id IS NOT NULL").first
+      queue_item = PostQueue.where("NOT pushed AND post_id IS NOT NULL").first
     end
     
     #DO FACEBOOK HERE
