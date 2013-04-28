@@ -29,26 +29,36 @@ NAGRESIGNAKO.posts.top_good = function() {
 				$(document).find('#new-entries-container #loading-container').remove();
 			},
 			success : function(data) {
-				$("#new-entries-container").append(data);
+				// var new_div = $("<div/>").attr("id", "new-information").append(data);
+				// $("body").append(new_div);
+				//
+				// try{ FB.XFBML.parse(document.getElementById("new-information"),
+				// function() {
+				// //          document.getElementById("new-information");
+				// }); }catch(ex){}
+				//
+				// $("#hot-entries-container").append($("#new-information").html())
+				// new_div.remove();
+				//
+				// loading = false;
+
 				loading = false;
 
 				var new_div = $("<div/>").attr("id", "new-information").append(data);
-				$("body").append(new_div);
-
+					$("body").append(new_div);
+					
 				try {
 					FB.XFBML.parse(document.getElementById("new-information"), function() {
+						$("#new-entries-container").append($("#new-information").html());
+						new_div.remove();
 					});
 					
-					//Refresh Comment Count
 					LF.CommentCount({ replacer: function(element, count) { 
 	        			element.innerHTML = count +' Comment'+ (count === 1 ? '' : 's');
 	    				}
 					});
 				} catch(ex) {
 				}
-
-				$("#hot-entries-container").append($("#new-information").html())
-				new_div.remove();
 
 			}
 		});

@@ -132,7 +132,8 @@ footer {
       } 
     }
     
-    .livefyre-commentcount { padding: 2px;
+    .livefyre-commentcount,
+    .facebook-commentcount { padding: 2px;
       padding: 0 2px;
       margin-right: 3px;
       vertical-align: top;
@@ -141,10 +142,12 @@ footer {
     }
     
     ul.like-buttons{
-      float: left;
+      position: absolute;
       list-style: none;
       margin: 5px 0 0 0;
       padding: 0;
+      right: -20px;
+      top: 1px;
       
       li{
         display: block;
@@ -223,6 +226,10 @@ header.navbar-banner {
     }
   }
   
+}
+
+#new-information {
+  opacity: 0;
 }
 
 header.navbar-scrolled { /* This is the fixed nav bar */

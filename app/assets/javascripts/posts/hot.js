@@ -42,14 +42,15 @@ NAGRESIGNAKO.posts.hot = function() {
 				//
 				// loading = false;
 
-				$("#new-entries-container").append(data);
 				loading = false;
 
 				var new_div = $("<div/>").attr("id", "new-information").append(data);
-				$("body").append(new_div);
-
+					$("body").append(new_div);
+					
 				try {
 					FB.XFBML.parse(document.getElementById("new-information"), function() {
+						$("#hot-entries-container").append($("#new-information").html());
+						new_div.remove();
 					});
 					
 					LF.CommentCount({ replacer: function(element, count) { 
@@ -59,8 +60,6 @@ NAGRESIGNAKO.posts.hot = function() {
 				} catch(ex) {
 				}
 
-				$("#hot-entries-container").append($("#new-information").html())
-				new_div.remove();
 			}
 		});
 		}else{

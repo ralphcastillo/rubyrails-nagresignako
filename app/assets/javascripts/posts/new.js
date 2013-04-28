@@ -29,26 +29,24 @@ NAGRESIGNAKO.posts.new = function() {
 					$(document).find('#new-entries-container #loading-container').remove();
 				},
 				success : function(data) {
-					$("#new-entries-container").append(data);
+				//$("#new-entries-container").append(data);
 					loading = false;
 	
 					var new_div = $("<div/>").attr("id", "new-information").append(data);
-					$("body").append(new_div);
 	
 					try {
+						$("body").append(new_div);
 						FB.XFBML.parse(document.getElementById("new-information"), function() {
+							$("#new-entries-container").append($("#new-information").html());
+							new_div.remove();
 						});
 						
-						LF.CommentCount({ replacer: function(element, count) { 
+						/*LF.CommentCount({ replacer: function(element, count) { 
 		        			element.innerHTML = count +' Comment'+ (count === 1 ? '' : 's');
 		    				}
-						});
+						});*/
 					} catch(ex) {
 					}
-	
-					$("#hot-entries-container").append($("#new-information").html())
-					new_div.remove();
-	
 				}
 			});
 		}else{			

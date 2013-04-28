@@ -29,14 +29,28 @@ NAGRESIGNAKO.posts.top_bad = function() {
 				$(document).find('#new-entries-container #loading-container').remove();
 			},
 			success : function(data) {
-				$("#new-entries-container").append(data);
+				// var new_div = $("<div/>").attr("id", "new-information").append(data);
+				// $("body").append(new_div);
+				//
+				// try{ FB.XFBML.parse(document.getElementById("new-information"),
+				// function() {
+				// //          document.getElementById("new-information");
+				// }); }catch(ex){}
+				//
+				// $("#hot-entries-container").append($("#new-information").html())
+				// new_div.remove();
+				//
+				// loading = false;
+
 				loading = false;
 
 				var new_div = $("<div/>").attr("id", "new-information").append(data);
-				$("body").append(new_div);
-
+					$("body").append(new_div);
+					
 				try {
 					FB.XFBML.parse(document.getElementById("new-information"), function() {
+						$("#new-entries-container").append($("#new-information").html());
+						new_div.remove();
 					});
 					
 					LF.CommentCount({ replacer: function(element, count) { 
@@ -46,8 +60,6 @@ NAGRESIGNAKO.posts.top_bad = function() {
 				} catch(ex) {
 				}
 
-				$("#hot-entries-container").append($("#new-information").html())
-				new_div.remove();
 
 			}
 		});
